@@ -1,0 +1,227 @@
+<title>Steampunk CPU/GPU Thermometer Ya</title>
+
+<body>
+
+<p><b>Steampunk CPU/GPU Thermometer Yahoo widget </b> </p>
+<p><b>Installation Instructions</b><img border="0" src="../thermometers-large.png" width="436" height="420" align="right"></p>
+<p>This Widget will install and run on your Windows XP/Win7 system and the 
+thermometers will return valid temperatures. Although this version of the widget 
+will install on Mac OS/X it will not return any valid temperature information. A 
+later version of the widget will work on Mac OS/X operating system. </p>
+<p>This widget uses Speedfan to obtain temperature information. Why is Speedfan 
+needed? The answer is that the Windows operating system is meant to provide an 
+interface to the motherboard and other components to provide system temperature 
+information. Unfortunately, Windows does not yet do its job as there seems to be 
+no stable hardware specification for hardware manufacturers to provide&nbsp; 
+temperature sensors. All the hardware manufacturers do their own thing. The end 
+result is that it is impossible for a widget to get the temperatures from all 
+the myriad different types of PC components in the world, so we have to resort 
+to third party applications that can do it pretty well. The best of the bunch is 
+a good piece of software called Speedfan. Speedfan is pretty good at extracting 
+temperatures for almost all PC hardware so it is a fundamental requirement for 
+Speedfan to be installed on your Windows PC for this widget to function. </p>
+<p>Get Speedfan here:
+<a target="_self" title="http://www.almico.com/sfdownload.php" href="http://www.almico.com/sfdownload.php">
+http://www.almico.com/sfdownload.php</a></p>
+<table border="0" width="65%">
+	<tr>
+		<td align="center">You will&nbsp; need 
+		<a target="_blank" title="http://widgets.yahoo.com/download/" href="http://desktopwidgets.zenfs.com/4.5.2x10a50/widgetsus.exe">
+		Yahoo widgets</a> for this widget to run.
+		<a target="_blank" title="http://widgets.yahoo.com/download/" href="http://desktopwidgets.zenfs.com/4.5.2x10a50/widgetsus.exe">
+		Get Yahoo widgets here.</a>&nbsp; 
+			</td>
+		<td align="center">
+		<a target="_blank" href="http://desktopwidgets.zenfs.com/4.5.2x10a50/widgetsus.exe">
+		<img src="http://lightquick.co.uk/images/stories/yahoo-widgets-logo.png" alt="yahoo-widgets-logo.png" title="yahoo-widgets-logo.png" style="float: left; margin: 5px; width: 119px; height: 36px;" height="36" width="119"></a></td>
+		<td align="center">This widget is written in Javascript and XML which is 
+		used by the Yahoo widget runtime engine. This widget is capable of 
+		running under the Yahoo widget engine only. </td>
+	</tr>
+</table>
+<pWhen the widget starts up it attempt to find the speedfan installation 
+folder. If it finds it on c:, d: or e: in the \program files or \program files 
+(86) then it will restart Speedfan automatically. If Speedfan is not found then 
+the widget will suggest that you enter the location of the program. It will also 
+flash the central speedfan indicating lamp in red. Speedfan's location can be 
+checked at any time by right clicking on the widget and selecting &quot;widget 
+preferences&quot; then look at Speedfan Settings. If the location is already entered 
+then don't change it.</p>
+<p><b>Startup</b></p>
+<p>On Windows XP Speedfan will be started and minimised straight away. On Win 
+7/Vista you may have to minimise it manually the first time it runs. This is due 
+to the bug where NT6 restricts access to Speedfan's installation folder. When Speedfan is started by the widget there will be a wait for 15-20 seconds 
+whilst Speedfan interrogates all the sensors. When this is done it will start to 
+show the temperatures.</p>
+<p><b>Instructions for use</b></p>
+<p>The temperatures of your CPU/GPU are indicated by the level of the red 
+alcohol (or mercury) on each thermometer. The maximum temperature reached by the 
+thermometer is shown by the metal index that floats above the mercury level. 
+Click and slide to reposition it.</p>
+<table border="0" width="76%">
+	<tr>
+		<td width="130" align="center">
+<p align="center">
+<img border="0" src="Resources/leftTemperatureMax.png" width="14" height="38"></td>
+		<td>The maximum temperature reached by the thermometer is shown by the 
+		metal index that floats above the mercury level. Click and slide to 
+		reposition it. </td>
+	</tr>
+	<tr>
+		<td width="130" align="center">
+<img border="0" src="Resources/amberLampFlashing.png" width="82" height="83" align="middle"></td>
+		<td>To set the alarms you simply slide the warm and hot slider settings to adjust 
+the alarms to appropriate temperatures for your particular laptop. Click on each
+<img border="0" src="Resources/rightwarmtext.png" width="33" height="21" vspace="-25"> 
+slider and slide to adjust. The user defined
+slider 
+positions will be saved in future versions.When the temperature exceeds the 
+setting for the warm slider the amber alarm will flash. When the temperature 
+exceeds the setting for the hot slider the red alarm will flash and the bell 
+alarm will sound. <br>
+&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="130" align="center">
+		<img border="0" src="Resources/bellSet.png" width="91" height="69"></td>
+		<td>To silence the alarm, simply click on the bell. The clapper
+		<img border="0" src="Resources/clapper.png" width="38" height="40">will 
+		move away from the bell indicating the alarm setting is off. This can 
+		also be set at the back end in Widget Preferences.</td>
+	</tr>
+	<tr>
+		<td width="130" align="center">
+<img border="0" src="Resources/frequencySlider.png" width="81" height="37" align="middle"></td>
+		<td>The 
+sampling interval is 5-6 seconds, move the
+<img border="0" src="Resources/ovalSlider.png" width="26" height="37">oval 
+		slider on the time selector to reduce the sampling interval and increase 
+		the frequency of updates. This can also be set at the back end in Widget 
+		Preferences.</td>
+	</tr>
+	<tr>
+		<td width="130" align="center">
+<img border="0" src="Resources/crank.png" width="69" height="53" align="middle"></td>
+		<td>Cranking 
+the handle on the bottom right will cause the printer to unfold. This will 
+display a chart of the temperatures over the time the widget has been running. 
+This chart is not yet fully working. Crank the handle again and the printer will 
+fold up again.This can also be set at the back end in Widget Preferences.</td>
+	</tr>
+	<tr>
+		<td width="130">
+&nbsp;</td>
+		<td>The printer scribes move up and down corresponding to the current 
+		temperature. The CPU scribe is highlighted with a capital C. The GPU 
+		with a capital G. The scribes are not yet fully working in this beta 
+		version. <br>
+&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="130">
+<img border="0" src="Resources/hToggle.png" width="32" height="17"></td>
+		<td>Clicking on the H toggle will display the drop down help canvas. <br>
+&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="130">
+<img border="0" src="Resources/sToggle.png" width="24" height="19"></td>
+		<td>Clicking on the S toggle will take you straight to the Speedfan site 
+		to download Speedfan. <br>
+&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="130" height="81">
+<img border="0" src="Resources/soundsgroup.png" width="128" height="128"></td>
+		<td height="81">The widget has its own set of sounds that make the 
+		thermometer widget unique and humourous. These sounds are not always 
+		required when you are listening to music or any other program with its 
+		own sounds. You can mute the thermometer by turning off the sounds from 
+		the back end. </td>
+	</tr>
+</table>
+<p>
+<img border="0" src="../thermometers-backend.jpg" width="408" height="283" align="left">The code behind the  steampunk thermometer&nbsp; allows the yahoo widget to be 
+resized. It can now be made significantly smaller than the standard large size 
+and it looks rather sweet in small form. Not everything will work after a 
+resize though! The widget can only be resized at the back end in Widget 
+Preferences.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><b>Sensor Selecting Menu</b> </p>
+<p>
+<img src="http://lightquick.co.uk/images/stories/menu.png" alt="menu.png" title="menu.png" style="float: left; margin: 5px; width: 144px; height: 251px;" height="251" width="144">
+</p>
+<p>If you perform a right click on the widget it will pop up a drop down menu. 
+The menu is context-sensitive so if you right click when on the thermometer body 
+more options will appear. These are the alternative sensors that can be used by 
+the thermometer. By default one of the sensors will be selected by the program 
+logic that determines the best one to use. </p>
+<p>Typically, a number of sensors are shown, the image to the left shows some 
+typical sensors: </p>
+<p>Sensor 1 GPU sensor (assuming Nvidia)<br>
+Sensor 2-3 Hard discs (assuming 2 hard discs)<br>
+Sensor 4 Temp 1 - unidentified functioning ACPI sensor (probably motherboard)
+<br>
+Sensor 5 CPU core 1<br>
+Sensor 6 CPU core 2 (could be as many as four)<br>
+Sensor 7 GPU sensor read through Nvidia control panel (should be the same as 
+sensor 1)<br>
+Sensor 8 unidentified non-functioning sensor </p>
+<p>The menu allows you to select any sensor manually by clicking and selecting 
+the sensor of choice. </p>
+<p><b>Sensor Title Menu</b>&nbsp; </p>
+<p>
+<img src="http://lightquick.co.uk/images/stories/menu2.png" alt="menu.png" title="menu.png" style="float: left; margin: 5px; width: 151px; height: 286px;" height="286" width="151">
+</p>
+<br>
+&nbsp;<p>As the widget cannot yet determine the name of the sensor from the 
+information provided by speedfan you'll need to change the thermometer title 
+yourself. This is the title at the top of the thermometer. Simply right-click
+<img src="http://lightquick.co.uk/images/stories/cputext.png" alt="crank.png" title="crank.png" style="float: left; margin: 5px; width: 24px; height: 11px;" height="11" width="24">on 
+the title and you will be presented with a drop down that allows you to select 
+from a list the appropriate sensor titles. Note: this just changes the name, 
+nothing else, it does not select a different sensor. Use the <b>Sensor Selecting 
+Menu</b> above to do that. </p>
+<pthe>
+<p>&nbsp; </p>
+<p>
+<img src="http://lightquick.co.uk/images/mmsblog/mmsblog_00113_01.png" alt="thermometers2.png" title="thermometers2.png" style="float: right; margin: 5px; width: 287px; height: 420px;" align="left" height="420" width="287">
+</p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+<p>&nbsp;<b><br>
+<br>
+<br>
+Run-time Problems</b> </p>
+<p>On Windows XP - the widget can determine the sensor names and will return the 
+correct temperature for CPU and GPU. However, on NT6 systems (win 7 and Vista) 
+the temperatures returned will initially be that of the GPU and one other 
+'unknown' sensor. The widget will do its best to determine the correct one. 
+However, we cannot currently guarantee it is the CPU temperature as NT6 does not 
+allow you to read the Speedfan installation folder where the information is 
+stored. Also, due to the nature of the Speedfan API, Speedfan does not return 
+the names of sensors but only the temperature values. This is really annoying as 
+it means we cannot be sure which temperature we are returning. At the moment the 
+widget will do its best to guess and in any case the widget gives you the 
+functionality to decide which sensor to use. In the long term the developer of 
+Speedfan will almost certainly be making changes to improve his program and 
+enable the above functionality. We will just have to wait a while longer until 
+he does this. Sorry! </p>
+<p>I really hope you enjoy this widget, a lot of work has gone into it and it 
+has given me great pleasure to provide a Steampunk widget that would be usable 
+to a lot of other people. I don't ask for donations but can I please ask you to 
+leave some positive feedback at yahoo widgets? This widget will be live on Yahoo 
+widgets soon and I will post the link here shortly. </p>
+<p>&nbsp;</p>
+</pthe>
+
+</body>
+
+</html>

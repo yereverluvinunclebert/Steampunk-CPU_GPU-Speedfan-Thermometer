@@ -1,0 +1,2083 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget minimumVersion="4.0">
+
+ 	<settings>                            
+		<setting name="allowCustomObjectAttributes" value="true"/>
+		<setting name="debug" value="on"/>
+	</settings>
+
+<!--
+	 Steampunk Temperature Monitor widget
+	 Written by: Dean Beedell with assistance from Harry Whitfield (Merlin)
+
+-->
+
+        <about-box>
+		<image>Resources/cpuPlaqueCopy.png</image>
+		<about-version>
+			<font>Times New Roman</font>
+			<url>http://lightquick.co.uk/downloads/steampunk-cpu-gpu-temperature-monitor-yahoo-widget.html</url>
+			<size>11</size>
+			<hOffset>185</hOffset>
+			<vOffset>26</vOffset>
+			<color>#000000</color>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-version>
+
+		<about-text>
+			<data>http://lightquick.co.uk/</data>
+			<url>http://lightquick.co.uk/steampunk-widgets.html?Itemid=264</url>
+			<font>Times New Roman</font>
+			<size>12</size>
+			<hOffset>50</hOffset>
+			<vOffset>93</vOffset>
+			<shadow>
+				<color>#FFFFFF</color>
+				<hOffset>10</hOffset>
+				<vOffset>10</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>steampunk-widgets.html?Itemid=264</data>
+			<url>http://lightquick.co.uk/steampunk-widgets.html?Itemid=264</url>
+			<font>Times New Roman</font>
+			<size>12</size>
+			<hOffset>25</hOffset>
+			<vOffset>103</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Copyright</data>
+			<url>http://lightquick.co.uk/copyright-gnu-gpl-licence.html</url>
+			<font>Times New Roman</font>
+			<size>10</size>
+			<hOffset>90</hOffset>
+			<vOffset>170</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Terms</data>
+			<url>http://www.lightquick.co.uk/terms-and-conditions.html</url>
+			<font>Times New Roman</font>
+			<size>10</size>
+			<hOffset>90</hOffset>
+			<vOffset>181</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Privacy Policy</data>
+			<url>http://www.lightquick.co.uk/privacy-policy.html</url>
+			<font>Times New Roman</font>
+			<size>10</size>
+			<hOffset>90</hOffset>
+			<vOffset>191</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Download New Versions Here</data>
+			<url>http://lightquick.co.uk/downloads/steampunk-cpu-gpu-temperature-monitor-yahoo-widget.html</url>
+			<font>Times New Roman</font>
+			<size>10</size>
+			<hOffset>90</hOffset>
+			<vOffset>202</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Read the help</data>
+			<url>http://lightquick.co.uk/instructions-for-the-steampunk-cpu-gpu-thermometers.html</url>
+			<font>Times New Roman</font>
+			<size>10</size>
+			<hOffset>90</hOffset>
+			<vOffset>213</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+	</about-box>
+
+  <window visible="true" name="mainWindow" title	= "CPU/GPU Temperature Monitor Widget" width="690" height="520" shadow="false">
+
+  	<image>
+			<name>thermometersHelpPage</name>
+			<src>Resources/thermometers-help-page.png</src>
+			<vOffset>0</vOffset>
+			<tooltip>Click on me to make me go away</tooltip>
+			<visible>false</visible>
+		</image>
+		
+    <image src="Resources/mem-tap.png">
+      <name>memTap</name>
+      <hOffset>393</hOffset>
+      <vOffset>263</vOffset>
+    </image>
+
+		<image
+			src	    = "Resources/woodSurround.png"
+			name		= "woodSurround"
+			hOffset		= "210 "
+			vOffset		= "50 "
+			opacity		= "255"
+		/>
+
+		<image>
+ 			<name>hotSliderRight</name>
+      <src>Resources/hotSliderRight.png</src>
+      <hOffset>375</hOffset>
+      <tooltip>GPU hot alarm</tooltip>
+      <visible>false</visible>
+        <onMouseDown> <![CDATA[
+               hotSliderRightdown();
+        // ]]> </onMouseDown>
+
+        <onMouseDrag> <![CDATA[
+               hotSliderRightdrag();
+        // ]]> </onMouseDrag>
+
+        <onMouseUp> <![CDATA[
+               hotSliderRightup();
+        // ]]> </onMouseUp>
+		</image>
+
+		<image>
+ 		       <name>hotSliderLeft</name>
+                       <src>Resources/hotSliderLeft.png</src>
+                       <hOffset>299</hOffset>
+                       <tooltip>CPU hot alarm</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               hotSliderLeftdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               hotSliderLeftdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               hotSliderLeftup();
+                        // ]]> </onMouseUp>
+		</image>
+
+                <image>
+ 		       <name>warmSliderRight</name>
+                       <src>Resources/warmSliderRight.png</src>
+                       <hOffset>375</hOffset>
+                       <tooltip>GPU warm alarm</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               warmSliderRightdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               warmSliderRightdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               warmSliderRightup();
+                        // ]]> </onMouseUp>
+		</image>
+
+		<image>
+ 		       <name>warmSliderLeft</name>
+                       <src>Resources/warmSliderLeft.png</src>
+                       <hOffset>299</hOffset>
+                       <tooltip>CPU warm alarm</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               warmSliderLeftdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               warmSliderLeftdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               warmSliderLeftup();
+                        // ]]> </onMouseUp>
+		</image>
+
+
+		<image>
+			<src>Resources/cpuPlaque.png</src>
+			<name>cpuPlaque</name>
+			<hOffset>229</hOffset>
+			<vOffset>364</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>about the Steampunk thermometer</tooltip>
+			<onMouseDown> <![CDATA[
+				popupplaque.visible = true;
+				if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
+
+		        // ]]> </onMouseDown>
+			<zorder>7</zorder>
+                </image>
+
+		<image>
+			<src>Resources/thermometerLeft.png</src>
+			<name>thermometerLeft</name>
+			<hOffset>235</hOffset>
+			<vOffset>57</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(thermometerLeft.contextMenuItems, (155 * thermometerScale), 0);
+		        // ]]> </onMouseDown>
+                </image>
+
+
+
+		<image>
+			<src>Resources/crank.png</src>
+			<name>crank</name>
+			<hOffset>376</hOffset>
+			<vOffset>355</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>crank to show/hide the printer</tooltip>
+			<onMouseDown> <![CDATA[
+				crankhandle();
+		        // ]]> </onMouseDown>
+                </image>
+                <image>
+			<src>Resources/sToggle.png</src>
+			<name>sToggle</name>
+			<hOffset>378</hOffset>
+			<vOffset>350</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>click me to download Speedfan</tooltip>
+			<onMouseDown> <![CDATA[
+                               sToggle.hoffset=373;
+                               if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
+                               gettingSpeedfan.visible=true;
+                               sleep(7500);
+                               openURL("http://www.almico.com/sfdownload.php");
+                               sToggle.hoffset=378;
+                               gettingSpeedfan.visible=false;
+		        // ]]> </onMouseDown>
+                </image>
+
+                <image>
+			<src>Resources/mtoggle.png</src>
+			<name>mToggle</name>
+			<hOffset>378</hOffset>
+			<vOffset>328</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>click me to mute all sounds</tooltip>
+			<onMouseDown> <![CDATA[
+                               mToggle.hoffset=373;
+                               //this is the only sound that can't be muted
+                               play(clunk, false);
+                               if (preferences.soundsPref.value == "mute" )
+                               {
+                                  preferences.soundsPref.value = "enable";
+                               }
+                               else
+                               {
+                                  preferences.soundsPref.value = "mute";
+                               }
+                               sleep(300);
+                               mToggle.hoffset=378;
+		        // ]]> </onMouseDown>
+                </image>
+
+                <image>
+			<src>Resources/rToggle.png</src>
+			<name>rToggle</name>
+			<hOffset>378</hOffset>
+			<vOffset>310</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>click me to </tooltip>
+			<onMouseDown> <![CDATA[
+                               rToggle.hoffset=373;
+                               if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
+                               sleep(300);
+                               if (speedfanflag == "installed")
+                               {
+                                // kill speedfan, kill it first, we don't want two processes running...
+
+                                            //KillSpeedfanProcess();
+
+                                            // if windows XP or earlier then set speedfan to minimise
+                                            // later versions of Windows will not allow access to the program files folders
+
+                                            if (getWindowsVersion() == "5.2" || getWindowsVersion() == "5.1" || getWindowsVersion() == "5.0")
+                                            {
+                                               //modifySpeedfanConfiguration();
+                                            }
+                                            else
+                                            {
+                                               log("Automatically minimising Speedfan only works in windows XP or older");
+                                              log("so you'll need to minimise speedfan yourself on newer versions of windows");
+                                            }
+
+                                            // restart speedfan after change to minimise it on startup
+
+                                            //StartSpeedfanProcess();
+                                }
+
+                               rToggle.hoffset=378;
+		        // ]]> </onMouseDown>
+                </image>
+
+
+		<image>
+			<src>Resources/thermometerRight.png</src>
+			<name>thermometerRight</name>
+			<hOffset>312</hOffset>
+			<vOffset>57</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(thermometerRight.contextMenuItems, (312 * thermometerScale), 0);
+		        // ]]> </onMouseDown>
+                </image>
+
+		<image
+			src		= "Resources/fahrenheitscale.png"
+			name		= "rightscale"
+			hOffset		= "320 "
+			vOffset		= "131 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/centigradescale.png"
+			name		= "leftscale"
+			hOffset		= "243 "
+			vOffset		= "131 "
+			opacity		= "255"
+                />
+
+                <image
+			src		= "Resources/steam.png"
+			name		= "steam"
+			hOffset		= "420 "
+			vOffset		= "205 "
+			opacity		= "0"
+		/>
+
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "thermometerLeftSensorChar1"
+			hOffset		= "256 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/1.png"
+			name		= "thermometerLeftSensorChar2"
+			hOffset		= "262 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/S.png"
+			name		= "thermometerLeftSensorChar3"
+			hOffset		= "268 "
+			vOffset		= "83 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/T.png"
+			name		= "thermometerLeftSensorChar4"
+			hOffset		= "274 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "thermometerLeftSensorChar5"
+			hOffset		= "280 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "thermometerRightSensorChar1"
+			hOffset		= "332 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/2.png"
+			name		= "thermometerRightSensorChar2"
+			hOffset		= "338 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/n.png"
+			name		= "thermometerRightSensorChar3"
+			hOffset		= "344 "
+			vOffset		= "83 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/d.png"
+			name		= "thermometerRightSensorChar4"
+			hOffset		= "351 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "thermometerRightSensorChar5"
+			hOffset		= "357 "
+			vOffset		= "83 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+                <image>
+ 		       <name>temperaturePlaque</name>
+                       <src>Resources/temperaturePlaque.png</src>
+                       <hOffset>396</hOffset>
+                       <vOffset>221</vOffset>
+                       <tooltip>GPU hot alarm</tooltip>
+                       <visible>false</visible>
+		</image>
+
+
+
+		<image>
+ 		       <name>righthottext</name>
+                       <src>Resources/righthottext.png</src>
+                       <hOffset>356</hOffset>
+                       <visible>false</visible>
+                       <tooltip>GPU hot alarm</tooltip>
+
+                        <onMouseDown> <![CDATA[
+                               hotSliderRightdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               hotSliderRightdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               hotSliderRightup();
+                        // ]]> </onMouseUp>
+		</image>
+
+		<image>
+ 		       <name>lefthottext</name>
+                       <src>Resources/lefthottext.png</src>
+                       <hOffset>280</hOffset>
+                       <vOffset>172</vOffset>
+                       <tooltip>CPU hot alarm</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               hotSliderLeftdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               hotSliderLeftdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               hotSliderLeftup();
+                        // ]]> </onMouseUp>
+		</image>
+
+                <image>
+
+ 		       <name>leftwarmtext</name>
+                       <src>Resources/leftwarmtext.png</src>
+                       <hOffset>278</hOffset>
+                       <tooltip>CPU warm alarm</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               warmSliderLeftdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               warmSliderLeftdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               warmSliderLeftup();
+                        // ]]> </onMouseUp>
+		</image>
+
+                <image>
+ 		       <name>rightwarmtext</name>
+                       <src>Resources/rightwarmtext.png</src>
+                       <hOffset>354</hOffset>
+                       <tooltip>GPU warm alarm</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               warmSliderRightdown();
+                        // ]]> </onMouseDown>
+
+                        <onMouseDrag> <![CDATA[
+                               warmSliderRightdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               warmSliderRightup();
+                        // ]]> </onMouseUp>
+		</image>
+
+		<image>
+ 		       <name>rightTemperatureMaxIndex</name>
+                       <src>Resources/rightTemperatureMax.png</src>
+                       <hOffset>345</hOffset>
+                       <vOffset>166</vOffset>
+                       <visible>false</visible>
+                       <tooltip>indicates max GPU temperature</tooltip>
+                        <onMouseDown> <![CDATA[
+                               rightTemperatureMaxIndexdown();
+                        // ]]> </onMouseDown>
+
+
+                        <onMouseDrag> <![CDATA[
+                               rightTemperatureMaxIndexdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               rightTemperatureMaxIndexup();
+                        // ]]> </onMouseUp>
+
+
+		</image>
+
+
+		<image>
+ 		       <name>leftTemperatureMaxIndex</name>
+                       <src>Resources/leftTemperatureMax.png</src>
+                       <hOffset>268</hOffset>
+                       <vOffset>143</vOffset>
+                       <tooltip>indicates max CPU temperature</tooltip>
+                       <visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               leftTemperatureMaxIndexdown();
+                        // ]]> </onMouseDown>
+
+
+                        <onMouseDrag> <![CDATA[
+                               leftTemperatureMaxIndexdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               leftTemperatureMaxIndexup();
+                        // ]]> </onMouseUp>
+
+
+		</image>
+
+
+
+
+		<image
+			src			= "Resources/greenLamp.png"
+			name		= "rightLamp"
+			hOffset		= "338 "
+			vOffset		= "108 "
+			opacity		= "255"
+		/>
+
+		<image
+			src			= "Resources/amberLampFlashing.png"
+			name		= "amberLampFlashing"
+			hOffset		= "307 "
+			vOffset		= "76 "
+			opacity		= "255"
+		        visible         = "false"
+
+		/>
+
+		<image
+			src			= "Resources/amberLamp.png"
+			name		= "amberLamp"
+			hOffset		= "338 "
+			vOffset		= "108 "
+			opacity		= "255"
+		        visible         = "false"
+		/>
+
+
+		<image
+			src		= "Resources/speedfanindicator.png"
+			name		= "speedfanindicator"
+			hOffset		= "291 "
+			vOffset		= "60 "
+			opacity		= "255"
+			tooltip         = "A green light indicates Speedfan is present on this system"
+			visible         = "false"
+		/>
+
+
+		<image
+			src		= "Resources/speedfanindicatorred.png"
+			name		= "speedfanindicatorred"
+			hOffset		= "283 "
+			vOffset		= "57 "
+			opacity		= "250"
+			tooltip         = "A red light indicates Speedfan is not present on this system"
+			visible         = "true"
+		/>
+
+
+		<image
+			src		= "Resources/speedfanindicatorredglowing.png"
+			name		= "speedfanindicatorredglowing"
+			hOffset		= "283 "
+			vOffset		= "57 "
+			opacity		= "250"
+			tooltip         = "A red light indicates Speedfan is not present on this system"
+			visible         = "false"
+		/>
+
+		<image
+			src			= "Resources/redLamp.png"
+			name		= "leftLamp"
+			hOffset		= "262 "
+			vOffset		= "108 "
+			opacity		= "255"
+		/>
+
+		<image
+			src			= "Resources/redLampFlashing.png"
+			name		= "redLampFlashing"
+			hOffset		= "228 "
+			vOffset		= "74 "
+			opacity		= "255"
+		        visible         = "false"
+		/>
+
+		<image>
+			<src>Resources/bellSet.png</src>
+			<name>bellSet</name>
+			<hOffset>315</hOffset>
+			<vOffset>391</vOffset>
+			<opacity>255</opacity>
+			<tooltip>click on the clapper to mute audible alarm</tooltip>
+                        <onMouseDown> <![CDATA[
+                              bellding();
+                        // ]]> </onMouseDown>
+		</image>
+
+                <image>
+			<src>Resources/hToggle.png</src>
+			<name>hToggle</name>
+			<hOffset>200</hOffset>
+			<vOffset>58</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>click me for help</tooltip>
+			<onMouseDown> <![CDATA[
+				helpdropdownmove();
+		        // ]]> </onMouseDown>
+                </image>
+
+
+                <image>
+			<src>Resources/screw1.png</src>
+			<name>screw1</name>
+			<hOffset>227</hOffset>
+			<vOffset>56</vOffset>
+			<opacity>1</opacity>
+			<visible>true</visible>
+			<tooltip>click me to lock the widget in place</tooltip>
+			<onMouseDown> <![CDATA[
+			      lockWidget();
+		        // ]]> </onMouseDown>
+                </image>
+
+                <image>
+			<src>Resources/screw2.png</src>
+			<name>screw2</name>
+			<hOffset>372</hOffset>
+			<vOffset>56</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>click me to lock the widget in place</tooltip>
+			<onMouseDown> <![CDATA[
+			      lockWidget();
+		        // ]]> </onMouseDown>
+                </image>
+
+
+
+		<image>
+			<src>Resources/clapper.png</src>
+			<name>clapper</name>
+			<hOffset>332</hOffset>
+			<vOffset>419</vOffset>
+			<opacity>255</opacity>
+			<tooltip>click to mute audible alarm</tooltip>
+                        <onMouseDown> <![CDATA[
+                               togglechimes();
+                        // ]]> </onMouseDown>
+		</image>
+
+                <image>
+			<src>Resources/ClapperRotated.png</src>
+			<name>ClapperRotated</name>
+			<hOffset>340</hOffset>
+			<vOffset>421</vOffset>
+			<opacity>255</opacity>
+			<tooltip>click to enable audible alarm</tooltip>
+			<visible>false</visible>
+                        <onMouseDown> <![CDATA[
+                               togglechimes();
+                        // ]]> </onMouseDown>
+		</image>
+
+		<image>
+ 		       <name>frequencySlider</name>
+                       <src>Resources/frequencySlider.png</src>
+                       <hOffset>309</hOffset>
+                       <vOffset>364</vOffset>
+                       <tooltip>min/max 1-6 seconds</tooltip>
+
+		</image>
+
+
+		<image>
+ 		       <name>ovalSlider</name>
+                       <src>Resources/ovalSlider.png</src>
+                       <hOffset>366</hOffset>
+                       <vOffset>360</vOffset>
+                       <tooltip>frequency slider</tooltip>
+
+                        <onMouseDown> <![CDATA[
+                               ovalSliderdown();
+                        // ]]> </onMouseDown>
+
+
+                        <onMouseDrag> <![CDATA[
+                               ovalSliderdrag();
+                        // ]]> </onMouseDrag>
+
+                        <onMouseUp> <![CDATA[
+                               ovalSliderup();
+                        // ]]> </onMouseUp>
+
+		</image>
+
+		<image
+			src		= "Resources/upperrightbracket.png"
+			name		= "upperrightbracket"
+			hOffset		= "191"
+			vOffset		= "73 "
+			opacity		= "255"
+			visible         = "true"
+		/>
+
+		<image
+			src		= "Resources/lowerrightbracket.png"
+			name		= "lowerrightbracket"
+			hOffset		= "191"
+			vOffset		= "308 "
+			opacity		= "255"
+			visible         = "true"
+		/>
+
+		<image
+			src		= "Resources/topbar.png"
+			name		= "topbar"
+			hOffset		= "0"
+			vOffset		= "77 "
+			opacity		= "255"
+			visible         = "true"
+		/>
+
+
+		<image
+			src		= "Resources/bottombar.png"
+			name		= "bottombar"
+			hOffset		= "0"
+			vOffset		= "318 "
+			opacity		= "255"
+			visible         = "true"
+		/>
+
+		<image
+			src		= "Resources/trunnion.png"
+			name		= "trunnion"
+			hOffset		= "1"
+			vOffset		= "64 "
+			opacity		= "255"
+			visible         = "true"
+		/>
+
+		<image
+			src			= "Resources/hole.png"
+			name		= "hole"
+			hOffset		= "216 "
+			vOffset		= "107 "
+			opacity		= "255"
+		/>
+
+
+		<image
+			src			= "Resources/paper.png"
+			name		= "paper"
+			hOffset		= "0 "
+			vOffset		= "112 "
+			opacity		= "255"
+			width           = "223"
+		/>
+
+
+		<image
+			src			= "Resources/paperPull.png"
+			name		= "paperPull"
+			hOffset		= "0 "
+			vOffset		= "111 "
+			opacity		= "255"
+			visible         = "false"
+		/>
+
+		<image
+			src		= "Resources/bunchedLines.png"
+			name		= "bunchedLines"
+			hOffset		= "0 "
+			vOffset		= "137 "
+			opacity		= "100"
+		/>
+
+		<image
+			src		= "Resources/verticalLines.png"
+			name		= "verticalLines"
+			hOffset		= "18 "
+			vOffset		= "137 "
+			opacity		= "100"
+		/>
+
+		<image
+			src		= "Resources/movinglines.png"
+			name		= "movinglines"
+			hOffset		= "117 "
+			vOffset		= "136 "
+			opacity		= "60"
+			visible         = "false"
+		/>
+
+
+
+
+		<frame hRegistrationPoint="295" zOrder="0" vRegistrationPoint="295" vOffset="295" name="mainFrame" width="225" hOffset="295" height="350">
+                <image hRegistrationPoint="16" zOrder="10" visible="false" opacity="128" rotation="0" vRegistrationPoint="273" vOffset="295" name="zero" src="Resources/blank.png" hOffset="295"/>
+		</frame>
+
+ 		<image
+			src		= "Resources/longWire.png"
+			name		= "shortWire"
+			hOffset		= "173 "
+			vOffset		= "139 "
+			opacity		= "255"
+			zorder          = "8"
+			width           = "61"
+			height          = "33"
+		/>
+                <image>
+ 		       <name>leftScribeHeadShadow</name>
+                       <src>Resources/scribeHeadShadow.png</src>
+                       <hOffset>177</hOffset>
+                       <vOffset>137</vOffset>
+                       <width>52</width>
+                       <height>27</height>
+                       <zorder>9</zorder>
+                       <tooltip>temperature levels</tooltip>
+		</image>
+                <image>
+ 		       <name>leftScribeHead</name>
+                       <src>Resources/scribeHeadBlank.png</src>
+                       <hOffset>177</hOffset>
+                       <vOffset>137</vOffset>
+                       <width>52</width>
+                       <height>27</height>
+                       <zorder>10</zorder>
+                       <tooltip>temperature levels</tooltip>
+                        <onMouseDown> <![CDATA[
+      				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+                                wobblepointer1();
+                       // ]]> </onMouseDown>
+		</image>
+
+		<text
+			data		= "C"
+			name		= "leftScribeTextShadow"
+			hOffset		= "183 "
+			vOffset		= "149 "
+			opacity		= "255"
+			visible         = "false"
+			zorder          = "11"
+			font = "Times New Roman"
+			style           = "font-size:11px"
+			shadow = "true"
+			color = "#373636"
+		/>
+
+		<text
+			data		= "C"
+			name		= "leftScribeText"
+			hOffset		= "184 "
+			vOffset		= "149 "
+			opacity		= "255"
+			visible         = "false"
+			zorder          = "12"
+			font = "Times New Roman"
+			style           = "font-size:11px"
+			shadow = "true"
+		/>
+
+                <image>
+ 		       <name>rightScribeHeadShadow</name>
+                       <src>Resources/scribeHeadShadow.png</src>
+                       <hOffset>173</hOffset>
+                       <vOffset>165</vOffset>
+                       <width>52</width>
+                       <height>27</height>
+                       <zorder>12</zorder>
+                       <tooltip>temperature levels</tooltip>
+		</image>
+
+		<image
+			src		= "Resources/longWire.png"
+			name		= "longWire"
+			hOffset		= "173 "
+			vOffset		= "166 "
+			opacity		= "255"
+			zorder          = "12"
+			width           = "61"
+			height          = "33"
+		/>
+
+               <image>
+ 		       <name>rightScribeHead</name>
+                       <src>Resources/scribeHeadBlank.png</src>
+                       <hOffset>173</hOffset>
+                       <vOffset>165</vOffset>
+                       <width>52</width>
+                       <height>27</height>
+                       <zorder>13</zorder>
+                       <tooltip>temperature levels</tooltip>
+                        <onMouseDown> <![CDATA[
+      				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+                                wobblepointer2();
+                       // ]]> </onMouseDown>
+		</image>
+		<text
+			data		= "G"
+			name		= "rightScribeTextShadow"
+			hOffset		= "179 "
+			vOffset		= "176 "
+			opacity		= "255"
+			visible         = "false"
+			zorder          = "14"
+			font = "Times New Roman"
+			style           = "font-size:11px"
+			shadow = "true"
+			color = "#373636"
+		/>
+
+		<text
+			data		= "G"
+			name		= "rightScribeText"
+			hOffset		= "180 "
+			vOffset		= "176 "
+			opacity		= "255"
+			visible         = "false"
+			zorder          = "15"
+			font = "Times New Roman"
+			style           = "font-size:11px"
+			shadow = "true"
+		/>
+
+                <!-- hidden scribe head made visible when platen is closed -->
+		<image
+			src		= "Resources/scribeHeadBlank.png"
+			name		= "scribeHeadNoWireTwo"
+			hOffset		= "220 "
+			vOffset		= "149 "
+			opacity		= "255"
+			visible         = "false"
+			zorder          = "13"
+		/>
+		<image
+			src		= "Resources/scribeHeadBlank.png"
+			name		= "scribeHeadNoWireOne"
+			hOffset		= "220 "
+			vOffset		= "149 "
+			opacity		= "255"
+			visible         = "false"
+			width           = "52"
+			height          = "27"
+			zorder          = "10"
+		/>
+
+
+		<image
+			src		= "Resources/redMercuryLeft.png"
+			name		= "redMercuryLeft"
+			hOffset		= "270 "
+			vOffset		= "284 "
+			opacity		= "255"
+		/>
+
+		<image
+			src			= "Resources/redMercuryRight.png"
+			name		= "redMercuryRight"
+			hOffset		= "347 "
+			vOffset		= "281 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/stationerstext.png"
+			name		= "stationerstext"
+			hOffset		= "93 "
+			vOffset		= "291 "
+			opacity		= "255"
+			visible         = "true"
+		/>
+
+		<image>
+ 		       <name>scaleswitchright</name>
+                       <src>Resources/scaleswitch.png</src>
+                       <hOffset>335</hOffset>
+                       <vOffset>288</vOffset>
+                       <height>30</height>
+                       <width>30</width>
+                       <tooltip>Click on me to switch from centigrade to fahrenheit</tooltip>
+                        <onMouseDown> <![CDATA[
+                              if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
+                              if(scaleswitchright.src == "Resources/scaleswitch.png"){
+                                   scaleswitchright.src = "Resources/scaleswitchcent.png";
+                                   rightscale.src = "Resources/centigradescale.png";
+                                   rightscale.width = 21;
+                              }
+                              else
+                              {
+                                   scaleswitchright.src = "Resources/scaleswitch.png";
+                                   rightscale.src = "Resources/fahrenheitscale.png";
+                                   rightscale.width = 18;
+                              }
+                        // ]]> </onMouseDown>
+		</image>
+
+
+		<image>
+ 		       <name>scaleswitchleft</name>
+                       <src>Resources/scaleswitchcent.png</src>
+                       <hOffset>258</hOffset>
+                       <vOffset>288</vOffset>
+                       <height>30</height>
+                       <width>30</width>
+                       <tooltip>Click on me to switch from centigrade to fahrenheit</tooltip>
+                        <onMouseDown> <![CDATA[
+                              if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
+                              if(scaleswitchleft.src == "Resources/scaleswitch.png"){
+                                   scaleswitchleft.src = "Resources/scaleswitchcent.png";
+                                   leftscale.src = "Resources/centigradescale.png";
+                                   leftscale.width = 21;
+                              }
+                              else
+                              {
+                                   scaleswitchleft.src = "Resources/scaleswitch.png";
+                                   leftscale.src = "Resources/fahrenheitscale.png";
+                                   leftscale.width = 18;
+                              }
+                        // ]]> </onMouseDown>
+		</image>
+
+		<image>
+			<src>Resources/popupplaque.png</src>
+			<name>popupplaque</name>
+			<hOffset>90</hOffset>
+			<vOffset>100</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<onMouseDown> <![CDATA[
+				popupplaque.visible = false;
+				if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
+		        // ]]> </onMouseDown>
+			<zorder>16</zorder>
+                </image>
+
+
+		<image>
+			<src>Resources/waitmessage.png</src>
+			<name>waitmessage</name>
+			<hOffset>129</hOffset>
+			<vOffset>94</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<zorder>10</zorder>
+                        <tooltip>This window will go away when speedfan is ready</tooltip>
+			<zorder>15</zorder>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+		        // ]]> </onMouseDown>
+		</image>
+
+		<image>
+			<src>Resources/gettingSpeedfan.png</src>
+			<name>gettingSpeedfan</name>
+			<hOffset>129</hOffset>
+			<vOffset>94</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<zorder>15</zorder>
+		</image>
+
+		<image>
+			<src>Resources/speedfanNotFound.png</src>
+			<name>speedfanNotFound</name>
+			<hOffset>129</hOffset>
+			<vOffset>94</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <tooltip>Click me to download speedfan</tooltip>
+			<onMouseDown> <![CDATA[
+				speedfanNotFound.visible = false;
+				if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
+                                openURL("http://www.almico.com/sfdownload.php");
+                        // ]]> </onMouseDown>
+		</image>
+
+                <image src="Resources/cpu-gauge-celsius.png">
+		        <name>lower1Gauge</name>
+		        <hOffset>115</hOffset>
+		        <vOffset>338</vOffset>
+		        <zorder>1</zorder>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(lower1Gauge.contextMenuItems, (115 * thermometerScale), (228 * thermometerScale));
+		        // ]]> </onMouseDown>
+    	        </image>
+
+                <image src="Resources/point.png">
+		        <name>lower1Pointer</name>
+		        <hOffset>176</hOffset>
+		        <vOffset>384</vOffset>
+		        <zorder>1</zorder>
+		        <hRegistrationPoint>40</hRegistrationPoint>
+                        <vRegistrationPoint>40</vRegistrationPoint>
+    	        </image>
+
+                <image src="Resources/mem-gauge.png">
+		        <name>stanchion</name>
+		        <hOffset>366</hOffset>
+		        <vOffset>50</vOffset>
+    	        </image>
+
+
+                <image src="Resources/gauge-celsius.png">
+		        <name>upper1Gauge</name>
+		        <hOffset>375</hOffset>
+		        <vOffset>64</vOffset>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(upper1Gauge.contextMenuItems, (375 * thermometerScale), 0);
+		        // ]]> </onMouseDown>
+    	        </image>
+
+
+                <image src="Resources/label.png">
+		        <name>upper2GaugeLabel</name>
+		        <hOffset>398</hOffset>
+		        <vOffset>246</vOffset>
+		        <visible>false</visible>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
+		        // ]]> </onMouseDown>
+    	        </image>
+                <image src="Resources/gauge-celsius.png">
+		        <name>upper2Gauge</name>
+		        <hOffset>376</hOffset>
+		        <vOffset>165</vOffset>
+		        <visible>false</visible>
+		        <zorder>0</zorder>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
+		        // ]]> </onMouseDown>
+    	        </image>
+
+                <image src="Resources/cpu-gauge2-celsius.png">
+		        <name>lower2Gauge</name>
+		        <hOffset>10</hOffset>
+		        <vOffset>340</vOffset>
+		        <visible>false</visible>
+		        <zorder>0</zorder>
+			<onMouseDown> <![CDATA[
+				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+			        popupMenu(lower2Gauge.contextMenuItems, (5 * thermometerScale), (228 * thermometerScale));
+		        // ]]> </onMouseDown>
+    	        </image>
+
+                <image src="Resources/point.png">
+		        <name>lower2Pointer</name>
+		        <hOffset>72</hOffset>
+		        <visible>false</visible>
+		        <vOffset>385</vOffset>
+		        <hRegistrationPoint>40</hRegistrationPoint>
+                        <vRegistrationPoint>40</vRegistrationPoint>
+    	        </image>
+
+
+                <image src="Resources/point.png">
+		        <name>upper1Pointer</name>
+		        <hOffset>417</hOffset>
+		        <vOffset>106</vOffset>
+		        <hRegistrationPoint>40</hRegistrationPoint>
+                        <vRegistrationPoint>40</vRegistrationPoint>
+    	        </image>
+
+
+                <image src="Resources/point.png">
+		        <name>upper2Pointer</name>
+		        <hOffset>417</hOffset>
+		        <vOffset>207</vOffset>
+		        <visible>false</visible>
+		        <hRegistrationPoint>40</hRegistrationPoint>
+                        <vRegistrationPoint>40</vRegistrationPoint>
+    	        </image>
+
+      <image src="Resources/valve.png">
+        <name>valve</name>
+        <hOffset>405</hOffset>
+        <vOffset>278</vOffset>
+        <tooltip>Click on me and I will enable/disable another gauge</tooltip>
+    	  </image>
+
+<!--
+      <image src="Resources/valve.png">
+	      <name>resizingValve</name>
+	      <hOffset>220</hOffset>
+	      <vOffset>100</vOffset>
+	      <zorder>1</zorder>
+      	<tooltip>Click on me and I will enable/disable the size slider</tooltip>
+    	</image>
+-->    	
+
+      <image src="Resources/valve.png">
+        <name>valve2</name>
+        <hOffset>206</hOffset>
+        <vOffset>410</vOffset>
+        <zorder>1</zorder>
+        <tooltip>Click on me and I will enable/disable another gauge</tooltip>
+    	</image>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "upper1GaugeSensorChar1"
+			hOffset		= "400 "
+			vOffset		= "155"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "-10"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/1.png"
+			name		= "upper1GaugeSensorChar2"
+			hOffset		= "406 "
+			vOffset		= "154"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "-10"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/S.png"
+			name		= "upper1GaugeSensorChar3"
+			hOffset		= "412 "
+			vOffset		= "153 "
+			opacity		= "255"
+			rotation        = "-10"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/T.png"
+			name		= "upper1GaugeSensorChar4"
+			hOffset		= "418 "
+			vOffset		= "152 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "-10"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "upper1GaugeSensorChar5"
+			hOffset		= "422 "
+			vOffset		= "151"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "-10"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "upper2GaugeSensorChar1"
+			hOffset		= "402 "
+			vOffset		= "251"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		        visible           = "false"
+		/>
+
+		<image
+			src		= "Resources/2.png"
+			name		= "upper2GaugeSensorChar2"
+			hOffset		= "408 "
+			vOffset		= "251"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		        visible           = "false"
+		/>
+
+		<image
+			src		= "Resources/N.png"
+			name		= "upper2GaugeSensorChar3"
+			hOffset		= "414 "
+			vOffset		= "251 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		        visible           = "false"
+		/>
+
+		<image
+			src		= "Resources/D.png"
+			name		= "upper2GaugeSensorChar4"
+			hOffset		= "420 "
+			vOffset		= "251 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		        visible           = "false"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "upper2GaugeSensorChar5"
+			hOffset		= "424 "
+			vOffset		= "251"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			tooltip           = "click here to change the sensor name"
+		        visible           = "false"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "lower1GaugeSensorChar1"
+			hOffset		= "205 "
+			vOffset		= "439"
+			width		= "10"
+			height		= "11 "
+			rotation        = "10"
+			zorder          = "1"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/3.png"
+			name		= "lower1GaugeSensorChar2"
+			hOffset		= "211 "
+			vOffset		= "440"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "10"
+			zorder          = "1"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/R.png"
+			name		= "lower1GaugeSensorChar3"
+			hOffset		= "217 "
+			vOffset		= "440 "
+			opacity		= "255"
+			rotation        = "10"
+			zorder          = "1"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/D.png"
+			name		= "lower1GaugeSensorChar4"
+			hOffset		= "223 "
+			vOffset		= "441 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "10"
+			tooltip           = "click here to change the sensor name"
+			zorder          = "1"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "lower1GaugeSensorChar5"
+			hOffset		= "229 "
+			vOffset		= "443"
+			width		= "10"
+			height		= "11 "
+			zorder          = "1"
+			opacity		= "255"
+			rotation        = "10"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "lower2GaugeSensorChar1"
+			hOffset		= "98 "
+			vOffset		= "443"
+			width		= "10"
+			height		= "11 "
+			rotation        = "-10"
+			visible         = "false"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/4.png"
+			name		= "lower2GaugeSensorChar2"
+			hOffset		= "104 "
+			vOffset		= "443"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "-10"
+			visible         = "false"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/T.png"
+			name		= "lower2GaugeSensorChar3"
+			hOffset		= "110 "
+			vOffset		= "441 "
+			opacity		= "255"
+			rotation        = "-10"
+			visible         = "false"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/H.png"
+			name		= "lower2GaugeSensorChar4"
+			hOffset		= "116 "
+			vOffset		= "440 "
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "-10"
+			visible         = "false"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+		<image
+			src		= "Resources/questionmarktext.png"
+			name		= "lower2GaugeSensorChar5"
+			hOffset		= "122 "
+			vOffset		= "438"
+			width		= "10"
+			height		= "11 "
+			opacity		= "255"
+			rotation        = "10"
+			visible         = "false"
+			tooltip           = "click here to change the sensor name"
+		/>
+
+                <image src="Resources/stretcher.png">
+		        <name>stretcher</name>
+		        <hOffset>86</hOffset>
+		        <vOffset>66</vOffset>
+                        <width>65</width>
+		        <height>315</height>
+       			<onMouseDown> <![CDATA[
+                            if (preferences.resizingValvePref.value == "disabled")
+                            {
+                                   moveStretcher();
+                            } else {
+                            
+                            }
+                        // ]]> </onMouseDown>
+                        <opacity>255</opacity>
+                        <zorder>25</zorder>
+    	        </image>
+
+		<image>
+ 		       <name>thermometersHelpPageFront</name>
+                       <src>Resources/thermometers-help-front.png</src>
+                       <hOffset>7</hOffset>
+                       <vOffset>0</vOffset>
+                       <zorder>10</zorder>
+                        <visible>false</visible>
+		</image>
+
+		<image>
+ 		       <name>busyBlur</name>
+                       <src>Resources/busyBlur.png</src>
+                       <hOffset>225</hOffset>
+                       <vOffset>190</vOffset>
+                       <zorder>24</zorder>
+                       <visible>false</visible>
+		</image>
+
+		<image>
+ 		       <name>busy</name>
+                       <src>Resources/busy-F1-32x32x24.png</src>
+                       <hOffset>225</hOffset>
+                       <vOffset>190</vOffset>
+                       <zorder>25</zorder>
+                       <visible>false</visible>
+		</image>
+
+	</window>
+	<prefGroup>
+		<name>timepiecesize</name>
+		<title>Size</title>
+		<icon>Resources/sizegroup.png</icon>
+		<order>1</order>
+	</prefGroup>
+
+	<prefGroup>
+		<name>timepieceposition</name>
+		<title>Position</title>
+		<icon>Resources/location.png</icon>
+		<order>1</order>
+	</prefGroup>
+
+	<prefGroup>
+		<name>other</name>
+		<title>Speedfan Settings</title>
+		<icon>Resources/fan.png</icon>
+		<order>1</order>
+	</prefGroup>
+
+	<prefGroup>
+		<name>frequency</name>
+		<title>Frequency</title>
+		<icon>Resources/clockface.png</icon>
+		<order>2</order>
+	</prefGroup>
+
+	<prefGroup>
+		<name>sounds</name>
+		<title>sounds</title>
+		<icon>Resources/soundsgroup.png</icon>
+		<order>3</order>
+	</prefGroup>
+
+
+	<preference name="maxWidthPortraitPref">
+		<title>Widget Size in Portrait Mode:</title>
+		<group>timepiecesize</group>
+		<type>popup</type>
+		<option>10</option>
+		<option>20</option>
+		<option>30</option>
+		<option>40</option>
+		<option>50</option>
+		<option>60</option>
+		<option>70</option>
+		<option>80</option>
+		<option>70</option>
+		<option>80</option>
+		<option>100</option>
+		<option>110</option>
+		<option>120</option>
+		<option>130</option>
+		<option>140</option>
+		<option>150</option>
+		<defaultValue>100</defaultValue>
+	</preference>
+        
+        <preference name="maxWidthLandscapePref">
+		<title>Widget Size in Landscape Mode:</title>
+		<group>timepiecesize</group>
+		<type>popup</type>
+		<option>10</option>
+		<option>20</option>
+		<option>30</option>
+		<option>40</option>
+		<option>50</option>
+		<option>60</option>
+		<option>70</option>
+		<option>80</option>
+		<option>70</option>
+		<option>80</option>
+		<option>100</option>
+		<option>110</option>
+		<option>120</option>
+		<option>130</option>
+		<option>140</option>
+		<option>150</option>
+		<defaultValue>100</defaultValue>
+		<description>The total size of the thermometers in % for both portrait and landscape mode. Vary the slider and the whole thermometer will reduce. This option is not fully working at the moment.</description>
+	</preference>
+
+        <preference name="printerPref">
+		<title>Printer Visibility</title>
+		<type>popup</type>
+		<option>show</option>
+		<option>hide</option>
+		<option>-</option>
+		<defaultValue>show</defaultValue>
+		<description>Decide whether the printer graph displays or not.</description>
+	</preference>
+
+	<preference hidden="false" group="timepieceposition" name="widgetLockLandscapeModePref" title="Widget Locked in Landscape:" defaultValue="0" type="popup">
+		<option>1</option><optionValue>1</optionValue>
+		<option>0</option><optionValue>0</optionValue>
+	</preference>
+
+	<preference hidden="false" group="timepieceposition" name="widgetLockPortraitModePref"  description="The widget can be locked into a certain position when in landscape mode, it ensures that it always appears where you want it to." title="Widget Locked in Portrait:" defaultValue="0" type="popup">
+		<option>1</option><optionValue>1</optionValue>
+		<option>0</option><optionValue>0</optionValue>
+	</preference>
+
+        <preference name="SpeedfanLocation">
+		<title>Speedfan Folder Location:</title>
+		<group>other</group>
+		<type>text</type>
+		<description>This is the installation folder for Speedfan, the widget will try to find the speedfan installation folder from c:, d: or e: (eg. c:/Program Files/SpeedFan/) but if it is empty please fill it in manually. If the widget finds a value here, don't change it.</description>
+	</preference>
+
+
+        <preference name="sampletimerinterval">
+		<title>Timer Interval:</title>
+		<group>frequency</group>
+		<type>slider</type>
+		<minlength>100</minlength>
+		<maxlength>500</maxlength>
+		<ticks>50</ticks>
+                <ticklabel>6 secs</ticklabel>
+                <ticklabel>1 sec</ticklabel>
+		<description>Modifying the frequency slider increases the sample interval, maximum of 6 seconds.</description>
+	</preference>
+
+	<preference name="chimesPref">
+		<title>Chimes</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>chime</option>
+		<option>no chime </option>
+		<option>-</option>
+		<defaultValue>chime</defaultValue>
+		<description>Decide whether the thermometer chimes an alarm or not when over-temperature is reached.</description>
+	</preference>
+
+	<preference name="soundsPref">
+		<title>Sounds</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>mute </option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<description>Mute or enable all the thermometers sounds.</description>
+	</preference>
+
+
+	<preference name="fadePref">
+		<title>Fade-ins</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>disabled </option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<description>Disable or enable the task manager fade-ins and fade-outs.</description>
+	</preference>
+
+	<preference name="hotSliderLeftValuePref">
+		<title>Left Hot Slider Value</title>
+		<group>sounds</group>
+		<type>text</type>
+		<defaultValue>170</defaultValue>
+		<description>Storage for the left hand hot slider value.</description>
+		<hidden>false</hidden>
+	</preference>
+
+	<preference name="hotSliderRightValuePref">
+		<title>Right Hot Slider Value</title>
+		<group>sounds</group>
+		<type>text</type>
+		<defaultValue>170</defaultValue>
+		<description>Storage for the Right hand hot slider value.</description>
+		<hidden>false</hidden>
+	</preference>
+
+	<preference name="warmSliderLeftValuePref">
+		<title>Left Warm Slider Value</title>
+		<group>sounds</group>
+		<type>text</type>
+		<defaultValue>200</defaultValue>
+		<description>Storage for the left hand Warm slider value.</description>
+		<hidden>false</hidden>
+	</preference>
+
+	<preference name="warmSliderRightValuePref">
+		<title>Right Warm Slider Value</title>
+		<group>sounds</group>
+		<type>text</type>
+		<defaultValue>200</defaultValue>
+		<description>Storage for the Right hand Warm slider value.</description>
+		<hidden>false</hidden>
+	</preference>
+
+	<preference name="widgetHideModePref">
+		<title>Aspect Ratio Hidden Mode</title>
+		<type>popup</type>
+		<option>landscape</option>
+		<option>portrait</option>
+		<option>none</option>
+		<defaultValue>none</defaultValue>
+		<hidden>false</hidden>
+                <group>timepieceposition</group>
+                <description>Choose whether the widget is hidden by default in landscape or portrait mode or not at all. This allows you to have certain widgets that do not obscure the screen in one mode or another. If you accidentally set it to be invisible and can't undo it - then simply choose show widget on the dock and then change the setting here.</description>
+	</preference>
+
+        <preference hidden="false" group="timepieceposition"  name="landscapeHoffsetPref" title="Landscape Hoffset/Left X pos" type="text"/>
+
+	<preference hidden="false" group="timepieceposition"  name="landscapeVoffsetPref" title="Landscape Yoffset/top Y pos" type="text"/>
+
+        <preference hidden="false" group="timepieceposition"  name="portraitHoffsetPref" title="Portrait Hoffset/Left X pos" type="text"/>
+
+	<preference hidden="false" group="timepieceposition" description="Widget in Landscape or Portrait mode can be assigned a default H/Voffset (X/Y) position. When the widget is locked this value is set automatically." name="portraitVoffsetPref" title="Portrait Yoffset/top Y pos" type="text"/>
+
+	<preference name="resizingValvePref">
+		<title>Resizing Valve</title>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>disabled</option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<hidden>true</hidden>
+		<description>Disable or enable the resizing slider.</description>
+	</preference>
+
+	<preference name="upper2GaugeShownPref">
+		<title>Upper Gauge Visibility</title>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>disabled</option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<hidden>true</hidden>
+		<description>Disable or enable the secondary upper gauge on the right hand side.</description>
+	</preference>
+
+	<preference name="lower2GaugeShownPref">
+		<title>Lower Gauge Visibility</title>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>disabled</option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<hidden>true</hidden>
+		<description>Disable or enable the secondary lower gauge.</description>
+	</preference>
+
+	<preference name="leftThermometerDefaultSensorPref">
+		<title>Left Thermometer Selected Sensor</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The chosen sensor for the left thermometer.</description>
+	</preference>
+
+	<preference name="rightThermometerDefaultSensorPref">
+		<title>Right Thermometer Selected Sensor</title>
+		<type>text</type>
+		<hidden>true
+                </hidden>
+		<description>The chosen sensor for the right thermometer.</description>
+	</preference>
+
+	<preference name="upper1GaugeDefaultSensorPref">
+		<title>Top Right Gauge Selected Sensor</title>
+		<type>text</type>
+		<hidden>true
+                </hidden>
+		<description>The chosen sensor for the upper gauge on the right hand side.</description>
+	</preference>
+
+	<preference name="upper2GaugeDefaultSensorPref">
+		<title>Right Gauge Selected Sensor</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The chosen sensor for the secondary upper gauge on the right hand side.</description>
+	</preference>
+
+	<preference name="lower1GaugeDefaultSensorPref">
+		<title>Lower Gauge Selected Sensor</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The chosen sensor for the lower gauge on the lower left hand side.</description>
+	</preference>
+
+	<preference name="lower2GaugeDefaultSensorPref">
+		<title>Lower Gauge Selected Sensor</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The chosen sensor for the secondary lower gauge on the lower left hand side.</description>
+	</preference>
+
+	<preference name="hLocationPref">
+		<title>Widget horizontal location</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The widget's horizontal location stored in pixels.</description>
+	</preference>
+
+	<preference name="vLocationPref">
+		<title>Widget vertical location</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The widget's vertical location stored in pixels.</description>
+	</preference>
+
+	<preference name="hLocationPercPref">
+		<title>Widget horizontal location</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The widget's horizontal location stored in %.</description>
+	</preference>
+
+	<preference name="vLocationPercPref">
+		<title>Widget vertical location</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The widget's vertical location stored in %.</description>
+	</preference>
+
+	<preference name="upperGauge2ScalePref">
+		<title>Fahrenheit/Celsius</title>
+		<type>text</type>
+		<defaultValue>Celsius</defaultValue>
+		<hidden>true</hidden>
+		<description>Secondary Upper Gauge 2 Fahrenheit/Celsius.</description>
+	</preference>
+
+        <preference hidden="true" description="Check this box if you don't want to see the Licence Conditions again." name="licenceHide" title="Don't Show Licence Again" defaultValue="0" type="checkbox"/>
+
+        <action trigger="onKeyDown">
+              <![CDATA[
+                if (system.event.keyCode==116) {
+                    print("pressing "+system.event.keyCode);
+                    reloadWidget();
+                }
+               ]]>
+        </action>
+
+  <action trigger="onload">	<![CDATA[
+		include("thermometers.js");
+		include("functions.js");
+		include("vitality.js");
+    include("Resources/Licence/Licence.js");
+		startup();
+	// ]]> 
+	</action>
+
+	<action trigger="onPreferencesChanged">
+                changePrefs();
+        </action>
+
+        <timer name="busyTimer">
+		<interval>.1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+                       busy.visible = true;
+                       busyBlur.visible = true;
+                       busyCounter = busyCounter + 1 ;
+                       if (busyCounter >= 7) {busyCounter = 1};
+                       busy.src = "Resources/busy-F" + busyCounter + "-32x32x24.png";
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="SensorTingTimer">
+		<interval>.01</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+                       if (preferences.soundsPref.value != "mute" ) {play(ting, false);play(newclunk, false);};
+                       if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);play(ting, false);};
+                       SensorTingTimer.ticking = false;
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="screenLocationTimer">
+		<interval>0.5</interval>
+		<ticking>true</ticking>
+		<onTimerFired> <![CDATA[
+                       preferences.hLocationPref.value = mainWindow.hoffset;
+                       preferences.vLocationPref.value = mainWindow.voffset;
+                        // calculate the current hlocation in % of the screen
+                        //store the current hlocation in % of the screen
+                        preferences.hLocationPercPref.value = (mainWindow.hoffset / screen.width)* 100;
+                        preferences.vLocationPercPref.value = (mainWindow.voffset / screen.height)* 100;
+		// ]]> </onTimerFired>
+	</timer>
+
+
+        <timer name="FadeTimer">
+		<interval>1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			fadeOut(tskmgr,1);
+                        FadeTimer.ticking=false;
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="Fade2Timer">
+		<interval>1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			fadeOut(perfmon,1);
+                        Fade2Timer.ticking=false;
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="alarmTimer">
+		<interval>1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			ringOverTemperatureAlarm();
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="samplingTimer">
+		<interval>5</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			sampletemperature();
+			samplingTimer.interval = parseInt((((ovalSlider.hoffset - 300) /10)* thermometerScale ));
+		// ]]> </onTimerFired>
+	</timer>
+        <timer name="leftLampTimer">
+		<interval>.5</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			flashleftlamp();
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="rightLampTimer">
+		<interval>.5</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			flashrightlamp();
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="speedfanindicatorlampTimer">
+		<interval>.5</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			flashspeedfanindicator();
+		// ]]> </onTimerFired>
+	</timer>
+
+   <prefGroup name="development" order="8" icon="Resources/images/development-icon.png" title="Development"/>
+   <preference hidden="false" description="Turning on the debugging will provide extra information in the debug window. To obtain the debug window press SHIFT+CTRL simultaneously whilst right clicking on the Yahoo widget systray icon, then select debug from the drop down menu. You will need to restart the widget properly rather than doing a simple restart for debugging information to appear." name="debugflgPref" group="development" title="Debug:" defaultValue="1" type="popup">
+        <option>Debug OFF</option>
+        <optionValue>0</optionValue>
+        <option>Debug ON</option>
+        <optionValue>1</optionValue>
+    </preference>   
+   <preference hidden="false" description="Default command to run when the gauge receives a double-click. %SystemRoot%/system32/perfmon.exe" name="imageCmdPref" group="development" title="Double-Click command" defaultValue="%SystemRoot%/system32/perfmon.exe" type="text"/>
+   <preference hidden="false" description="Development ONLY: Enter your editor path here along with any command line switches required to open this widget in the editor. This function only operates if the widget has been unpacked and DEBUG is ON. " name="imageEditPref" group="development" title="Default Editor:" defaultValue="" type="text"/>
+
+
+</widget>

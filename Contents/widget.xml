@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <name>CPU/GPU Temperature Monitor Widget</name>
+  <version>1.0.1</version>
+  <image usage="security" src="Resources/security.png"/>
+  <author name="Dean Beedell" organization="LightQuick" href="http://www.lightquick.co.uk"/>
+  <description>A Steampunk interface to the hardware monitor program, Speedfan. Please install Speedfan first.</description>
+	<security>
+          <filesystem>full</filesystem>
+          <http>all</http>
+          <applescript>true</applescript>
+          <command>true</command>
+          <hotkey>false</hotkey>
+	</security>
+	<author name = "Dean Beedell" />
+	<platform minVersion = "4.0" />
+</metadata>
