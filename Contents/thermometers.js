@@ -5374,4 +5374,128 @@ warmSliderRight.onmousedown = function () {
     warmSliderRightup();
  }
  //=====================
+ //End function 
+ //=====================
+
+
+
+
+//======================================================================================
+// Function 
+//======================================================================================
+warmSliderLeft.onmousedown = function () {
+    warmSliderLeftdown();
+}
+//=====================
+//End function
+//=====================
+
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ warmSliderLeft.onmousedown = function () {
+    warmSliderLeftdrag();
+ }
+ //=====================
  //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ warmSliderLeft.onmousedown = function () {
+    warmSliderLeftup();
+ }
+ //=====================
+ //End function 
+ //=====================
+
+
+
+cpuPlaque.onMouseDown = function () {
+    popupplaque.visible = true;
+    if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
+
+}
+    
+       
+       
+       
+thermometerLeft.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    popupMenu(thermometerLeft.contextMenuItems, (155 * thermometerScale), 0);
+}
+
+
+crank.onMouseDown = function () {
+    crankhandle();
+}
+
+
+
+sToggle.onMouseDown = function () {
+    sToggle.hoffset=373;
+    if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
+    gettingSpeedfan.visible=true;
+    sleep(7500);
+    openURL("http://www.almico.com/sfdownload.php");
+    sToggle.hoffset=378;
+    gettingSpeedfan.visible=false;
+}
+
+
+mToggle.onMouseDown = function () {
+    mToggle.hoffset=373;
+    //this is the only sound that can't be muted
+    play(clunk, false);
+    if (preferences.soundsPref.value == "mute" )
+    {
+       preferences.soundsPref.value = "enable";
+    }
+    else
+    {
+       preferences.soundsPref.value = "mute";
+    }
+    sleep(300);
+    mToggle.hoffset=378;
+}
+
+rToggle.onMouseDown = function () {
+    rToggle.hoffset=373;
+    if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
+    sleep(300);
+    if (speedfanflag == "installed")
+    {
+     // kill speedfan, kill it first, we don't want two processes running...
+
+        //KillSpeedfanProcess();
+
+        // if windows XP or earlier then set speedfan to minimise
+        // later versions of Windows will not allow access to the program files folders
+
+        if (getWindowsVersion() == "5.2" || getWindowsVersion() == "5.1" || getWindowsVersion() == "5.0")
+        {
+           //modifySpeedfanConfiguration();
+        }
+        else
+        {
+           log("Automatically minimising Speedfan only works in windows XP or older");
+          log("so you'll need to minimise speedfan yourself on newer versions of windows");
+        }
+
+        // restart speedfan after change to minimise it on startup
+
+        //StartSpeedfanProcess();
+     }
+
+    rToggle.hoffset=378;
+}
+
+
+thermometerRight
+.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+        popupMenu(thermometerRight.contextMenuItems, (312 * thermometerScale), 0);
+    }

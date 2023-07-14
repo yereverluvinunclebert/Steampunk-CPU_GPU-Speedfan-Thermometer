@@ -169,41 +169,19 @@
 		</image>
 
     <image>
- 		       <name>warmSliderRight</name>
-                       <src>Resources/warmSliderRight.png</src>
-                       <hOffset>375</hOffset>
-                       <tooltip>GPU warm alarm</tooltip>
-                       <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               warmSliderRightdown();
-                        // ]]> </onMouseDown>
-
-                        <onMouseDrag> <![CDATA[
-                               warmSliderRightdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               warmSliderRightup();
-                        // ]]> </onMouseUp>
+			<name>warmSliderRight</name>
+			<src>Resources/warmSliderRight.png</src>
+			<hOffset>375</hOffset>
+			<tooltip>GPU warm alarm</tooltip>
+			<visible>false</visible>
 		</image>
 
 		<image>
- 		       <name>warmSliderLeft</name>
-                       <src>Resources/warmSliderLeft.png</src>
-                       <hOffset>299</hOffset>
-                       <tooltip>CPU warm alarm</tooltip>
-                       <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               warmSliderLeftdown();
-                        // ]]> </onMouseDown>
-
-                        <onMouseDrag> <![CDATA[
-                               warmSliderLeftdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               warmSliderLeftup();
-                        // ]]> </onMouseUp>
+			<name>warmSliderLeft</name>
+			 <src>Resources/warmSliderLeft.png</src>
+			 <hOffset>299</hOffset>
+			 <tooltip>CPU warm alarm</tooltip>
+			 <visible>false</visible>
 		</image>
 
 
@@ -215,13 +193,9 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>about the Steampunk thermometer</tooltip>
-			<onMouseDown> <![CDATA[
-				popupplaque.visible = true;
-				if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
 
-		        // ]]> </onMouseDown>
 			<zorder>7</zorder>
-                </image>
+    </image>
 
 		<image>
 			<src>Resources/thermometerLeft.png</src>
@@ -230,11 +204,7 @@
 			<vOffset>57</vOffset>
 			<opacity>255</opacity>
 			<visible>true</visible>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(thermometerLeft.contextMenuItems, (155 * thermometerScale), 0);
-		        // ]]> </onMouseDown>
-                </image>
+    </image>
 
 
 
@@ -246,11 +216,9 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>crank to show/hide the printer</tooltip>
-			<onMouseDown> <![CDATA[
-				crankhandle();
-		        // ]]> </onMouseDown>
-                </image>
-                <image>
+    </image>
+                
+    <image>
 			<src>Resources/sToggle.png</src>
 			<name>sToggle</name>
 			<hOffset>378</hOffset>
@@ -258,18 +226,9 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me to download Speedfan</tooltip>
-			<onMouseDown> <![CDATA[
-                               sToggle.hoffset=373;
-                               if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
-                               gettingSpeedfan.visible=true;
-                               sleep(7500);
-                               openURL("http://www.almico.com/sfdownload.php");
-                               sToggle.hoffset=378;
-                               gettingSpeedfan.visible=false;
-		        // ]]> </onMouseDown>
-                </image>
+    </image>
 
-                <image>
+    <image>
 			<src>Resources/mtoggle.png</src>
 			<name>mToggle</name>
 			<hOffset>378</hOffset>
@@ -277,24 +236,9 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me to mute all sounds</tooltip>
-			<onMouseDown> <![CDATA[
-                               mToggle.hoffset=373;
-                               //this is the only sound that can't be muted
-                               play(clunk, false);
-                               if (preferences.soundsPref.value == "mute" )
-                               {
-                                  preferences.soundsPref.value = "enable";
-                               }
-                               else
-                               {
-                                  preferences.soundsPref.value = "mute";
-                               }
-                               sleep(300);
-                               mToggle.hoffset=378;
-		        // ]]> </onMouseDown>
-                </image>
+      </image>
 
-                <image>
+      <image>
 			<src>Resources/rToggle.png</src>
 			<name>rToggle</name>
 			<hOffset>378</hOffset>
@@ -302,36 +246,6 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me to </tooltip>
-			<onMouseDown> <![CDATA[
-                               rToggle.hoffset=373;
-                               if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
-                               sleep(300);
-                               if (speedfanflag == "installed")
-                               {
-                                // kill speedfan, kill it first, we don't want two processes running...
-
-                                            //KillSpeedfanProcess();
-
-                                            // if windows XP or earlier then set speedfan to minimise
-                                            // later versions of Windows will not allow access to the program files folders
-
-                                            if (getWindowsVersion() == "5.2" || getWindowsVersion() == "5.1" || getWindowsVersion() == "5.0")
-                                            {
-                                               //modifySpeedfanConfiguration();
-                                            }
-                                            else
-                                            {
-                                               log("Automatically minimising Speedfan only works in windows XP or older");
-                                              log("so you'll need to minimise speedfan yourself on newer versions of windows");
-                                            }
-
-                                            // restart speedfan after change to minimise it on startup
-
-                                            //StartSpeedfanProcess();
-                                }
-
-                               rToggle.hoffset=378;
-		        // ]]> </onMouseDown>
                 </image>
 
 
@@ -342,10 +256,6 @@
 			<vOffset>57</vOffset>
 			<opacity>255</opacity>
 			<visible>true</visible>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(thermometerRight.contextMenuItems, (312 * thermometerScale), 0);
-		        // ]]> </onMouseDown>
                 </image>
 
 		<image
