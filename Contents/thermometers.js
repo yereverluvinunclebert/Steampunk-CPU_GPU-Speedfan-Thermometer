@@ -926,8 +926,7 @@ function startup() {
 
     mainScreen(); 	// check the widget is on-screen
     resizethermometer(); // resize the thermometer
-   
-       
+          
     busy.hoffset = (225 * thermometerScale)
     busy.voffset = (190 * thermometerScale)
     busyBlur.hoffset = (225 * thermometerScale)
@@ -992,7 +991,8 @@ function startup() {
         speedfanindicatorlampTimer.ticking = true;
         speedfanflag = "unknown";
         preferences.SpeedfanLocation.value = "";
-//        selectSpeedfanBinaryLocation()
+        busy.tooltip = "Cannot find Speedfan - click to find the binary"
+        print ("setting tooltips");
     }     
    
 
@@ -1090,7 +1090,43 @@ busy.onmousedown = function () {
 //End function 
 //=====================
 
+//===============================================================
+// function to find speedfan after the busy icon has been clicked
+//===============================================================
+speedfanindicatorred.onmousedown = function () {
+    busyTimer.ticking = false; 
+    busy.visible = false;
+    busyBlur.visible = false;
+    
+    // speedfan not found
+    if (speedfanflag !== "installed") {   
+        selectSpeedfanBinaryLocation();
+    }
+};
+//=====================
+//End function 
+//=====================
 
+
+//===============================================================
+// function to find speedfan after the busy icon has been clicked
+//===============================================================
+speedfanindicatorredglowing.onmousedown = function () {
+    busyTimer.ticking = false; 
+    busy.visible = false;
+    busyBlur.visible = false;
+    
+    // speedfan not found
+    if (speedfanflag !== "installed") {   
+        selectSpeedfanBinaryLocation();
+    }
+};
+//=====================
+//End function 
+//=====================
+
+
+ 
  
 // //===========================================
 // // function to 
@@ -3210,7 +3246,6 @@ function selectSpeedfanBinaryLocation()
 {
 
         // speedfan not found
-        if (speedfanflag !== "installed") {
             //invalid entry for speedfan location
             print("Speedfan not found - user to select a speedfan location");
 
@@ -3259,7 +3294,7 @@ function selectSpeedfanBinaryLocation()
                 //result = prompt("Name:", "Your Name","Name Dialog", "OK", "Cancel");
                 //var answer = alert("The widget was unable to find Speedfan.exe in default location.", "Locate Speedfan's Directory");
 
-         }
+
 }
 //=====================
 //End function
@@ -5235,3 +5270,108 @@ function selectFahrenheitLower2() {
 //=====================
 
 
+
+
+//======================================================================================
+// Function 
+//======================================================================================
+hotSliderRight.onmousedown = function () {
+    hotSliderRightdown();
+}
+//=====================
+//End function
+//=====================
+
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ hotSliderRight.onmousedown = function () {
+    hotSliderRightdrag();
+ }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ hotSliderRight.onmousedown = function () {
+    hotSliderRightup();
+ }
+ //=====================
+ //End function
+ //=====================
+
+
+
+//======================================================================================
+// Function 
+//======================================================================================
+hotSliderLeft.onmousedown = function () {
+    hotSliderLeftdown();
+}
+//=====================
+//End function
+//=====================
+
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ hotSliderLeft.onmousedown = function () {
+    hotSliderLeftdrag();
+ }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ hotSliderLeft.onmousedown = function () {
+    hotSliderLeftup();
+ }
+ //=====================
+ //End function
+ //=====================
+
+
+
+
+
+
+
+
+//======================================================================================
+// Function 
+//======================================================================================
+warmSliderRight.onmousedown = function () {
+    warmSliderRightdown();
+}
+//=====================
+//End function
+//=====================
+
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ warmSliderRight.onmousedown = function () {
+    warmSliderRightdrag();
+ }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+ warmSliderRight.onmousedown = function () {
+    warmSliderRightup();
+ }
+ //=====================
+ //End function

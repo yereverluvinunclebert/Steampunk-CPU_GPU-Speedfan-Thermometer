@@ -157,39 +157,18 @@
       <hOffset>375</hOffset>
       <tooltip>GPU hot alarm</tooltip>
       <visible>false</visible>
-        <onMouseDown> <![CDATA[
-               hotSliderRightdown();
-        // ]]> </onMouseDown>
 
-        <onMouseDrag> <![CDATA[
-               hotSliderRightdrag();
-        // ]]> </onMouseDrag>
-
-        <onMouseUp> <![CDATA[
-               hotSliderRightup();
-        // ]]> </onMouseUp>
 		</image>
 
 		<image>
- 		       <name>hotSliderLeft</name>
-                       <src>Resources/hotSliderLeft.png</src>
-                       <hOffset>299</hOffset>
-                       <tooltip>CPU hot alarm</tooltip>
-                       <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               hotSliderLeftdown();
-                        // ]]> </onMouseDown>
-
-                        <onMouseDrag> <![CDATA[
-                               hotSliderLeftdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               hotSliderLeftup();
-                        // ]]> </onMouseUp>
+			<name>hotSliderLeft</name>
+			<src>Resources/hotSliderLeft.png</src>
+			<hOffset>299</hOffset>
+			<tooltip>CPU hot alarm</tooltip>
+			<visible>false</visible>
 		</image>
 
-                <image>
+    <image>
  		       <name>warmSliderRight</name>
                        <src>Resources/warmSliderRight.png</src>
                        <hOffset>375</hOffset>
@@ -1616,12 +1595,12 @@
 		</image>
 
 		<image>
- 		       <name>busy</name>
-                       <src>Resources/busy-F1-32x32x24.png</src>
-                       <hOffset>225</hOffset>
-                       <vOffset>190</vOffset>
-                       <zorder>25</zorder>
-                       <visible>false</visible>
+			<name>busy</name>
+			<src>Resources/busy-F1-32x32x24.png</src>
+			<hOffset>225</hOffset>
+			<vOffset>190</vOffset>
+			<zorder>25</zorder>
+			<visible>false</visible>
 		</image>
 
 	</window>
