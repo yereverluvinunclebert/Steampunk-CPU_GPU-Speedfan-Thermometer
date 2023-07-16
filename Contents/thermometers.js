@@ -1676,7 +1676,7 @@ function warmSliderRightup()
   if(warmSliderRightclicked === true)
    {
       warmSliderRightclicked = false;
-      warmSliderRight.onMouseMove= null;
+      warmSliderRight.onMouseMove = null;
 
       SetCurrentTemperatureTooltips();
       preferences.warmSliderRightValuePref.value = warmSliderRight.voffset;
@@ -1767,6 +1767,7 @@ function ovalSliderup()
 //=====================
 //End function
 //=====================
+
 //===============================
 // function to resize all layers
 //===============================
@@ -3678,7 +3679,7 @@ function ReadTemperatures()
         //if (filesystem.itemExists("Resources/speedfan.exe"))
         //{
           var speedfanexe = runCommand(convertPathToPlatform(speedFanExePath));
-          //print("speedfanexe = "+speedfanexe);
+          print(" >>>>>>>> speedfanexe = "+speedfanexe);
         //}
 
 	// returns a string separated by spaces otherwise unusable
@@ -3686,7 +3687,7 @@ function ReadTemperatures()
         noofsensors = speedfanexe[1];
 	//print("number of speedfan sensors = " + noofsensors );
         var temperatureString = speedfanexe[2];
-        print("temperatureString = "+temperatureString);
+        print(" >>>>>>>> temperatureString = "+temperatureString);
 
 	if (temperatureString != "no temperatureString")
 	{

@@ -2,7 +2,7 @@
  
 Steampunk CPU_GPU Speedfan Thermometer Yahoo Widget, written in Javascript and 
 XML for the Yahoo Widget (Konfabulator) Engine. Created for XP, Vista, Win7, 8, 
-10+ as well as the Apple Mac OSX prior to Catalina.  
+10+.  
 
 ![steampunk_cpu_gpu_thermometer_widget_for_speedfan_by_yereverluvinuncleber_d4lri07-375w-2x](https://github.com/yereverluvinunclebert/Steampunk-CPU_GPU-Speedfan-Thermometer/assets/2788342/386269b8-17d4-45fb-aad0-ea4879e0cb6b)
 
@@ -45,7 +45,7 @@ Tested on :
 
  Dependencies:
  
- o A windows-alike o/s such as Windows XP, 7-11 or Apple Mac OSX prior to Catalina.    	
+ o A windows-alike o/s such as Windows XP, 7-11.    	
  o Speedfan temperature installation software.
  o Installation of the yahoo widget SDK runtime engine.  
  
@@ -73,7 +73,7 @@ Instructions for running Yahoo widgets on Mac OS/X ONLY
 1. Install yahoo widget SDK runtime engine for Mac
 2. Download the gauge from this repo.
 3. Unzip it
-4. For all all recent versions of Mac OS/X up to and including Mojave, edit the following 
+4. For all all recent versions of Mac OS/X up to Catalina, edit the following 
 file:
 
 com.yahoo.widgetengine.plist which is in /Users/xxx/Library/Preferences. Look 
@@ -86,9 +86,23 @@ Change to false if it is true.
 
 5. Double-click on the widgets .KON file and it will install and run
 
-Wit these instructions you should be able to start Yahoo! Widgets and the 
+With these instructions you should be able to start Yahoo! Widgets and the 
 menubar item should appear. Widgets can then be started from the menubar or by 
-double-clicking on the KON file in the usual way.
+double-clicking on the KON file in the usual way. Note although all Windows Yahoo 
+widgets will run on Mac Os/X prior to Catalina, they may need additional supporting 
+components. For example this widgets uses Speedfan which is not avaialable for 
+Mac OS/X.
+
+ 
+Instructions for the Steampunk-CPU_GPU-Speedfan-Thermometer
+===========================================================
+
+1. Install yahoo widget SDK runtime engine
+2. Install Speedfan
+3. In Speedfan open the configuration and click the log tab
+4. Select the Enable check box, leave all other logging options as they are.
+5. Run the widget, it should just find the speedfan location and start using it.
+
 
 
 
