@@ -14,7 +14,9 @@ for an essential utility which provides temperature information - preventing
 overheating damaging your laptop/desktop PC. Does a real job and looks good too. 
 Be aware that it needs Speedfan and Yahoo widgets - If you do not understand why 
 please do not download my widget...
- 
+
+ ![cpu-gpu-thermometers](https://github.com/yereverluvinunclebert/Steampunk-CPU_GPU-Speedfan-Thermometer/assets/2788342/2ad2e0e9-b9d3-46b3-9cd8-c89393e25659)
+
 Functional and gorgeous at the same time. This Widget is a moveable widget that 
 you can move anywhere around the desktop as you require.
 
