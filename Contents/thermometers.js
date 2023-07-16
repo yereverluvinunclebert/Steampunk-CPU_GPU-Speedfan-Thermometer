@@ -168,8 +168,6 @@ Save the sampling speed to a preference and add to startup
 Comment out or remove the debug code
 clear the selected sensor preferences before bundling
 
-
-
 */
     var leftScribeRgbCol = null;
     var rightScribeRgbCol = null;
