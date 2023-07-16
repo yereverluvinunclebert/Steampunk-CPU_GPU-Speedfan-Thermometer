@@ -133,6 +133,12 @@ Added animation of the printer at startup - done
 
 0.22 if any speedfan temperature is zero then it is ignored and the previous temperature is retained
 
+
+all the code stripped from the .KON and recreated in the .js
+all the timers stripped from the .KON and recreated in the .js
+moved the startup code into functions
+
+
 Thermometer MkII - TBD List
 ===========================
 
@@ -162,845 +168,815 @@ Save the sampling speed to a preference and add to startup
 Comment out or remove the debug code
 clear the selected sensor preferences before bundling
 
+
+
 */
-       var leftScribeRgbCol = null;
-       var rightScribeRgbCol = null;
-       var hsb = new Array(3);
-
-       var nCharCode=null;
-       var leftTraceHue =null;
-       var rightTraceHue =null;
-
-       var traceOffset = 0;
-       var arrayLength = 120;
-       var leftTempArray = new Array(arrayLength);
-       var rightTempArray = new Array(arrayLength);
-       var tempStorageArrayPosition = 1;
-
-       var frame = mainFrame;
-       var canvasTop = 1;
-       var canvasLeft = 185;
-       var canvasWidth = 480;
-       var canvasHeight = 305;
-
-       var canvasOne = newCanvas(canvasLeft, canvasTop, canvasWidth, canvasHeight, 0);
-       frame.appendChild(canvasOne);
-       ctx = canvasOne.getContext( "2d" );
-       canvasOne.visible = true;
-
-       var canvasTwo = newCanvas(canvasLeft, canvasTop, canvasWidth, canvasHeight, 0);
-       frame.appendChild(canvasTwo);
-       canvasTwo.visible = true;
-
-       var canvasThree = newCanvas(canvasLeft, canvasTop, canvasWidth, canvasHeight, 0);
-       frame.appendChild(canvasThree);
-       canvasThree.visible = true;
-
-       var usteamstate = 1;
-       var lsteamstate = 1;
-
-       var busyCounter = 1;
-       var useCanvas = 1;
-
-       var verticalplot1 = null;
-       var verticalplot2 = null;
-       var horizontalAdjust = null;
-       var lineColour = null;
-       var thick = null;
-
-       // Do this once to extract the file to the Widget's data folder.
-       var tempmonitor = widget.extractFile("Resources/tempmonitor");
-       var speedFanExePath = widget.extractFile("Resources/speedfanreader.exe");
-       var widgetName = "Steampunk CPU_GPU Speedfan Thermometer.widget";
-
-       var thermometerScale = null;
-
-       var printer = "showing";
-       //var verticallineshoffset = 31;
-       //var movinglineshoffset = 216;
-       var helpdropdownactiveFlg = false;
-
-       var sensorcount = 0;
-
-       var sensorName = new Array();
-       var SensorTemp = new Array();
-       var leftmenuitems = new Array();
-       var rightmenuitems = new Array();
-       var upper1MenuItems = new Array();
-       var upper2MenuItems = new Array();
-       var lower1MenuItems = new Array();
-       var lower2MenuItems = new Array();
-       var selectedLeftSensor = new Array();
-       var selectedRightSensor = new Array();
-       var selectedUpper1Sensor = new Array();
-       var selectedUpper2Sensor = new Array();
-       var selectedlower1Sensor = new Array();
-       var selectedlower2Sensor = new Array();
-       var noofsensors = 8;
-       var getSensorList = 0;
-       var  currentLeftSensor = 1;
-       var  currentRightSensor = 5;
-       var  currentUpper1Sensor = 2;
-       var  currentUpper2Sensor = 2;
-       var  currentlower1Sensor = 2;
-       var  currentlower2Sensor = 2;
-
-       var leftmenunameitems = new Array();
-       var rightmenunameitems = new Array();
-       var selectedLeftSensorName = new Array();
-       var selectedRightSensorName  = new Array();
-       var currentLeftSensorName = 1;
-       var currentRightSensorName = 5;
-       var currentUpper1SensorName = 3;
-       var currentUpper2SensorName = 4;
-
-       var currentLeftSensorNameText ="Core 0";
-       var currentRightSensorNameText ="GPU";
-       var currentUpper1SensorNameText ="HD0";
-       var currentUpper2SensorNameText ="HD0";
-       var currentlower1SensorNameText ="HD1";
-       var currentlower2SensorNameText ="HD1";
-
-       var speedfanflag = "unknown";
-       var PreviousredMercuryLeftvoffset= 250;
-       var PreviousredMercuryRightvoffset= 250;
-       var hotSliderLeftclicked = "false";
-       var hotSliderRighttclicked = "false";
-
-       var leftTemperatureMax = 0;
-       var rightTemperatureMax = 0;
-       var upper1TemperatureMax = 0;
-       var upper2TemperatureMax = 0;
-       var lower1TemperatureMax = 0;
-       var lower2TemperatureMax = 0;
-       var leftTemperature = 0;
-       var rightTemperature = 0;
-       var upper1Temperature = 0;
-       var upper2Temperature = 0;
-       var lower1Temperature = 0;
-       var lower2Temperature = 0;
-
-
-
-       // sound variables
-
-       var steamsound ="Resources/steamsound.mp3";
-       var electricDrone ="Resources/electricDrone.mp3";
-       var rollerblindup ="Resources/rollerblind-up.mp3";
-       var rollerblinddown ="Resources/rollerblind-down.mp3";
-       var clunk = "Resources/clunk.mp3";
-       var cranksound = "Resources/crank.mp3";
-       var newclunk = "Resources/newclunk.mp3";
-       var draw = "Resources/draw.mp3";
-       var zzzz = "Resources/zzzz.mp3";
-       var sparks = "Resources/sparks.mp3";
-       var relay = "Resources/relay.mp3";
-       var slider = "Resources/slider.mp3" ;
-       var mechanism = "Resources/mechanism.mp3" ;
-       var singleBell = "Resources/singleBell.mp3" ;
-       var alarmbells = "Resources/singleBell.mp3" ;
-       var ting = "Resources/ting.mp3" ;
-       var lock = "Resources/lock.mp3" ;
-       var pop = "Resources/pop.mp3" ;
-
-        //resizing variables
-
-        var mainWindowwidthDefault  = mainWindow.width;
-	    var mainWindowheightDefault = mainWindow.height;
-
-        // waitmessage
-       // movinglines.png
-
-        var thermometersHelpPagehoffsetDefault = thermometersHelpPage.hoffset;
-        var thermometersHelpPagevoffsetDefault = thermometersHelpPage.voffset;
-        var thermometersHelpPagewidthDefault =  thermometersHelpPage.width;
-        var thermometersHelpPageheightDefault =  thermometersHelpPage.height;
-
-        var lower1PointerhoffsetDefault = lower1Pointer.hoffset;
-        var lower1PointervoffsetDefault = lower1Pointer.voffset;
-        var lower1PointerwidthDefault =  lower1Pointer.width;
-        var lower1PointerheightDefault =  lower1Pointer.height;
-        var lower1PointerhRegistrationPointDefault =  lower1Pointer.hRegistrationPoint;
-        var lower1PointervRegistrationPointDefault =  lower1Pointer.vRegistrationPoint;
-
-        var lower2PointerhoffsetDefault = lower2Pointer.hoffset;
-        var lower2PointervoffsetDefault = lower2Pointer.voffset;
-        var lower2PointerwidthDefault =  lower2Pointer.width;
-        var lower2PointerheightDefault =  lower2Pointer.height;
-        var lower2PointerhRegistrationPointDefault =  lower2Pointer.hRegistrationPoint;
-        var lower2PointervRegistrationPointDefault =  lower2Pointer.vRegistrationPoint;
-
-        var upper1PointerhoffsetDefault = upper1Pointer.hoffset;
-        var upper1PointervoffsetDefault = upper1Pointer.voffset;
-        var upper1PointerwidthDefault =  upper1Pointer.width;
-        var upper1PointerheightDefault =  upper1Pointer.height;
-        var upper1PointerhRegistrationPointDefault =  upper1Pointer.hRegistrationPoint;
-        var upper1PointervRegistrationPointDefault =  upper1Pointer.vRegistrationPoint;
-
-        var upper2PointerhoffsetDefault = upper2Pointer.hoffset;
-        var upper2PointervoffsetDefault = upper2Pointer.voffset;
-        var upper2PointerwidthDefault =   upper2Pointer.width;
-        var upper2PointerheightDefault =  upper2Pointer.height;
-        var upper2PointerhRegistrationPointDefault =  upper2Pointer.hRegistrationPoint;
-        var upper2PointervRegistrationPointDefault =  upper2Pointer.vRegistrationPoint;
-
-        var steamhoffsetDefault = steam.hoffset;
-        var steamvoffsetDefault = steam.voffset;
-        var steamwidthDefault =   steam.width;
-        var steamheightDefault =  steam.height;
-
-        var valvehoffsetDefault = valve.hoffset;
-        var valvevoffsetDefault = valve.voffset;
-        var valvewidthDefault =   valve.width;
-        var valveheightDefault =  valve.height;
-
-        var valve2hoffsetDefault = valve2.hoffset;
-        var valve2voffsetDefault = valve2.voffset;
-        var valve2widthDefault =   valve2.width;
-        var valve2heightDefault =  valve2.height;
-
-//        var resizingValvehoffsetDefault = resizingValve.hoffset;
-//        var resizingValvevoffsetDefault = resizingValve.voffset;
-//        var resizingValvewidthDefault =   resizingValve.width;
-//        var resizingValveheightDefault =  resizingValve.height;
-
-        var memTaphoffsetDefault = memTap.hoffset;
-        var memTapvoffsetDefault = memTap.voffset;
-        var memTapwidthDefault =   memTap.width;
-        var memTapheightDefault =  memTap.height;
-
-        var upper1GaugeSensorChar1hoffsetDefault = upper1GaugeSensorChar1.hoffset;
-        var upper1GaugeSensorChar1voffsetDefault = upper1GaugeSensorChar1.voffset;
-        var upper1GaugeSensorChar1widthDefault =   upper1GaugeSensorChar1.width;
-        var upper1GaugeSensorChar1heightDefault =  upper1GaugeSensorChar1.height;
-
-        var upper1GaugeSensorChar2hoffsetDefault = upper1GaugeSensorChar2.hoffset;
-        var upper1GaugeSensorChar2voffsetDefault = upper1GaugeSensorChar2.voffset;
-        var upper1GaugeSensorChar2widthDefault =   upper1GaugeSensorChar2.width;
-        var upper1GaugeSensorChar2heightDefault =  upper1GaugeSensorChar2.height;
-
-        var upper1GaugeSensorChar3hoffsetDefault = upper1GaugeSensorChar3.hoffset;
-        var upper1GaugeSensorChar3voffsetDefault = upper1GaugeSensorChar3.voffset;
-        var upper1GaugeSensorChar3widthDefault =   upper1GaugeSensorChar3.width;
-        var upper1GaugeSensorChar3heightDefault =  upper1GaugeSensorChar3.height;
-
-        var upper1GaugeSensorChar4hoffsetDefault = upper1GaugeSensorChar4.hoffset;
-        var upper1GaugeSensorChar4voffsetDefault = upper1GaugeSensorChar4.voffset;
-        var upper1GaugeSensorChar4widthDefault =   upper1GaugeSensorChar4.width;
-        var upper1GaugeSensorChar4heightDefault =  upper1GaugeSensorChar4.height;
-
-        var upper1GaugeSensorChar5hoffsetDefault = upper1GaugeSensorChar5.hoffset;
-        var upper1GaugeSensorChar5voffsetDefault = upper1GaugeSensorChar5.voffset;
-        var upper1GaugeSensorChar5widthDefault =   upper1GaugeSensorChar5.width;
-        var upper1GaugeSensorChar5heightDefault =  upper1GaugeSensorChar5.height;
-
-
-        var upper2GaugeSensorChar1hoffsetDefault = upper2GaugeSensorChar1.hoffset;
-        var upper2GaugeSensorChar1voffsetDefault = upper2GaugeSensorChar1.voffset;
-        var upper2GaugeSensorChar1widthDefault =   upper2GaugeSensorChar1.width;
-        var upper2GaugeSensorChar1heightDefault =  upper2GaugeSensorChar1.height;
-
-        var upper2GaugeSensorChar2hoffsetDefault = upper2GaugeSensorChar2.hoffset;
-        var upper2GaugeSensorChar2voffsetDefault = upper2GaugeSensorChar2.voffset;
-        var upper2GaugeSensorChar2widthDefault =   upper2GaugeSensorChar2.width;
-        var upper2GaugeSensorChar2heightDefault =  upper2GaugeSensorChar2.height;
-
-        var upper2GaugeSensorChar3hoffsetDefault = upper2GaugeSensorChar3.hoffset;
-        var upper2GaugeSensorChar3voffsetDefault = upper2GaugeSensorChar3.voffset;
-        var upper2GaugeSensorChar3widthDefault =   upper2GaugeSensorChar3.width;
-        var upper2GaugeSensorChar3heightDefault =  upper2GaugeSensorChar3.height;
-
-        var upper2GaugeSensorChar4hoffsetDefault = upper2GaugeSensorChar4.hoffset;
-        var upper2GaugeSensorChar4voffsetDefault = upper2GaugeSensorChar4.voffset;
-        var upper2GaugeSensorChar4widthDefault =   upper2GaugeSensorChar4.width;
-        var upper2GaugeSensorChar4heightDefault =  upper2GaugeSensorChar4.height;
-
-        var upper2GaugeSensorChar5hoffsetDefault = upper2GaugeSensorChar5.hoffset;
-        var upper2GaugeSensorChar5voffsetDefault = upper2GaugeSensorChar5.voffset;
-        var upper2GaugeSensorChar5widthDefault =   upper2GaugeSensorChar5.width;
-        var upper2GaugeSensorChar5heightDefault =  upper2GaugeSensorChar5.height;
-
-        var lower1GaugeSensorChar1hoffsetDefault = lower1GaugeSensorChar1.hoffset;
-        var lower1GaugeSensorChar1voffsetDefault = lower1GaugeSensorChar1.voffset;
-        var lower1GaugeSensorChar1widthDefault =   lower1GaugeSensorChar1.width;
-        var lower1GaugeSensorChar1heightDefault =  lower1GaugeSensorChar1.height;
-
-        var lower1GaugeSensorChar2hoffsetDefault = lower1GaugeSensorChar2.hoffset;
-        var lower1GaugeSensorChar2voffsetDefault = lower1GaugeSensorChar2.voffset;
-        var lower1GaugeSensorChar2widthDefault =   lower1GaugeSensorChar2.width;
-        var lower1GaugeSensorChar2heightDefault =  lower1GaugeSensorChar2.height;
-
-        var lower1GaugeSensorChar3hoffsetDefault = lower1GaugeSensorChar3.hoffset;
-        var lower1GaugeSensorChar3voffsetDefault = lower1GaugeSensorChar3.voffset;
-        var lower1GaugeSensorChar3widthDefault =   lower1GaugeSensorChar3.width;
-        var lower1GaugeSensorChar3heightDefault =  lower1GaugeSensorChar3.height;
-
-        var lower1GaugeSensorChar4hoffsetDefault = lower1GaugeSensorChar4.hoffset;
-        var lower1GaugeSensorChar4voffsetDefault = lower1GaugeSensorChar4.voffset;
-        var lower1GaugeSensorChar4widthDefault =   lower1GaugeSensorChar4.width;
-        var lower1GaugeSensorChar4heightDefault =  lower1GaugeSensorChar4.height;
-
-        var lower1GaugeSensorChar5hoffsetDefault = lower1GaugeSensorChar5.hoffset;
-        var lower1GaugeSensorChar5voffsetDefault = lower1GaugeSensorChar5.voffset;
-        var lower1GaugeSensorChar5widthDefault =   lower1GaugeSensorChar5.width;
-        var lower1GaugeSensorChar5heightDefault =  lower1GaugeSensorChar5.height;
-
-
-        var lower2GaugeSensorChar1hoffsetDefault = lower2GaugeSensorChar1.hoffset;
-        var lower2GaugeSensorChar1voffsetDefault = lower2GaugeSensorChar1.voffset;
-        var lower2GaugeSensorChar1widthDefault =   lower2GaugeSensorChar1.width;
-        var lower2GaugeSensorChar1heightDefault =  lower2GaugeSensorChar1.height;
-
-        var lower2GaugeSensorChar2hoffsetDefault = lower2GaugeSensorChar2.hoffset;
-        var lower2GaugeSensorChar2voffsetDefault = lower2GaugeSensorChar2.voffset;
-        var lower2GaugeSensorChar2widthDefault =   lower2GaugeSensorChar2.width;
-        var lower2GaugeSensorChar2heightDefault =  lower2GaugeSensorChar2.height;
-
-        var lower2GaugeSensorChar3hoffsetDefault = lower2GaugeSensorChar3.hoffset;
-        var lower2GaugeSensorChar3voffsetDefault = lower2GaugeSensorChar3.voffset;
-        var lower2GaugeSensorChar3widthDefault =   lower2GaugeSensorChar3.width;
-        var lower2GaugeSensorChar3heightDefault =  lower2GaugeSensorChar3.height;
-
-        var lower2GaugeSensorChar4hoffsetDefault = lower2GaugeSensorChar4.hoffset;
-        var lower2GaugeSensorChar4voffsetDefault = lower2GaugeSensorChar4.voffset;
-        var lower2GaugeSensorChar4widthDefault =   lower2GaugeSensorChar4.width;
-        var lower2GaugeSensorChar4heightDefault =  lower2GaugeSensorChar4.height;
-
-        var lower2GaugeSensorChar5hoffsetDefault = lower2GaugeSensorChar5.hoffset;
-        var lower2GaugeSensorChar5voffsetDefault = lower2GaugeSensorChar5.voffset;
-        var lower2GaugeSensorChar5widthDefault =   lower2GaugeSensorChar5.width;
-        var lower2GaugeSensorChar5heightDefault =  lower2GaugeSensorChar5.height;
-
-        var leftscalehoffsetDefault = leftscale.hoffset;
-        var leftscalevoffsetDefault = leftscale.voffset;
-        var leftscalewidthDefault =  leftscale.width;
-        var leftscaleheightDefault =  leftscale.height;
-
-        var rightscalehoffsetDefault = rightscale.hoffset;
-        var rightscalevoffsetDefault = rightscale.voffset;
-        var rightscalewidthDefault =  rightscale.width;
-        var rightscaleheightDefault =  rightscale.height;
-
-        var stanchionhoffsetDefault = stanchion.hoffset;
-        var stanchionvoffsetDefault = stanchion.voffset;
-        var stanchionwidthDefault =  stanchion.width;
-        var stanchionheightDefault =  stanchion.height;
-
-        var upper1GaugehoffsetDefault = upper1Gauge.hoffset;
-        var upper1GaugevoffsetDefault = upper1Gauge.voffset;
-        var upper1GaugewidthDefault =  upper1Gauge.width;
-        var upper1GaugeheightDefault =  upper1Gauge.height;
-
-        var upper2GaugeLabelhoffsetDefault = upper2GaugeLabel.hoffset;
-        var upper2GaugeLabelvoffsetDefault = upper2GaugeLabel.voffset;
-        var upper2GaugeLabelwidthDefault =  upper2GaugeLabel.width;
-        var upper2GaugeLabelheightDefault =  upper2GaugeLabel.height;
-
-        var upper2GaugehoffsetDefault = upper2Gauge.hoffset;
-        var upper2GaugevoffsetDefault = upper2Gauge.voffset;
-        var upper2GaugewidthDefault =  upper2Gauge.width;
-        var upper2GaugeheightDefault =  upper2Gauge.height;
-
-        var lower1GaugehoffsetDefault = lower1Gauge.hoffset;
-        var lower1GaugevoffsetDefault = lower1Gauge.voffset;
-        var lower1GaugewidthDefault =  lower1Gauge.width;
-        var lower1GaugeheightDefault =  lower1Gauge.height;
-
-        var lower2GaugehoffsetDefault = lower2Gauge.hoffset;
-        var lower2GaugevoffsetDefault = lower2Gauge.voffset;
-        var lower2GaugewidthDefault =  lower2Gauge.width;
-        var lower2GaugeheightDefault =  lower2Gauge.height;
-
-        var rTogglehoffsetDefault = rToggle.hoffset;
-        var rTogglevoffsetDefault = rToggle.voffset;
-        var rTogglewidthDefault =  rToggle.width;
-        var rToggleheightDefault =  rToggle.height;
-
-        var mTogglehoffsetDefault = mToggle.hoffset;
-        var mTogglevoffsetDefault = mToggle.voffset;
-        var mTogglewidthDefault =  mToggle.width;
-        var mToggleheightDefault =  mToggle.height;
-
-        var scaleswitchrighthoffsetDefault = scaleswitchright.hoffset;
-        var scaleswitchrightvoffsetDefault = scaleswitchright.voffset;
-        var scaleswitchrightwidthDefault =  scaleswitchright.width;
-        var scaleswitchrightheightDefault =  scaleswitchright.height;
-
-        var scaleswitchlefthoffsetDefault = scaleswitchleft.hoffset;
-        var scaleswitchleftvoffsetDefault = scaleswitchleft.voffset;
-        var scaleswitchleftwidthDefault =  scaleswitchleft.width;
-        var scaleswitchleftheightDefault =  scaleswitchleft.height;
-
-        var thermometerRightSensorChar1hoffsetDefault = thermometerRightSensorChar1.hoffset;
-        var thermometerRightSensorChar1voffsetDefault = thermometerRightSensorChar1.voffset;
-        var thermometerRightSensorChar1widthDefault =  thermometerRightSensorChar1.width;
-        var thermometerRightSensorChar1heightDefault =  thermometerRightSensorChar1.height;
-
-        var thermometerRightSensorChar2hoffsetDefault = thermometerRightSensorChar2.hoffset;
-        var thermometerRightSensorChar2voffsetDefault = thermometerRightSensorChar2.voffset;
-        var thermometerRightSensorChar2widthDefault =  thermometerRightSensorChar2.width;
-        var thermometerRightSensorChar2heightDefault =  thermometerRightSensorChar2.height;
-
-        var thermometerRightSensorChar3hoffsetDefault = thermometerRightSensorChar3.hoffset;
-        var thermometerRightSensorChar3voffsetDefault = thermometerRightSensorChar3.voffset;
-        var thermometerRightSensorChar3widthDefault =  thermometerRightSensorChar3.width;
-        var thermometerRightSensorChar3heightDefault =  thermometerRightSensorChar3.height;
-
-        var thermometerRightSensorChar4hoffsetDefault = thermometerRightSensorChar4.hoffset;
-        var thermometerRightSensorChar4voffsetDefault = thermometerRightSensorChar4.voffset;
-        var thermometerRightSensorChar4widthDefault =  thermometerRightSensorChar4.width;
-        var thermometerRightSensorChar4heightDefault =  thermometerRightSensorChar4.height;
-
-        var thermometerRightSensorChar5hoffsetDefault = thermometerRightSensorChar5.hoffset;
-        var thermometerRightSensorChar5voffsetDefault = thermometerRightSensorChar5.voffset;
-        var thermometerRightSensorChar5widthDefault =  thermometerRightSensorChar5.width;
-        var thermometerRightSensorChar5heightDefault =  thermometerRightSensorChar5.height;
-
-        var thermometerLeftSensorChar1hoffsetDefault = thermometerLeftSensorChar1.hoffset;
-        var thermometerLeftSensorChar1voffsetDefault = thermometerLeftSensorChar1.voffset;
-        var thermometerLeftSensorChar1widthDefault =  thermometerLeftSensorChar1.width;
-        var thermometerLeftSensorChar1heightDefault =  thermometerLeftSensorChar1.height;
-
-        var thermometerLeftSensorChar2hoffsetDefault = thermometerLeftSensorChar2.hoffset;
-        var thermometerLeftSensorChar2voffsetDefault = thermometerLeftSensorChar2.voffset;
-        var thermometerLeftSensorChar2widthDefault =  thermometerLeftSensorChar2.width;
-        var thermometerLeftSensorChar2heightDefault =  thermometerLeftSensorChar2.height;
-
-        var thermometerLeftSensorChar3hoffsetDefault = thermometerLeftSensorChar3.hoffset;
-        var thermometerLeftSensorChar3voffsetDefault = thermometerLeftSensorChar3.voffset;
-        var thermometerLeftSensorChar3widthDefault =  thermometerLeftSensorChar3.width;
-        var thermometerLeftSensorChar3heightDefault =  thermometerLeftSensorChar3.height;
-
-        var thermometerLeftSensorChar4hoffsetDefault = thermometerLeftSensorChar4.hoffset;
-        var thermometerLeftSensorChar4voffsetDefault = thermometerLeftSensorChar4.voffset;
-        var thermometerLeftSensorChar4widthDefault =  thermometerLeftSensorChar4.width;
-        var thermometerLeftSensorChar4heightDefault =  thermometerLeftSensorChar4.height;
-
-        var thermometerLeftSensorChar5hoffsetDefault = thermometerLeftSensorChar5.hoffset;
-        var thermometerLeftSensorChar5voffsetDefault = thermometerLeftSensorChar5.voffset;
-        var thermometerLeftSensorChar5widthDefault =  thermometerLeftSensorChar5.width;
-        var thermometerLeftSensorChar5heightDefault =  thermometerLeftSensorChar5.height;
-
-        var gettingSpeedfanhoffsetDefault = gettingSpeedfan.hoffset;
-        var gettingSpeedfanvoffsetDefault = gettingSpeedfan.voffset;
-        var gettingSpeedfanwidthDefault =  gettingSpeedfan.width;
-        var gettingSpeedfanheightDefault =  gettingSpeedfan.height;
-
-        var sTogglehoffsetDefault = sToggle.hoffset;
-        var sTogglevoffsetDefault = sToggle.voffset;
-        var sTogglewidthDefault =  sToggle.width;
-        var sToggleheightDefault =  sToggle.height;
-
-        var speedfanNotFoundhoffsetDefault = speedfanNotFound.hoffset;
-        var speedfanNotFoundvoffsetDefault = speedfanNotFound.voffset;
-        var speedfanNotFoundwidthDefault =  speedfanNotFound.width;
-        var speedfanNotFoundheightDefault =  speedfanNotFound.height;
-
-        var waitmessagehoffsetDefault = waitmessage.hoffset;
-        var waitmessagevoffsetDefault = waitmessage.voffset;
-        var waitmessagewidthDefault =  waitmessage.width;
-        var waitmessageheightDefault =  waitmessage.height;
-
-        var paperhoffsetDefault = paper.hoffset;
-        var papervoffsetDefault = paper.voffset;
-        var paperwidthDefault =  paper.width;
-        var paperheightDefault =  paper.height;
-
-
-        var paperPullhoffsetDefault = paperPull.hoffset;
-        var paperPullvoffsetDefault = paperPull.voffset;
-        var paperPullwidthDefault =  paperPull.width;
-        var paperPullheightDefault =  paperPull.height;
-
-
-        var movinglineshoffsetDefault = movinglines.hoffset;
-        var movinglinesvoffsetDefault = movinglines.voffset;
-        var movinglineswidthDefault =  movinglines.width;
-        var movinglinesheightDefault =  movinglines.height;
-
-        var upperrightbrackethoffsetDefault = upperrightbracket.hoffset;
-        var upperrightbracketvoffsetDefault = upperrightbracket.voffset;
-        var upperrightbracketwidthDefault =  upperrightbracket.width;
-        var upperrightbracketheightDefault =  upperrightbracket.height;
-
-        var lowerrightbrackethoffsetDefault = lowerrightbracket.hoffset;
-        var lowerrightbracketvoffsetDefault = lowerrightbracket.voffset;
-        var lowerrightbracketwidthDefault =  lowerrightbracket.width;
-        var lowerrightbracketheightDefault =  lowerrightbracket.height;
-
-        var topbarhoffsetDefault = topbar.hoffset;
-        var topbarvoffsetDefault = topbar.voffset;
-        var topbarwidthDefault =  topbar.width;
-        var topbarheightDefault =  topbar.height;
-
-        var bottombarhoffsetDefault = bottombar.hoffset;
-        var bottombarvoffsetDefault = bottombar.voffset;
-        var bottombarwidthDefault =  bottombar.width;
-        var bottombarheightDefault =  bottombar.height;
-
-        var trunnionhoffsetDefault = trunnion.hoffset;
-        var trunnionvoffsetDefault = trunnion.voffset;
-        var trunnionwidthDefault =  trunnion.width;
-        var trunnionheightDefault =  trunnion.height;
-
-        var holehoffsetDefault = hole.hoffset;
-        var holevoffsetDefault = hole.voffset;
-        var holewidthDefault =  hole.width;
-        var holeheightDefault =  hole.height;
-
-        var bunchedLineshoffsetDefault = bunchedLines.hoffset;
-        var bunchedLinesvoffsetDefault = bunchedLines.voffset;
-        var bunchedLineswidthDefault =  bunchedLines.width;
-        var bunchedLinesheightDefault =  bunchedLines.height;
-
-        var verticalLineshoffsetDefault = verticalLines.hoffset;
-        var verticalLinesvoffsetDefault = verticalLines.voffset;
-        var verticalLineswidthDefault =  verticalLines.width;
-        var verticalLinesheightDefault =  verticalLines.height;
-
-        var rightScribeHeadhoffsetDefault = rightScribeHead.hoffset;
-        var rightScribeHeadvoffsetDefault = rightScribeHead.voffset;
-        var rightScribeHeadwidthDefault =  rightScribeHead.width;
-        var rightScribeHeadheightDefault =  rightScribeHead.height;
-
-        var rightScribeHeadShadowhoffsetDefault = rightScribeHeadShadow.hoffset;
-        var rightScribeHeadShadowvoffsetDefault = rightScribeHeadShadow.voffset;
-        var rightScribeHeadShadowwidthDefault =  rightScribeHeadShadow.width;
-        var rightScribeHeadShadowheightDefault =  rightScribeHeadShadow.height;
-
-        var longWirehoffsetDefault = longWire.hoffset;
-        var longWirevoffsetDefault = longWire.voffset;
-        var longWirewidthDefault =  longWire.width;
-        var longWireheightDefault =  longWire.height;
-
-        var scribeHeadNoWireTwohoffsetDefault = scribeHeadNoWireTwo.hoffset;
-        var scribeHeadNoWireTwovoffsetDefault = scribeHeadNoWireTwo.voffset;
-        var scribeHeadNoWireTwowidthDefault =  scribeHeadNoWireTwo.width;
-        var scribeHeadNoWireTwoheightDefault =  scribeHeadNoWireTwo.height;
-
-        var leftScribeTexthoffsetDefault = leftScribeText.hoffset;
-        var leftScribeTextvoffsetDefault = leftScribeText.voffset;
-        var leftScribeTextwidthDefault =  leftScribeText.width;
-        var leftScribeTextheightDefault =  leftScribeText.height;
-
-        var leftScribeTextShadowhoffsetDefault = leftScribeTextShadow.hoffset;
-        var leftScribeTextShadowvoffsetDefault = leftScribeTextShadow.voffset;
-        var leftScribeTextShadowwidthDefault =  leftScribeTextShadow.width;
-        var leftScribeTextShadowheightDefault =  leftScribeTextShadow.height;
-        var leftScribeTextShadowsizeDefault =  leftScribeTextShadow.size;
-
-        var rightScribeTexthoffsetDefault = rightScribeText.hoffset;
-        var rightScribeTextvoffsetDefault = rightScribeText.voffset;
-        var rightScribeTextwidthDefault =  rightScribeText.width;
-        var rightScribeTextheightDefault =  rightScribeText.height;
-        var rightScribeTextsizeDefault =  rightScribeText.size;
-
-        var rightScribeTextShadowhoffsetDefault = rightScribeTextShadow.hoffset;
-        var rightScribeTextShadowvoffsetDefault = rightScribeTextShadow.voffset;
-        var rightScribeTextShadowwidthDefault =  rightScribeTextShadow.width;
-        var rightScribeTextShadowheightDefault =  rightScribeTextShadow.height;
-
-        var scribeHeadNoWireOnehoffsetDefault = scribeHeadNoWireOne.hoffset;
-        var scribeHeadNoWireOnevoffsetDefault = scribeHeadNoWireOne.voffset;
-        var scribeHeadNoWireOnewidthDefault =  scribeHeadNoWireOne.width;
-        var scribeHeadNoWireOneheightDefault =  scribeHeadNoWireOne.height;
-
-        var shortWirehoffsetDefault = shortWire.hoffset;
-        var shortWirevoffsetDefault = shortWire.voffset;
-        var shortWirewidthDefault =  shortWire.width;
-        var shortWireheightDefault =  shortWire.height;
-
-        var leftScribeHeadhoffsetDefault = leftScribeHead.hoffset;
-        var leftScribeHeadvoffsetDefault = leftScribeHead.voffset;
-        var leftScribeHeadwidthDefault =  leftScribeHead.width;
-        var leftScribeHeadheightDefault =  leftScribeHead.height;
-
-        var leftScribeHeadShadowhoffsetDefault = leftScribeHeadShadow.hoffset;
-        var leftScribeHeadShadowvoffsetDefault = leftScribeHeadShadow.voffset;
-        var leftScribeHeadShadowwidthDefault =  leftScribeHeadShadow.width;
-        var leftScribeHeadShadowheightDefault =  leftScribeHeadShadow.height;
-
-        var stationerstexthoffsetDefault = stationerstext.hoffset;
-        var stationerstextvoffsetDefault = stationerstext.voffset;
-        var stationerstextwidthDefault =  stationerstext.width;
-        var stationerstextheightDefault =  stationerstext.height;
-
-        var woodSurroundhoffsetDefault = woodSurround.hoffset;
-        var woodSurroundvoffsetDefault = woodSurround.voffset;
-        var woodSurroundwidthDefault =  woodSurround.width;
-        var woodSurroundheightDefault =  woodSurround.height;
-
-        var hotSliderRighthoffsetDefault = hotSliderRight.hoffset;
-        var hotSliderRightvoffsetDefault = hotSliderRight.voffset;
-        var hotSliderRightwidthDefault =  hotSliderRight.width;
-        var hotSliderRightheightDefault =  hotSliderRight.height;
-
-        var hotSliderLefthoffsetDefault = hotSliderLeft.hoffset;
-        var hotSliderLeftvoffsetDefault = hotSliderLeft.voffset;
-        var hotSliderLeftwidthDefault =  hotSliderLeft.width;
-        var hotSliderLeftheightDefault =  hotSliderLeft.height;
-
-        var warmSliderRighthoffsetDefault = warmSliderRight.hoffset;
-        var warmSliderRightvoffsetDefault = warmSliderRight.voffset;
-        var warmSliderRightwidthDefault =  warmSliderRight.width;
-        var warmSliderRightheightDefault =  warmSliderRight.height;
-
-        var warmSliderLefthoffsetDefault = warmSliderLeft.hoffset;
-        var warmSliderLeftvoffsetDefault = warmSliderLeft.voffset;
-        var warmSliderLeftwidthDefault =  warmSliderLeft.width;
-        var warmSliderLeftheightDefault =  warmSliderLeft.height;
-
-
-        var righthottexthoffsetDefault = righthottext.hoffset;
-        var righthottextvoffsetDefault = righthottext.voffset;
-        var righthottextwidthDefault =  righthottext.width;
-        var righthottextheightDefault =  righthottext.height;
-
-        var rightwarmtexthoffsetDefault = rightwarmtext.hoffset;
-        var rightwarmtextvoffsetDefault = rightwarmtext.voffset;
-        var rightwarmtextwidthDefault =  rightwarmtext.width;
-        var rightwarmtextheightDefault =  rightwarmtext.height;
-
-        var leftwarmtexthoffsetDefault = leftwarmtext.hoffset;
-        var leftwarmtextvoffsetDefault = leftwarmtext.voffset;
-        var leftwarmtextwidthDefault =  leftwarmtext.width;
-        var leftwarmtextheightDefault =  leftwarmtext.height;
-
-        var lefthottexthoffsetDefault = lefthottext.hoffset;
-        var lefthottextvoffsetDefault = lefthottext.voffset;
-        var lefthottextwidthDefault =  lefthottext.width;
-        var lefthottextheightDefault =  lefthottext.height;
-
-        var cpuPlaquehoffsetDefault = cpuPlaque.hoffset;
-        var cpuPlaquevoffsetDefault = cpuPlaque.voffset;
-        var cpuPlaquewidthDefault =  cpuPlaque.width;
-        var cpuPlaqueheightDefault =  cpuPlaque.height;
-
-        var popupplaquehoffsetDefault = popupplaque.hoffset;
-        var popupplaquevoffsetDefault = popupplaque.voffset;
-        var popupplaquewidthDefault =  popupplaque.width;
-        var popupplaqueheightDefault =  popupplaque.height;
-
-        var thermometerLefthoffsetDefault = thermometerLeft.hoffset;
-        var thermometerLeftvoffsetDefault = thermometerLeft.voffset;
-        var thermometerLeftwidthDefault =  thermometerLeft.width;
-        var thermometerLeftheightDefault =  thermometerLeft.height;
-
-        var crankhoffsetDefault = crank.hoffset;
-        var crankvoffsetDefault = crank.voffset;
-        var crankwidthDefault =  crank.width;
-        var crankheightDefault =  crank.height;
-
-        var thermometerRighthoffsetDefault = thermometerRight.hoffset;
-        var thermometerRightvoffsetDefault = thermometerRight.voffset;
-        var thermometerRightwidthDefault =  thermometerRight.width;
-        var thermometerRightheightDefault =  thermometerRight.height;
-
-        var rightTemperatureMaxIndexhoffsetDefault = rightTemperatureMaxIndex.hoffset;
-        var rightTemperatureMaxIndexvoffsetDefault = rightTemperatureMaxIndex.voffset;
-        var rightTemperatureMaxIndexwidthDefault =  rightTemperatureMaxIndex.width;
-        var rightTemperatureMaxIndexheightDefault =  rightTemperatureMaxIndex.height;
-
-        var leftTemperatureMaxIndexhoffsetDefault = leftTemperatureMaxIndex.hoffset;
-        var leftTemperatureMaxIndexvoffsetDefault = leftTemperatureMaxIndex.voffset;
-        var leftTemperatureMaxIndexwidthDefault =  leftTemperatureMaxIndex.width;
-        var leftTemperatureMaxIndexheightDefault =  leftTemperatureMaxIndex.height;
-
-        var rightLamphoffsetDefault = rightLamp.hoffset;
-        var rightLampvoffsetDefault = rightLamp.voffset;
-        var rightLampwidthDefault =  rightLamp.width;
-        var rightLampheightDefault =  rightLamp.height;
-
-        var leftLamphoffsetDefault = leftLamp.hoffset;
-        var leftLampvoffsetDefault = leftLamp.voffset;
-        var leftLampwidthDefault =  leftLamp.width;
-        var leftLampheightDefault =  leftLamp.height;
-
-        var redLampFlashinghoffsetDefault = redLampFlashing.hoffset;
-        var redLampFlashingvoffsetDefault = redLampFlashing.voffset;
-        var redLampFlashingwidthDefault =  redLampFlashing.width;
-        var redLampFlashingheightDefault =  redLampFlashing.height;
-
-        var amberLamphoffsetDefault = amberLamp.hoffset;
-        var amberLampvoffsetDefault = amberLamp.voffset;
-        var amberLampwidthDefault =  amberLamp.width;
-        var amberLampheightDefault =  amberLamp.height;
-
-        var amberLampFlashinghoffsetDefault = amberLampFlashing.hoffset;
-        var amberLampFlashingvoffsetDefault = amberLampFlashing.voffset;
-        var amberLampFlashingwidthDefault =  amberLampFlashing.width;
-        var amberLampFlashingheightDefault =  amberLampFlashing.height;
-
-        var bellSethoffsetDefault = bellSet.hoffset;
-        var bellSetvoffsetDefault = bellSet.voffset;
-        var bellSetwidthDefault =  bellSet.width;
-        var bellSetheightDefault =  bellSet.height;
-
-        var hTogglehoffsetDefault = hToggle.hoffset;
-        var hTogglevoffsetDefault = hToggle.voffset;
-        var hTogglewidthDefault =  hToggle.width;
-        var hToggleheightDefault =  hToggle.height;
-
-        var screw1hoffsetDefault = screw1.hoffset;
-        var screw1voffsetDefault = screw1.voffset;
-        var screw1widthDefault =  screw1.width;
-        var screw1heightDefault =  screw1.height;
-
-        var screw2hoffsetDefault = screw2.hoffset;
-        var screw2voffsetDefault = screw2.voffset;
-        var screw2widthDefault =  screw2.width;
-        var screw2heightDefault =  screw2.height;
-
-        var clapperhoffsetDefault = clapper.hoffset;
-        var clappervoffsetDefault = clapper.voffset;
-        var clapperwidthDefault =  clapper.width;
-        var clapperheightDefault =  clapper.height;
-
-        var ClapperRotatedhoffsetDefault = ClapperRotated.hoffset;
-        var ClapperRotatedvoffsetDefault = ClapperRotated.voffset;
-        var ClapperRotatedwidthDefault =  ClapperRotated.width;
-        var ClapperRotatedheightDefault =  ClapperRotated.height;
-
-        var speedfanindicatorredglowinghoffsetDefault = speedfanindicatorredglowing.hoffset;
-        var speedfanindicatorredglowingvoffsetDefault = speedfanindicatorredglowing.voffset;
-        var speedfanindicatorredglowingwidthDefault =  speedfanindicatorredglowing.width;
-        var speedfanindicatorredglowingheightDefault =  speedfanindicatorredglowing.height;
-
-        var speedfanindicatorredhoffsetDefault = speedfanindicatorred.hoffset;
-        var speedfanindicatorredvoffsetDefault = speedfanindicatorred.voffset;
-        var speedfanindicatorredwidthDefault =  speedfanindicatorred.width;
-        var speedfanindicatorredheightDefault =  speedfanindicatorred.height;
-
-        var speedfanindicatorhoffsetDefault = speedfanindicator.hoffset;
-        var speedfanindicatorvoffsetDefault = speedfanindicator.voffset;
-        var speedfanindicatorwidthDefault =  speedfanindicator.width;
-        var speedfanindicatorheightDefault =  speedfanindicator.height;
-
-        var frequencySliderhoffsetDefault = frequencySlider.hoffset;
-        var frequencySlidervoffsetDefault = frequencySlider.voffset;
-        var frequencySliderwidthDefault =  frequencySlider.width;
-        var frequencySliderheightDefault =  frequencySlider.height;
-
-        var ovalSliderhoffsetDefault = ovalSlider.hoffset;
-        var ovalSlidervoffsetDefault = ovalSlider.voffset;
-        var ovalSliderwidthDefault =  ovalSlider.width;
-        var ovalSliderheightDefault =  ovalSlider.height;
-
-        var redMercuryLefthoffsetDefault = redMercuryLeft.hoffset;
-        var redMercuryLeftvoffsetDefault = redMercuryLeft.voffset;
-        var redMercuryLeftwidthDefault =  redMercuryLeft.width;
-        var redMercuryLeftheightDefault =  redMercuryLeft.height;
-
-        var redMercuryRighthoffsetDefault = redMercuryRight.hoffset;
-        var redMercuryRightvoffsetDefault = redMercuryRight.voffset;
-        var redMercuryRightwidthDefault =  redMercuryRight.width;
-        var redMercuryRightheightDefault =  redMercuryRight.height;
-
-        var stretcherhoffsetDefault = stretcher.hoffset;
-        var stretchervoffsetDefault = stretcher.voffset;
-        var stretcherwidthDefault =  stretcher.width;
-        var stretcherheightDefault =  stretcher.height;
-
-        var thermometersHelpPageFronthoffsetDefault = thermometersHelpPageFront.hoffset;
-        var thermometersHelpPageFrontvoffsetDefault = thermometersHelpPageFront.voffset;
-        var thermometersHelpPageFrontwidthDefault =  thermometersHelpPageFront.width;
-        var thermometersHelpPageFrontheightDefault =  thermometersHelpPageFront.height;
-
-        var currIcon="Resources/dockIcon.png";
-        var aspectRatio = "none";
-
-
-var debugFlg = "";
+    var leftScribeRgbCol = null;
+    var rightScribeRgbCol = null;
+    var hsb = new Array(3);
+
+    var nCharCode=null;
+    var leftTraceHue =null;
+    var rightTraceHue =null;
+
+    var traceOffset = 0;
+    var arrayLength = 120;
+    var leftTempArray = new Array(arrayLength);
+    var rightTempArray = new Array(arrayLength);
+    var tempStorageArrayPosition = 1;
+
+    var frame = mainFrame;
+    var canvasTop = 1;
+    var canvasLeft = 185;
+    var canvasWidth = 480;
+    var canvasHeight = 305;
+
+    var canvasOne = newCanvas(canvasLeft, canvasTop, canvasWidth, canvasHeight, 0);
+    frame.appendChild(canvasOne);
+    ctx = canvasOne.getContext( "2d" );
+    canvasOne.visible = true;
+
+    var canvasTwo = newCanvas(canvasLeft, canvasTop, canvasWidth, canvasHeight, 0);
+    frame.appendChild(canvasTwo);
+    canvasTwo.visible = true;
+
+    var canvasThree = newCanvas(canvasLeft, canvasTop, canvasWidth, canvasHeight, 0);
+    frame.appendChild(canvasThree);
+    canvasThree.visible = true;
+
+    var usteamstate = 1;
+    var lsteamstate = 1;
+
+    var busyCounter = 1;
+    var useCanvas = 1;
+
+    var verticalplot1 = null;
+    var verticalplot2 = null;
+    var horizontalAdjust = null;
+    var lineColour = null;
+    var thick = null;
+
+    // Do this once to extract the file to the Widget's data folder.
+    var tempmonitor = widget.extractFile("Resources/tempmonitor");
+    var speedFanExePath = widget.extractFile("Resources/speedfanreader.exe");
+    var widgetName = "Steampunk CPU_GPU Speedfan Thermometer.widget";
+
+    var thermometerScale = null;
+
+    var printer = "showing";
+    //var verticallineshoffset = 31;
+    //var movinglineshoffset = 216;
+    var helpdropdownactiveFlg = false;
+
+    var sensorcount = 0;
+
+    var sensorName = new Array();
+    var SensorTemp = new Array();
+    var leftmenuitems = new Array();
+    var rightmenuitems = new Array();
+    var upper1MenuItems = new Array();
+    var upper2MenuItems = new Array();
+    var lower1MenuItems = new Array();
+    var lower2MenuItems = new Array();
+    var selectedLeftSensor = new Array();
+    var selectedRightSensor = new Array();
+    var selectedUpper1Sensor = new Array();
+    var selectedUpper2Sensor = new Array();
+    var selectedlower1Sensor = new Array();
+    var selectedlower2Sensor = new Array();
+    var noofsensors = 8;
+    var getSensorList = 0;
+    var  currentLeftSensor = 1;
+    var  currentRightSensor = 5;
+    var  currentUpper1Sensor = 2;
+    var  currentUpper2Sensor = 2;
+    var  currentlower1Sensor = 2;
+    var  currentlower2Sensor = 2;
+
+    var leftmenunameitems = new Array();
+    var rightmenunameitems = new Array();
+    var selectedLeftSensorName = new Array();
+    var selectedRightSensorName  = new Array();
+    var currentLeftSensorName = 1;
+    var currentRightSensorName = 5;
+    var currentUpper1SensorName = 3;
+    var currentUpper2SensorName = 4;
+
+    var currentLeftSensorNameText ="Core 0";
+    var currentRightSensorNameText ="GPU";
+    var currentUpper1SensorNameText ="HD0";
+    var currentUpper2SensorNameText ="HD0";
+    var currentlower1SensorNameText ="HD1";
+    var currentlower2SensorNameText ="HD1";
+
+    var speedfanflag = "unknown";
+    var PreviousredMercuryLeftvoffset= 250;
+    var PreviousredMercuryRightvoffset= 250;
+    var hotSliderLeftclicked = "false";
+    var hotSliderRighttclicked = "false";
+
+    var leftTemperatureMax = 0;
+    var rightTemperatureMax = 0;
+    var upper1TemperatureMax = 0;
+    var upper2TemperatureMax = 0;
+    var lower1TemperatureMax = 0;
+    var lower2TemperatureMax = 0;
+    var leftTemperature = 0;
+    var rightTemperature = 0;
+    var upper1Temperature = 0;
+    var upper2Temperature = 0;
+    var lower1Temperature = 0;
+    var lower2Temperature = 0;
+
+
+
+    // sound variables
+
+    var steamsound ="Resources/steamsound.mp3";
+    var electricDrone ="Resources/electricDrone.mp3";
+    var rollerblindup ="Resources/rollerblind-up.mp3";
+    var rollerblinddown ="Resources/rollerblind-down.mp3";
+    var clunk = "Resources/clunk.mp3";
+    var cranksound = "Resources/crank.mp3";
+    var newclunk = "Resources/newclunk.mp3";
+    var draw = "Resources/draw.mp3";
+    var zzzz = "Resources/zzzz.mp3";
+    var sparks = "Resources/sparks.mp3";
+    var relay = "Resources/relay.mp3";
+    var slider = "Resources/slider.mp3" ;
+    var mechanism = "Resources/mechanism.mp3" ;
+    var singleBell = "Resources/singleBell.mp3" ;
+    var alarmbells = "Resources/singleBell.mp3" ;
+    var ting = "Resources/ting.mp3" ;
+    var lock = "Resources/lock.mp3" ;
+    var pop = "Resources/pop.mp3" ;
+
+    //resizing variables
+
+    var mainWindowwidthDefault  = mainWindow.width;
+    var mainWindowheightDefault = mainWindow.height;
+
+    // waitmessage
+    // movinglines.png
+
+    var thermometersHelpPagehoffsetDefault = thermometersHelpPage.hoffset;
+    var thermometersHelpPagevoffsetDefault = thermometersHelpPage.voffset;
+    var thermometersHelpPagewidthDefault =  thermometersHelpPage.width;
+    var thermometersHelpPageheightDefault =  thermometersHelpPage.height;
+
+    var lower1PointerhoffsetDefault = lower1Pointer.hoffset;
+    var lower1PointervoffsetDefault = lower1Pointer.voffset;
+    var lower1PointerwidthDefault =  lower1Pointer.width;
+    var lower1PointerheightDefault =  lower1Pointer.height;
+    var lower1PointerhRegistrationPointDefault =  lower1Pointer.hRegistrationPoint;
+    var lower1PointervRegistrationPointDefault =  lower1Pointer.vRegistrationPoint;
+
+    var lower2PointerhoffsetDefault = lower2Pointer.hoffset;
+    var lower2PointervoffsetDefault = lower2Pointer.voffset;
+    var lower2PointerwidthDefault =  lower2Pointer.width;
+    var lower2PointerheightDefault =  lower2Pointer.height;
+    var lower2PointerhRegistrationPointDefault =  lower2Pointer.hRegistrationPoint;
+    var lower2PointervRegistrationPointDefault =  lower2Pointer.vRegistrationPoint;
+
+    var upper1PointerhoffsetDefault = upper1Pointer.hoffset;
+    var upper1PointervoffsetDefault = upper1Pointer.voffset;
+    var upper1PointerwidthDefault =  upper1Pointer.width;
+    var upper1PointerheightDefault =  upper1Pointer.height;
+    var upper1PointerhRegistrationPointDefault =  upper1Pointer.hRegistrationPoint;
+    var upper1PointervRegistrationPointDefault =  upper1Pointer.vRegistrationPoint;
+
+    var upper2PointerhoffsetDefault = upper2Pointer.hoffset;
+    var upper2PointervoffsetDefault = upper2Pointer.voffset;
+    var upper2PointerwidthDefault =   upper2Pointer.width;
+    var upper2PointerheightDefault =  upper2Pointer.height;
+    var upper2PointerhRegistrationPointDefault =  upper2Pointer.hRegistrationPoint;
+    var upper2PointervRegistrationPointDefault =  upper2Pointer.vRegistrationPoint;
+
+    var steamhoffsetDefault = steam.hoffset;
+    var steamvoffsetDefault = steam.voffset;
+    var steamwidthDefault =   steam.width;
+    var steamheightDefault =  steam.height;
+
+    var valvehoffsetDefault = valve.hoffset;
+    var valvevoffsetDefault = valve.voffset;
+    var valvewidthDefault =   valve.width;
+    var valveheightDefault =  valve.height;
+
+    var valve2hoffsetDefault = valve2.hoffset;
+    var valve2voffsetDefault = valve2.voffset;
+    var valve2widthDefault =   valve2.width;
+    var valve2heightDefault =  valve2.height;
+
+    //        var resizingValvehoffsetDefault = resizingValve.hoffset;
+    //        var resizingValvevoffsetDefault = resizingValve.voffset;
+    //        var resizingValvewidthDefault =   resizingValve.width;
+    //        var resizingValveheightDefault =  resizingValve.height;
+
+    var memTaphoffsetDefault = memTap.hoffset;
+    var memTapvoffsetDefault = memTap.voffset;
+    var memTapwidthDefault =   memTap.width;
+    var memTapheightDefault =  memTap.height;
+
+    var upper1GaugeSensorChar1hoffsetDefault = upper1GaugeSensorChar1.hoffset;
+    var upper1GaugeSensorChar1voffsetDefault = upper1GaugeSensorChar1.voffset;
+    var upper1GaugeSensorChar1widthDefault =   upper1GaugeSensorChar1.width;
+    var upper1GaugeSensorChar1heightDefault =  upper1GaugeSensorChar1.height;
+
+    var upper1GaugeSensorChar2hoffsetDefault = upper1GaugeSensorChar2.hoffset;
+    var upper1GaugeSensorChar2voffsetDefault = upper1GaugeSensorChar2.voffset;
+    var upper1GaugeSensorChar2widthDefault =   upper1GaugeSensorChar2.width;
+    var upper1GaugeSensorChar2heightDefault =  upper1GaugeSensorChar2.height;
+
+    var upper1GaugeSensorChar3hoffsetDefault = upper1GaugeSensorChar3.hoffset;
+    var upper1GaugeSensorChar3voffsetDefault = upper1GaugeSensorChar3.voffset;
+    var upper1GaugeSensorChar3widthDefault =   upper1GaugeSensorChar3.width;
+    var upper1GaugeSensorChar3heightDefault =  upper1GaugeSensorChar3.height;
+
+    var upper1GaugeSensorChar4hoffsetDefault = upper1GaugeSensorChar4.hoffset;
+    var upper1GaugeSensorChar4voffsetDefault = upper1GaugeSensorChar4.voffset;
+    var upper1GaugeSensorChar4widthDefault =   upper1GaugeSensorChar4.width;
+    var upper1GaugeSensorChar4heightDefault =  upper1GaugeSensorChar4.height;
+
+    var upper1GaugeSensorChar5hoffsetDefault = upper1GaugeSensorChar5.hoffset;
+    var upper1GaugeSensorChar5voffsetDefault = upper1GaugeSensorChar5.voffset;
+    var upper1GaugeSensorChar5widthDefault =   upper1GaugeSensorChar5.width;
+    var upper1GaugeSensorChar5heightDefault =  upper1GaugeSensorChar5.height;
+
+
+    var upper2GaugeSensorChar1hoffsetDefault = upper2GaugeSensorChar1.hoffset;
+    var upper2GaugeSensorChar1voffsetDefault = upper2GaugeSensorChar1.voffset;
+    var upper2GaugeSensorChar1widthDefault =   upper2GaugeSensorChar1.width;
+    var upper2GaugeSensorChar1heightDefault =  upper2GaugeSensorChar1.height;
+
+    var upper2GaugeSensorChar2hoffsetDefault = upper2GaugeSensorChar2.hoffset;
+    var upper2GaugeSensorChar2voffsetDefault = upper2GaugeSensorChar2.voffset;
+    var upper2GaugeSensorChar2widthDefault =   upper2GaugeSensorChar2.width;
+    var upper2GaugeSensorChar2heightDefault =  upper2GaugeSensorChar2.height;
+
+    var upper2GaugeSensorChar3hoffsetDefault = upper2GaugeSensorChar3.hoffset;
+    var upper2GaugeSensorChar3voffsetDefault = upper2GaugeSensorChar3.voffset;
+    var upper2GaugeSensorChar3widthDefault =   upper2GaugeSensorChar3.width;
+    var upper2GaugeSensorChar3heightDefault =  upper2GaugeSensorChar3.height;
+
+    var upper2GaugeSensorChar4hoffsetDefault = upper2GaugeSensorChar4.hoffset;
+    var upper2GaugeSensorChar4voffsetDefault = upper2GaugeSensorChar4.voffset;
+    var upper2GaugeSensorChar4widthDefault =   upper2GaugeSensorChar4.width;
+    var upper2GaugeSensorChar4heightDefault =  upper2GaugeSensorChar4.height;
+
+    var upper2GaugeSensorChar5hoffsetDefault = upper2GaugeSensorChar5.hoffset;
+    var upper2GaugeSensorChar5voffsetDefault = upper2GaugeSensorChar5.voffset;
+    var upper2GaugeSensorChar5widthDefault =   upper2GaugeSensorChar5.width;
+    var upper2GaugeSensorChar5heightDefault =  upper2GaugeSensorChar5.height;
+
+    var lower1GaugeSensorChar1hoffsetDefault = lower1GaugeSensorChar1.hoffset;
+    var lower1GaugeSensorChar1voffsetDefault = lower1GaugeSensorChar1.voffset;
+    var lower1GaugeSensorChar1widthDefault =   lower1GaugeSensorChar1.width;
+    var lower1GaugeSensorChar1heightDefault =  lower1GaugeSensorChar1.height;
+
+    var lower1GaugeSensorChar2hoffsetDefault = lower1GaugeSensorChar2.hoffset;
+    var lower1GaugeSensorChar2voffsetDefault = lower1GaugeSensorChar2.voffset;
+    var lower1GaugeSensorChar2widthDefault =   lower1GaugeSensorChar2.width;
+    var lower1GaugeSensorChar2heightDefault =  lower1GaugeSensorChar2.height;
+
+    var lower1GaugeSensorChar3hoffsetDefault = lower1GaugeSensorChar3.hoffset;
+    var lower1GaugeSensorChar3voffsetDefault = lower1GaugeSensorChar3.voffset;
+    var lower1GaugeSensorChar3widthDefault =   lower1GaugeSensorChar3.width;
+    var lower1GaugeSensorChar3heightDefault =  lower1GaugeSensorChar3.height;
+
+    var lower1GaugeSensorChar4hoffsetDefault = lower1GaugeSensorChar4.hoffset;
+    var lower1GaugeSensorChar4voffsetDefault = lower1GaugeSensorChar4.voffset;
+    var lower1GaugeSensorChar4widthDefault =   lower1GaugeSensorChar4.width;
+    var lower1GaugeSensorChar4heightDefault =  lower1GaugeSensorChar4.height;
+
+    var lower1GaugeSensorChar5hoffsetDefault = lower1GaugeSensorChar5.hoffset;
+    var lower1GaugeSensorChar5voffsetDefault = lower1GaugeSensorChar5.voffset;
+    var lower1GaugeSensorChar5widthDefault =   lower1GaugeSensorChar5.width;
+    var lower1GaugeSensorChar5heightDefault =  lower1GaugeSensorChar5.height;
+
+
+    var lower2GaugeSensorChar1hoffsetDefault = lower2GaugeSensorChar1.hoffset;
+    var lower2GaugeSensorChar1voffsetDefault = lower2GaugeSensorChar1.voffset;
+    var lower2GaugeSensorChar1widthDefault =   lower2GaugeSensorChar1.width;
+    var lower2GaugeSensorChar1heightDefault =  lower2GaugeSensorChar1.height;
+
+    var lower2GaugeSensorChar2hoffsetDefault = lower2GaugeSensorChar2.hoffset;
+    var lower2GaugeSensorChar2voffsetDefault = lower2GaugeSensorChar2.voffset;
+    var lower2GaugeSensorChar2widthDefault =   lower2GaugeSensorChar2.width;
+    var lower2GaugeSensorChar2heightDefault =  lower2GaugeSensorChar2.height;
+
+    var lower2GaugeSensorChar3hoffsetDefault = lower2GaugeSensorChar3.hoffset;
+    var lower2GaugeSensorChar3voffsetDefault = lower2GaugeSensorChar3.voffset;
+    var lower2GaugeSensorChar3widthDefault =   lower2GaugeSensorChar3.width;
+    var lower2GaugeSensorChar3heightDefault =  lower2GaugeSensorChar3.height;
+
+    var lower2GaugeSensorChar4hoffsetDefault = lower2GaugeSensorChar4.hoffset;
+    var lower2GaugeSensorChar4voffsetDefault = lower2GaugeSensorChar4.voffset;
+    var lower2GaugeSensorChar4widthDefault =   lower2GaugeSensorChar4.width;
+    var lower2GaugeSensorChar4heightDefault =  lower2GaugeSensorChar4.height;
+
+    var lower2GaugeSensorChar5hoffsetDefault = lower2GaugeSensorChar5.hoffset;
+    var lower2GaugeSensorChar5voffsetDefault = lower2GaugeSensorChar5.voffset;
+    var lower2GaugeSensorChar5widthDefault =   lower2GaugeSensorChar5.width;
+    var lower2GaugeSensorChar5heightDefault =  lower2GaugeSensorChar5.height;
+
+    var leftscalehoffsetDefault = leftscale.hoffset;
+    var leftscalevoffsetDefault = leftscale.voffset;
+    var leftscalewidthDefault =  leftscale.width;
+    var leftscaleheightDefault =  leftscale.height;
+
+    var rightscalehoffsetDefault = rightscale.hoffset;
+    var rightscalevoffsetDefault = rightscale.voffset;
+    var rightscalewidthDefault =  rightscale.width;
+    var rightscaleheightDefault =  rightscale.height;
+
+    var stanchionhoffsetDefault = stanchion.hoffset;
+    var stanchionvoffsetDefault = stanchion.voffset;
+    var stanchionwidthDefault =  stanchion.width;
+    var stanchionheightDefault =  stanchion.height;
+
+    var upper1GaugehoffsetDefault = upper1Gauge.hoffset;
+    var upper1GaugevoffsetDefault = upper1Gauge.voffset;
+    var upper1GaugewidthDefault =  upper1Gauge.width;
+    var upper1GaugeheightDefault =  upper1Gauge.height;
+
+    var upper2GaugeLabelhoffsetDefault = upper2GaugeLabel.hoffset;
+    var upper2GaugeLabelvoffsetDefault = upper2GaugeLabel.voffset;
+    var upper2GaugeLabelwidthDefault =  upper2GaugeLabel.width;
+    var upper2GaugeLabelheightDefault =  upper2GaugeLabel.height;
+
+    var upper2GaugehoffsetDefault = upper2Gauge.hoffset;
+    var upper2GaugevoffsetDefault = upper2Gauge.voffset;
+    var upper2GaugewidthDefault =  upper2Gauge.width;
+    var upper2GaugeheightDefault =  upper2Gauge.height;
+
+    var lower1GaugehoffsetDefault = lower1Gauge.hoffset;
+    var lower1GaugevoffsetDefault = lower1Gauge.voffset;
+    var lower1GaugewidthDefault =  lower1Gauge.width;
+    var lower1GaugeheightDefault =  lower1Gauge.height;
+
+    var lower2GaugehoffsetDefault = lower2Gauge.hoffset;
+    var lower2GaugevoffsetDefault = lower2Gauge.voffset;
+    var lower2GaugewidthDefault =  lower2Gauge.width;
+    var lower2GaugeheightDefault =  lower2Gauge.height;
+
+    var rTogglehoffsetDefault = rToggle.hoffset;
+    var rTogglevoffsetDefault = rToggle.voffset;
+    var rTogglewidthDefault =  rToggle.width;
+    var rToggleheightDefault =  rToggle.height;
+
+    var mTogglehoffsetDefault = mToggle.hoffset;
+    var mTogglevoffsetDefault = mToggle.voffset;
+    var mTogglewidthDefault =  mToggle.width;
+    var mToggleheightDefault =  mToggle.height;
+
+    var scaleswitchrighthoffsetDefault = scaleswitchright.hoffset;
+    var scaleswitchrightvoffsetDefault = scaleswitchright.voffset;
+    var scaleswitchrightwidthDefault =  scaleswitchright.width;
+    var scaleswitchrightheightDefault =  scaleswitchright.height;
+
+    var scaleswitchlefthoffsetDefault = scaleswitchleft.hoffset;
+    var scaleswitchleftvoffsetDefault = scaleswitchleft.voffset;
+    var scaleswitchleftwidthDefault =  scaleswitchleft.width;
+    var scaleswitchleftheightDefault =  scaleswitchleft.height;
+
+    var thermometerRightSensorChar1hoffsetDefault = thermometerRightSensorChar1.hoffset;
+    var thermometerRightSensorChar1voffsetDefault = thermometerRightSensorChar1.voffset;
+    var thermometerRightSensorChar1widthDefault =  thermometerRightSensorChar1.width;
+    var thermometerRightSensorChar1heightDefault =  thermometerRightSensorChar1.height;
+
+    var thermometerRightSensorChar2hoffsetDefault = thermometerRightSensorChar2.hoffset;
+    var thermometerRightSensorChar2voffsetDefault = thermometerRightSensorChar2.voffset;
+    var thermometerRightSensorChar2widthDefault =  thermometerRightSensorChar2.width;
+    var thermometerRightSensorChar2heightDefault =  thermometerRightSensorChar2.height;
+
+    var thermometerRightSensorChar3hoffsetDefault = thermometerRightSensorChar3.hoffset;
+    var thermometerRightSensorChar3voffsetDefault = thermometerRightSensorChar3.voffset;
+    var thermometerRightSensorChar3widthDefault =  thermometerRightSensorChar3.width;
+    var thermometerRightSensorChar3heightDefault =  thermometerRightSensorChar3.height;
+
+    var thermometerRightSensorChar4hoffsetDefault = thermometerRightSensorChar4.hoffset;
+    var thermometerRightSensorChar4voffsetDefault = thermometerRightSensorChar4.voffset;
+    var thermometerRightSensorChar4widthDefault =  thermometerRightSensorChar4.width;
+    var thermometerRightSensorChar4heightDefault =  thermometerRightSensorChar4.height;
+
+    var thermometerRightSensorChar5hoffsetDefault = thermometerRightSensorChar5.hoffset;
+    var thermometerRightSensorChar5voffsetDefault = thermometerRightSensorChar5.voffset;
+    var thermometerRightSensorChar5widthDefault =  thermometerRightSensorChar5.width;
+    var thermometerRightSensorChar5heightDefault =  thermometerRightSensorChar5.height;
+
+    var thermometerLeftSensorChar1hoffsetDefault = thermometerLeftSensorChar1.hoffset;
+    var thermometerLeftSensorChar1voffsetDefault = thermometerLeftSensorChar1.voffset;
+    var thermometerLeftSensorChar1widthDefault =  thermometerLeftSensorChar1.width;
+    var thermometerLeftSensorChar1heightDefault =  thermometerLeftSensorChar1.height;
+
+    var thermometerLeftSensorChar2hoffsetDefault = thermometerLeftSensorChar2.hoffset;
+    var thermometerLeftSensorChar2voffsetDefault = thermometerLeftSensorChar2.voffset;
+    var thermometerLeftSensorChar2widthDefault =  thermometerLeftSensorChar2.width;
+    var thermometerLeftSensorChar2heightDefault =  thermometerLeftSensorChar2.height;
+
+    var thermometerLeftSensorChar3hoffsetDefault = thermometerLeftSensorChar3.hoffset;
+    var thermometerLeftSensorChar3voffsetDefault = thermometerLeftSensorChar3.voffset;
+    var thermometerLeftSensorChar3widthDefault =  thermometerLeftSensorChar3.width;
+    var thermometerLeftSensorChar3heightDefault =  thermometerLeftSensorChar3.height;
+
+    var thermometerLeftSensorChar4hoffsetDefault = thermometerLeftSensorChar4.hoffset;
+    var thermometerLeftSensorChar4voffsetDefault = thermometerLeftSensorChar4.voffset;
+    var thermometerLeftSensorChar4widthDefault =  thermometerLeftSensorChar4.width;
+    var thermometerLeftSensorChar4heightDefault =  thermometerLeftSensorChar4.height;
+
+    var thermometerLeftSensorChar5hoffsetDefault = thermometerLeftSensorChar5.hoffset;
+    var thermometerLeftSensorChar5voffsetDefault = thermometerLeftSensorChar5.voffset;
+    var thermometerLeftSensorChar5widthDefault =  thermometerLeftSensorChar5.width;
+    var thermometerLeftSensorChar5heightDefault =  thermometerLeftSensorChar5.height;
+
+    var gettingSpeedfanhoffsetDefault = gettingSpeedfan.hoffset;
+    var gettingSpeedfanvoffsetDefault = gettingSpeedfan.voffset;
+    var gettingSpeedfanwidthDefault =  gettingSpeedfan.width;
+    var gettingSpeedfanheightDefault =  gettingSpeedfan.height;
+
+    var sTogglehoffsetDefault = sToggle.hoffset;
+    var sTogglevoffsetDefault = sToggle.voffset;
+    var sTogglewidthDefault =  sToggle.width;
+    var sToggleheightDefault =  sToggle.height;
+
+    var speedfanNotFoundhoffsetDefault = speedfanNotFound.hoffset;
+    var speedfanNotFoundvoffsetDefault = speedfanNotFound.voffset;
+    var speedfanNotFoundwidthDefault =  speedfanNotFound.width;
+    var speedfanNotFoundheightDefault =  speedfanNotFound.height;
+
+    var waitmessagehoffsetDefault = waitmessage.hoffset;
+    var waitmessagevoffsetDefault = waitmessage.voffset;
+    var waitmessagewidthDefault =  waitmessage.width;
+    var waitmessageheightDefault =  waitmessage.height;
+
+    var paperhoffsetDefault = paper.hoffset;
+    var papervoffsetDefault = paper.voffset;
+    var paperwidthDefault =  paper.width;
+    var paperheightDefault =  paper.height;
+
+
+    var paperPullhoffsetDefault = paperPull.hoffset;
+    var paperPullvoffsetDefault = paperPull.voffset;
+    var paperPullwidthDefault =  paperPull.width;
+    var paperPullheightDefault =  paperPull.height;
+
+
+    var movinglineshoffsetDefault = movinglines.hoffset;
+    var movinglinesvoffsetDefault = movinglines.voffset;
+    var movinglineswidthDefault =  movinglines.width;
+    var movinglinesheightDefault =  movinglines.height;
+
+    var upperrightbrackethoffsetDefault = upperrightbracket.hoffset;
+    var upperrightbracketvoffsetDefault = upperrightbracket.voffset;
+    var upperrightbracketwidthDefault =  upperrightbracket.width;
+    var upperrightbracketheightDefault =  upperrightbracket.height;
+
+    var lowerrightbrackethoffsetDefault = lowerrightbracket.hoffset;
+    var lowerrightbracketvoffsetDefault = lowerrightbracket.voffset;
+    var lowerrightbracketwidthDefault =  lowerrightbracket.width;
+    var lowerrightbracketheightDefault =  lowerrightbracket.height;
+
+    var topbarhoffsetDefault = topbar.hoffset;
+    var topbarvoffsetDefault = topbar.voffset;
+    var topbarwidthDefault =  topbar.width;
+    var topbarheightDefault =  topbar.height;
+
+    var bottombarhoffsetDefault = bottombar.hoffset;
+    var bottombarvoffsetDefault = bottombar.voffset;
+    var bottombarwidthDefault =  bottombar.width;
+    var bottombarheightDefault =  bottombar.height;
+
+    var trunnionhoffsetDefault = trunnion.hoffset;
+    var trunnionvoffsetDefault = trunnion.voffset;
+    var trunnionwidthDefault =  trunnion.width;
+    var trunnionheightDefault =  trunnion.height;
+
+    var holehoffsetDefault = hole.hoffset;
+    var holevoffsetDefault = hole.voffset;
+    var holewidthDefault =  hole.width;
+    var holeheightDefault =  hole.height;
+
+    var bunchedLineshoffsetDefault = bunchedLines.hoffset;
+    var bunchedLinesvoffsetDefault = bunchedLines.voffset;
+    var bunchedLineswidthDefault =  bunchedLines.width;
+    var bunchedLinesheightDefault =  bunchedLines.height;
+
+    var verticalLineshoffsetDefault = verticalLines.hoffset;
+    var verticalLinesvoffsetDefault = verticalLines.voffset;
+    var verticalLineswidthDefault =  verticalLines.width;
+    var verticalLinesheightDefault =  verticalLines.height;
+
+    var rightScribeHeadhoffsetDefault = rightScribeHead.hoffset;
+    var rightScribeHeadvoffsetDefault = rightScribeHead.voffset;
+    var rightScribeHeadwidthDefault =  rightScribeHead.width;
+    var rightScribeHeadheightDefault =  rightScribeHead.height;
+
+    var rightScribeHeadShadowhoffsetDefault = rightScribeHeadShadow.hoffset;
+    var rightScribeHeadShadowvoffsetDefault = rightScribeHeadShadow.voffset;
+    var rightScribeHeadShadowwidthDefault =  rightScribeHeadShadow.width;
+    var rightScribeHeadShadowheightDefault =  rightScribeHeadShadow.height;
+
+    var longWirehoffsetDefault = longWire.hoffset;
+    var longWirevoffsetDefault = longWire.voffset;
+    var longWirewidthDefault =  longWire.width;
+    var longWireheightDefault =  longWire.height;
+
+    var scribeHeadNoWireTwohoffsetDefault = scribeHeadNoWireTwo.hoffset;
+    var scribeHeadNoWireTwovoffsetDefault = scribeHeadNoWireTwo.voffset;
+    var scribeHeadNoWireTwowidthDefault =  scribeHeadNoWireTwo.width;
+    var scribeHeadNoWireTwoheightDefault =  scribeHeadNoWireTwo.height;
+
+    var leftScribeTexthoffsetDefault = leftScribeText.hoffset;
+    var leftScribeTextvoffsetDefault = leftScribeText.voffset;
+    var leftScribeTextwidthDefault =  leftScribeText.width;
+    var leftScribeTextheightDefault =  leftScribeText.height;
+
+    var leftScribeTextShadowhoffsetDefault = leftScribeTextShadow.hoffset;
+    var leftScribeTextShadowvoffsetDefault = leftScribeTextShadow.voffset;
+    var leftScribeTextShadowwidthDefault =  leftScribeTextShadow.width;
+    var leftScribeTextShadowheightDefault =  leftScribeTextShadow.height;
+    var leftScribeTextShadowsizeDefault =  leftScribeTextShadow.size;
+
+    var rightScribeTexthoffsetDefault = rightScribeText.hoffset;
+    var rightScribeTextvoffsetDefault = rightScribeText.voffset;
+    var rightScribeTextwidthDefault =  rightScribeText.width;
+    var rightScribeTextheightDefault =  rightScribeText.height;
+    var rightScribeTextsizeDefault =  rightScribeText.size;
+
+    var rightScribeTextShadowhoffsetDefault = rightScribeTextShadow.hoffset;
+    var rightScribeTextShadowvoffsetDefault = rightScribeTextShadow.voffset;
+    var rightScribeTextShadowwidthDefault =  rightScribeTextShadow.width;
+    var rightScribeTextShadowheightDefault =  rightScribeTextShadow.height;
+
+    var scribeHeadNoWireOnehoffsetDefault = scribeHeadNoWireOne.hoffset;
+    var scribeHeadNoWireOnevoffsetDefault = scribeHeadNoWireOne.voffset;
+    var scribeHeadNoWireOnewidthDefault =  scribeHeadNoWireOne.width;
+    var scribeHeadNoWireOneheightDefault =  scribeHeadNoWireOne.height;
+
+    var shortWirehoffsetDefault = shortWire.hoffset;
+    var shortWirevoffsetDefault = shortWire.voffset;
+    var shortWirewidthDefault =  shortWire.width;
+    var shortWireheightDefault =  shortWire.height;
+
+    var leftScribeHeadhoffsetDefault = leftScribeHead.hoffset;
+    var leftScribeHeadvoffsetDefault = leftScribeHead.voffset;
+    var leftScribeHeadwidthDefault =  leftScribeHead.width;
+    var leftScribeHeadheightDefault =  leftScribeHead.height;
+
+    var leftScribeHeadShadowhoffsetDefault = leftScribeHeadShadow.hoffset;
+    var leftScribeHeadShadowvoffsetDefault = leftScribeHeadShadow.voffset;
+    var leftScribeHeadShadowwidthDefault =  leftScribeHeadShadow.width;
+    var leftScribeHeadShadowheightDefault =  leftScribeHeadShadow.height;
+
+    var stationerstexthoffsetDefault = stationerstext.hoffset;
+    var stationerstextvoffsetDefault = stationerstext.voffset;
+    var stationerstextwidthDefault =  stationerstext.width;
+    var stationerstextheightDefault =  stationerstext.height;
+
+    var woodSurroundhoffsetDefault = woodSurround.hoffset;
+    var woodSurroundvoffsetDefault = woodSurround.voffset;
+    var woodSurroundwidthDefault =  woodSurround.width;
+    var woodSurroundheightDefault =  woodSurround.height;
+
+    var hotSliderRighthoffsetDefault = hotSliderRight.hoffset;
+    var hotSliderRightvoffsetDefault = hotSliderRight.voffset;
+    var hotSliderRightwidthDefault =  hotSliderRight.width;
+    var hotSliderRightheightDefault =  hotSliderRight.height;
+
+    var hotSliderLefthoffsetDefault = hotSliderLeft.hoffset;
+    var hotSliderLeftvoffsetDefault = hotSliderLeft.voffset;
+    var hotSliderLeftwidthDefault =  hotSliderLeft.width;
+    var hotSliderLeftheightDefault =  hotSliderLeft.height;
+
+    var warmSliderRighthoffsetDefault = warmSliderRight.hoffset;
+    var warmSliderRightvoffsetDefault = warmSliderRight.voffset;
+    var warmSliderRightwidthDefault =  warmSliderRight.width;
+    var warmSliderRightheightDefault =  warmSliderRight.height;
+
+    var warmSliderLefthoffsetDefault = warmSliderLeft.hoffset;
+    var warmSliderLeftvoffsetDefault = warmSliderLeft.voffset;
+    var warmSliderLeftwidthDefault =  warmSliderLeft.width;
+    var warmSliderLeftheightDefault =  warmSliderLeft.height;
+
+
+    var righthottexthoffsetDefault = righthottext.hoffset;
+    var righthottextvoffsetDefault = righthottext.voffset;
+    var righthottextwidthDefault =  righthottext.width;
+    var righthottextheightDefault =  righthottext.height;
+
+    var rightwarmtexthoffsetDefault = rightwarmtext.hoffset;
+    var rightwarmtextvoffsetDefault = rightwarmtext.voffset;
+    var rightwarmtextwidthDefault =  rightwarmtext.width;
+    var rightwarmtextheightDefault =  rightwarmtext.height;
+
+    var leftwarmtexthoffsetDefault = leftwarmtext.hoffset;
+    var leftwarmtextvoffsetDefault = leftwarmtext.voffset;
+    var leftwarmtextwidthDefault =  leftwarmtext.width;
+    var leftwarmtextheightDefault =  leftwarmtext.height;
+
+    var lefthottexthoffsetDefault = lefthottext.hoffset;
+    var lefthottextvoffsetDefault = lefthottext.voffset;
+    var lefthottextwidthDefault =  lefthottext.width;
+    var lefthottextheightDefault =  lefthottext.height;
+
+    var cpuPlaquehoffsetDefault = cpuPlaque.hoffset;
+    var cpuPlaquevoffsetDefault = cpuPlaque.voffset;
+    var cpuPlaquewidthDefault =  cpuPlaque.width;
+    var cpuPlaqueheightDefault =  cpuPlaque.height;
+
+    var popupplaquehoffsetDefault = popupplaque.hoffset;
+    var popupplaquevoffsetDefault = popupplaque.voffset;
+    var popupplaquewidthDefault =  popupplaque.width;
+    var popupplaqueheightDefault =  popupplaque.height;
+
+    var thermometerLefthoffsetDefault = thermometerLeft.hoffset;
+    var thermometerLeftvoffsetDefault = thermometerLeft.voffset;
+    var thermometerLeftwidthDefault =  thermometerLeft.width;
+    var thermometerLeftheightDefault =  thermometerLeft.height;
+
+    var crankhoffsetDefault = crank.hoffset;
+    var crankvoffsetDefault = crank.voffset;
+    var crankwidthDefault =  crank.width;
+    var crankheightDefault =  crank.height;
+
+    var thermometerRighthoffsetDefault = thermometerRight.hoffset;
+    var thermometerRightvoffsetDefault = thermometerRight.voffset;
+    var thermometerRightwidthDefault =  thermometerRight.width;
+    var thermometerRightheightDefault =  thermometerRight.height;
+
+    var rightTemperatureMaxIndexhoffsetDefault = rightTemperatureMaxIndex.hoffset;
+    var rightTemperatureMaxIndexvoffsetDefault = rightTemperatureMaxIndex.voffset;
+    var rightTemperatureMaxIndexwidthDefault =  rightTemperatureMaxIndex.width;
+    var rightTemperatureMaxIndexheightDefault =  rightTemperatureMaxIndex.height;
+
+    var leftTemperatureMaxIndexhoffsetDefault = leftTemperatureMaxIndex.hoffset;
+    var leftTemperatureMaxIndexvoffsetDefault = leftTemperatureMaxIndex.voffset;
+    var leftTemperatureMaxIndexwidthDefault =  leftTemperatureMaxIndex.width;
+    var leftTemperatureMaxIndexheightDefault =  leftTemperatureMaxIndex.height;
+
+    var rightLamphoffsetDefault = rightLamp.hoffset;
+    var rightLampvoffsetDefault = rightLamp.voffset;
+    var rightLampwidthDefault =  rightLamp.width;
+    var rightLampheightDefault =  rightLamp.height;
+
+    var leftLamphoffsetDefault = leftLamp.hoffset;
+    var leftLampvoffsetDefault = leftLamp.voffset;
+    var leftLampwidthDefault =  leftLamp.width;
+    var leftLampheightDefault =  leftLamp.height;
+
+    var redLampFlashinghoffsetDefault = redLampFlashing.hoffset;
+    var redLampFlashingvoffsetDefault = redLampFlashing.voffset;
+    var redLampFlashingwidthDefault =  redLampFlashing.width;
+    var redLampFlashingheightDefault =  redLampFlashing.height;
+
+    var amberLamphoffsetDefault = amberLamp.hoffset;
+    var amberLampvoffsetDefault = amberLamp.voffset;
+    var amberLampwidthDefault =  amberLamp.width;
+    var amberLampheightDefault =  amberLamp.height;
+
+    var amberLampFlashinghoffsetDefault = amberLampFlashing.hoffset;
+    var amberLampFlashingvoffsetDefault = amberLampFlashing.voffset;
+    var amberLampFlashingwidthDefault =  amberLampFlashing.width;
+    var amberLampFlashingheightDefault =  amberLampFlashing.height;
+
+    var bellSethoffsetDefault = bellSet.hoffset;
+    var bellSetvoffsetDefault = bellSet.voffset;
+    var bellSetwidthDefault =  bellSet.width;
+    var bellSetheightDefault =  bellSet.height;
+
+    var hTogglehoffsetDefault = hToggle.hoffset;
+    var hTogglevoffsetDefault = hToggle.voffset;
+    var hTogglewidthDefault =  hToggle.width;
+    var hToggleheightDefault =  hToggle.height;
+
+    var screw1hoffsetDefault = screw1.hoffset;
+    var screw1voffsetDefault = screw1.voffset;
+    var screw1widthDefault =  screw1.width;
+    var screw1heightDefault =  screw1.height;
+
+    var screw2hoffsetDefault = screw2.hoffset;
+    var screw2voffsetDefault = screw2.voffset;
+    var screw2widthDefault =  screw2.width;
+    var screw2heightDefault =  screw2.height;
+
+    var clapperhoffsetDefault = clapper.hoffset;
+    var clappervoffsetDefault = clapper.voffset;
+    var clapperwidthDefault =  clapper.width;
+    var clapperheightDefault =  clapper.height;
+
+    var ClapperRotatedhoffsetDefault = ClapperRotated.hoffset;
+    var ClapperRotatedvoffsetDefault = ClapperRotated.voffset;
+    var ClapperRotatedwidthDefault =  ClapperRotated.width;
+    var ClapperRotatedheightDefault =  ClapperRotated.height;
+
+    var speedfanindicatorredglowinghoffsetDefault = speedfanindicatorredglowing.hoffset;
+    var speedfanindicatorredglowingvoffsetDefault = speedfanindicatorredglowing.voffset;
+    var speedfanindicatorredglowingwidthDefault =  speedfanindicatorredglowing.width;
+    var speedfanindicatorredglowingheightDefault =  speedfanindicatorredglowing.height;
+
+    var speedfanindicatorredhoffsetDefault = speedfanindicatorred.hoffset;
+    var speedfanindicatorredvoffsetDefault = speedfanindicatorred.voffset;
+    var speedfanindicatorredwidthDefault =  speedfanindicatorred.width;
+    var speedfanindicatorredheightDefault =  speedfanindicatorred.height;
+
+    var speedfanindicatorhoffsetDefault = speedfanindicator.hoffset;
+    var speedfanindicatorvoffsetDefault = speedfanindicator.voffset;
+    var speedfanindicatorwidthDefault =  speedfanindicator.width;
+    var speedfanindicatorheightDefault =  speedfanindicator.height;
+
+    var frequencySliderhoffsetDefault = frequencySlider.hoffset;
+    var frequencySlidervoffsetDefault = frequencySlider.voffset;
+    var frequencySliderwidthDefault =  frequencySlider.width;
+    var frequencySliderheightDefault =  frequencySlider.height;
+
+    var ovalSliderhoffsetDefault = ovalSlider.hoffset;
+    var ovalSlidervoffsetDefault = ovalSlider.voffset;
+    var ovalSliderwidthDefault =  ovalSlider.width;
+    var ovalSliderheightDefault =  ovalSlider.height;
+
+    var redMercuryLefthoffsetDefault = redMercuryLeft.hoffset;
+    var redMercuryLeftvoffsetDefault = redMercuryLeft.voffset;
+    var redMercuryLeftwidthDefault =  redMercuryLeft.width;
+    var redMercuryLeftheightDefault =  redMercuryLeft.height;
+
+    var redMercuryRighthoffsetDefault = redMercuryRight.hoffset;
+    var redMercuryRightvoffsetDefault = redMercuryRight.voffset;
+    var redMercuryRightwidthDefault =  redMercuryRight.width;
+    var redMercuryRightheightDefault =  redMercuryRight.height;
+
+    var stretcherhoffsetDefault = stretcher.hoffset;
+    var stretchervoffsetDefault = stretcher.voffset;
+    var stretcherwidthDefault =  stretcher.width;
+    var stretcherheightDefault =  stretcher.height;
+
+    var thermometersHelpPageFronthoffsetDefault = thermometersHelpPageFront.hoffset;
+    var thermometersHelpPageFrontvoffsetDefault = thermometersHelpPageFront.voffset;
+    var thermometersHelpPageFrontwidthDefault =  thermometersHelpPageFront.width;
+    var thermometersHelpPageFrontheightDefault =  thermometersHelpPageFront.height;
+
+    var currIcon="Resources/dockIcon.png";
+    var aspectRatio = "none";
+    var debugFlg = "";
+        
+        
 //===========================================
 // this function runs on startup
 //===========================================
 function startup() {
-    debugFlg = preferences.debugflgPref.value;
-    if (debugFlg === "1") {
-        preferences.imageEditPref.hidden=false;
-        preferences.imageCmdPref.hidden=false;
-    } else {
-        preferences.imageEditPref.hidden=true;		
-        preferences.imageCmdPref.hidden=true;
-    }		
 
-    mainScreen(); 	// check the widget is on-screen
-    resizethermometer(); // resize the thermometer
+    // debug development options revealed
+    revealDevelopmentOptions();
+
+    // check the widget is on-screen
+    mainScreen(); 	
+    
+    // resize the thermometer
+    resizethermometer(); 
           
-    busy.hoffset = (225 * thermometerScale)
-    busy.voffset = (190 * thermometerScale)
-    busyBlur.hoffset = (225 * thermometerScale)
-    busyBlur.voffset = (190 * thermometerScale)
-    busyTimer.ticking = true;
+    // rotate the busytimer
+    rotateBusyTimer ();     
    
-   createLicence(mainWindow);  // create the licence window
-   showdockicon();      // put the icon in the dock
-   setmenu();           // build the menu
+    // create the licence window
+    createLicence(mainWindow);  
+    
+    // put the icon in the dock
+    showdockicon();     
+     
+    // build the menu
+    setmenu();           
+   
+    //sound the bell alarm here
+    soundBellAlarm();
+     
+    //check the lock on the widget is required
+    checkLockWidget();     
+    
+    //adjust the hot/warm sliders according to the stored voffset values
+    adjustSliderVoffset(); 
 
-   rightwarmtext.visible= true;
-   leftwarmtext.visible= true;
-   righthottext.visible= true;
-   lefthottext.visible= true;
-   warmSliderRight.visible= true;
-   warmSliderLeft.visible= true;
-   hotSliderRight.visible= true;
-   hotSliderLeft.visible= true;
-   
-   //sound the bell alarm here
-   if (preferences.chimesPref.value == "chime" )
-   {
-         clapper.visible = true;
-         ClapperRotated.visible = false;
-   }
-   else
-   {
-         clapper.visible = false;
-         ClapperRotated.visible = true;
-   }
-   
-   checkLockWidget();     //check the lock on the widget is required
-   adjustSliderVoffset(); //adjust the hot/warm sliders according to the stored voffset values
-   
-   //initial checks of visibility dependant solely upon preferences as the no. of sensors is currently the default 8
-   setUpper2GaugeVisibility();  //determine secondary upper gauge visibility
-   setLower1GaugeVisibility();  //determine primary lower gauge visibility
-   setLower2GaugeVisibility();  //determine secondary lower gauge visibility
+    //initial checks of visibility dependant solely upon preferences as the no. of sensors is currently the default 8
+    //determine secondary upper gauge visibility
+    setUpper2GaugeVisibility();  
+    
+    //determine primary lower gauge visibility
+    setLower1GaugeVisibility();  
+    
+    //determine secondary lower gauge visibility
+    setLower2GaugeVisibility();  
 
-   puff(420,205); //set out a puff on startup
-      /*Operating system	Version number
-          Windows 98 	4.1.1998
-          Windows 98 SE 	4.1.2222
-          Windows ME 	4.90.3000
-          Windows 2000 	5.00.2195
-          Windows XP 	5.1.2600
-          Windows 2003 	5.2.3790
-          Windows Vista 	6.0.6000
-          Windows Vista, SP2 	6.0.6002
-          Windows 7 	6.1.7600
-          Windows 7, SP1 	6.1.7601
-          Windows 8 	6.2.9200
-          Windows 8.1 	6.3.9431      */
+    //set out a puff on startup
+    puff(420,205); 
 
     // Check speedfan executable exists in the expected folders
     checkSpeedfanBinaryExists();
     
     // speedfan not found, blink the red lamps
-    if (speedfanflag !== "installed") {   
-        speedfanindicatorred.visible = true;
-        speedfanindicator.visible = false;
-        speedfanindicatorlampTimer.ticking = true;
-        speedfanflag = "unknown";
-        preferences.SpeedfanLocation.value = "";
-        busy.tooltip = "Cannot find Speedfan - click to find the binary"
-        print ("setting tooltips");
-    }     
+    blinkRedIndicatorLamps();
    
-
-   
-   if (speedfanflag === "installed")
+    if (speedfanflag === "installed")
       {
             // kill speedfan, kill it first, we don't want two processes running...
-            //KillSpeedfanProcess();
+            // KillSpeedfanProcess();
             // if windows XP or earlier then set speedfan to minimise
             // later versions of Windows will not allow access to the program files folders
             if (getWindowsVersion() <= "5.7" || getWindowsVersion() >= "5.0")
@@ -1023,7 +999,7 @@ function startup() {
             }
             // restart speedfan after change to minimise it on startup
             StartSpeedfanProcess();
-   }
+    }
    // make the message plaque
 
    if (preferences.soundsPref.value !== "mute" ) {play(electricDrone,false);};
@@ -5494,8 +5470,512 @@ rToggle.onMouseDown = function () {
 }
 
 
-thermometerRight
-.onMouseDown = function () {
+thermometerRight.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
         popupMenu(thermometerRight.contextMenuItems, (312 * thermometerScale), 0);
+}
+
+
+
+lefthottext.onMouseDown = function () {
+    hotSliderLeftdown();
+}
+
+lefthottext.onMouseDrag = function () {
+    hotSliderLeftdrag();
+}
+
+lefthottext.onMouseUp = function () {
+    hotSliderLeftup();
+}
+
+leftwarmtext.onMouseDown = function () {
+    warmSliderLeftdown();
+}
+
+leftwarmtext.onMouseDrag = function () {
+    warmSliderLeftdrag();
+}
+
+leftwarmtext.onMouseUp = function () {
+    warmSliderLeftup();
+}
+                        
+
+rightwarmtext.onMouseDown = function () {
+    warmSliderRightdown();
+}
+
+lefthottext.onMouseDrag = function () {
+    warmSliderRightdrag();
+}
+
+lefthottext.onMouseUp = function () {
+    warmSliderRightup();
+}
+                        
+rightTemperatureMaxIndex.onMouseDown = function () {
+    rightTemperatureMaxIndexdown();
+}
+                        
+                        
+rightTemperatureMaxIndex.onMouseDrag = function () {
+    rightTemperatureMaxIndexdrag();
+}
+                        
+rightTemperatureMaxIndex.onMouseUp = function () {
+                                                       rightTemperatureMaxIndexup();
+                                                }
+
+leftTemperatureMaxIndex.onMouseDown = function () {
+    leftTemperatureMaxIndexdown();
+}
+                       
+                       
+leftTemperatureMaxIndex.onMouseDrag = function () {
+    leftTemperatureMaxIndexdrag();
+}
+                       
+leftTemperatureMaxIndex.onMouseUp = function () {
+    leftTemperatureMaxIndexup();
+}
+                                               
+bellSet.onMouseDown = function () {
+    bellding();
+}
+       
+hToggle.onMouseDown = function () {
+    helpdropdownmove();
+}
+                       
+                       
+screw1.onMouseDown = function () {
+    lockWidget();
+}     
+                
+                
+screw2 .onMouseDown = function () {
+    lockWidget();
+}          
+                                
+clapper.onMouseDown = function () {
+    togglechimes();
+}    
+                        
+ClapperRotated.onMouseDown = function () {
+    togglechimes();
+}                                                            
+
+ovalSlider.onMouseDown = function () {
+    ovalSliderdown();
+}
+
+ovalSlider.onMouseDrag = function () {
+    ovalSliderdrag();
+}
+
+ovalSlider.onMouseUp = function () {
+    ovalSliderup();
+}
+                        
+                        
+leftScribeHead.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    wobblepointer1();
+}
+                                                             
+                                                             
+                                                             
+rightScribeHead.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    wobblepointer2();
+}
+               
+                                                                            
+scaleswitchright.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
+    if(scaleswitchright.src == "Resources/scaleswitch.png"){
+         scaleswitchright.src = "Resources/scaleswitchcent.png";
+         rightscale.src = "Resources/centigradescale.png";
+         rightscale.width = 21;
     }
+    else
+    {
+         scaleswitchright.src = "Resources/scaleswitch.png";
+         rightscale.src = "Resources/fahrenheitscale.png";
+         rightscale.width = 18;
+    }
+}
+                                     
+scaleswitchleft.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
+    if(scaleswitchleft.src == "Resources/scaleswitch.png"){
+         scaleswitchleft.src = "Resources/scaleswitchcent.png";
+         leftscale.src = "Resources/centigradescale.png";
+         leftscale.width = 21;
+    }
+    else
+    {
+         scaleswitchleft.src = "Resources/scaleswitch.png";
+         leftscale.src = "Resources/fahrenheitscale.png";
+         leftscale.width = 18;
+    }
+}
+                                       
+popupplaque.onMouseDown = function () {
+    popupplaque.visible = false;
+    if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
+}
+                
+waitmessage.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+}
+
+speedfanNotFound.onMouseDown = function () {
+    speedfanNotFound.visible = false;
+    if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
+    openURL("http://www.almico.com/sfdownload.php");
+}
+                                                                   
+                                                                   
+lower1Gauge.onMouseDown = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    popupMenu(lower1Gauge.contextMenuItems, (115 * thermometerScale), (228 * thermometerScale));
+}
+
+
+righthottext.onMouseDown = function () {
+    hotSliderRightdown();
+ }
+            
+righthottext.onMouseDrag = function () {
+    hotSliderRightdrag();
+}
+            
+righthottext.onMouseUp = function () {
+    hotSliderRightup();
+}
+                                    
+upper1Gauge.onMouseDown = function () {
+if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    popupMenu(upper1Gauge.contextMenuItems, (375 * thermometerScale), 0);
+}
+                                                                                                                                                                       
+                                                                                                                                                                       
+upper2GaugeLabel.onMouseDown = function () {
+if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
+}
+
+upper2Gauge.onMouseDown = function () {
+if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
+}
+
+lower2Gauge.onMouseDown = function () {
+if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
+    popupMenu(lower2Gauge.contextMenuItems, (5 * thermometerScale), (228 * thermometerScale));
+}
+           
+stretcher.onMouseDown = function () {
+    if (preferences.resizingValvePref.value == "disabled")
+    {
+           moveStretcher();
+    } else {
+    
+    }
+}
+         
+function revealDevelopmentOptions() {
+    debugFlg = preferences.debugflgPref.value;
+    if (debugFlg === "1") {
+        preferences.imageEditPref.hidden=false;
+        preferences.imageCmdPref.hidden=false;
+    } else {
+        preferences.imageEditPref.hidden=true;		
+        preferences.imageCmdPref.hidden=true;
+    }		
+}                                                                                                                                                                                                               
+
+
+     // rotate the busy sand timer      
+function rotateBusyTimer () {     
+    busy.hoffset = (225 * thermometerScale)
+    busy.voffset = (190 * thermometerScale)
+    busyBlur.hoffset = (225 * thermometerScale)
+    busyBlur.voffset = (190 * thermometerScale)
+    busyTimer.ticking = true;
+}
+
+//sound the bell alarm here
+function soundBellAlarm () {  
+    if (preferences.chimesPref.value == "chime" )
+    {
+          clapper.visible = true;
+          ClapperRotated.visible = false;
+    }
+    else
+    {
+          clapper.visible = false;
+          ClapperRotated.visible = true;
+    }
+}   
+
+// speedfan not found, blink the red lamps
+function blinkRedIndicatorLamps() {
+    if (speedfanflag !== "installed") {   
+        speedfanindicatorred.visible = true;
+        speedfanindicator.visible = false;
+        speedfanindicatorlampTimer.ticking = true;
+        speedfanflag = "unknown";
+        preferences.SpeedfanLocation.value = "";
+        busy.tooltip = "Cannot find Speedfan - click to find the binary"
+        print ("setting tooltips");
+    }     
+}
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var busyTimer = new Timer();
+    busyTimer.ticking = false;
+    busyTimer.interval = .1;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+busyTimer.onTimerFired = function () {
+    busy.visible = true;
+    busyBlur.visible = true;
+    busyCounter = busyCounter + 1 ;
+    if (busyCounter >= 7) {busyCounter = 1};
+    busy.src = "Resources/busy-F" + busyCounter + "-32x32x24.png";
+};
+
+//=====================
+//End function
+//=====================
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var SensorTingTimer = new Timer();
+    SensorTingTimer.ticking = false;
+    SensorTingTimer.interval = .1;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+SensorTingTimer.onTimerFired = function () {
+    if (preferences.soundsPref.value != "mute" ) {play(ting, false);play(newclunk, false);};
+    if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);play(ting, false);};
+    SensorTingTimer.ticking = false;
+};
+//=====================
+//End function
+//=====================
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var screenLocationTimer = new Timer();
+    screenLocationTimer.ticking = true;
+    screenLocationTimer.interval = .5;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+screenLocationTimer.onTimerFired = function () {
+    preferences.hLocationPref.value = mainWindow.hoffset;
+    preferences.vLocationPref.value = mainWindow.voffset;
+     // calculate the current hlocation in % of the screen
+     //store the current hlocation in % of the screen
+     preferences.hLocationPercPref.value = (mainWindow.hoffset / screen.width)* 100;
+     preferences.vLocationPercPref.value = (mainWindow.voffset / screen.height)* 100;
+};
+//=====================
+//End function
+//=====================
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var FadeTimer = new Timer();
+    FadeTimer.ticking = false;
+    FadeTimer.interval = 1;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+FadeTimer.onTimerFired = function () {
+    fadeOut(tskmgr,1);
+    FadeTimer.ticking=false;
+};
+//=====================
+//End function
+//=====================
+
+
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var Fade2Timer = new Timer();
+    Fade2Timer.ticking = false;
+    Fade2Timer.interval = 1;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+Fade2Timer.onTimerFired = function () {
+    fadeOut(perfmon,1);
+    Fade2Timer.ticking=false;
+};
+//=====================
+//End function
+//=====================
+
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var alarmTimer = new Timer();
+    alarmTimer.ticking = false;
+    alarmTimer.interval = 1;
+
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+alarmTimer.onTimerFired = function () {
+    ringOverTemperatureAlarm();
+};
+//=====================
+//End function
+//=====================
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var samplingTimer = new Timer();
+    samplingTimer.ticking = false;
+    samplingTimer.interval = 5;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+samplingTimer.onTimerFired = function () {
+            sampletemperature();
+            samplingTimer.interval = parseInt((((ovalSlider.hoffset - 300) /10)* thermometerScale ));
+};
+//=====================
+//End function
+//=====================
+
+
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var leftLampTimer = new Timer();
+    leftLampTimer.ticking = false;
+    leftLampTimer.interval = .5;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+leftLampTimer.onTimerFired = function () {
+    flashleftlamp();
+};
+//=====================
+//End function
+//=====================
+
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var rightLampTimer = new Timer();
+    rightLampTimer.ticking = false;
+    rightLampTimer.interval = .5;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+rightLampTimer.onTimerFired = function () {
+    flashrightlamp();
+};
+//=====================
+//End function
+//=====================
+
+
+
+
+//=================================
+// widget inline button timer setup
+//=================================
+    var speedfanindicatorlampTimer = new Timer();
+    speedfanindicatorlampTimer.ticking = false;
+    speedfanindicatorlampTimer.interval = .5;
+//=================================
+// timer ends
+//=================================
+
+//=================================
+// timer to fade the buttons
+//=================================
+speedfanindicatorlampTimer.onTimerFired = function () {
+    flashspeedfanindicator();
+};
+//=====================
+//End function
+//=====================
+
+
+

@@ -165,7 +165,7 @@
 			<src>Resources/hotSliderLeft.png</src>
 			<hOffset>299</hOffset>
 			<tooltip>CPU hot alarm</tooltip>
-			<visible>false</visible>
+			<visible>true</visible>
 		</image>
 
     <image>
@@ -181,7 +181,7 @@
 			 <src>Resources/warmSliderLeft.png</src>
 			 <hOffset>299</hOffset>
 			 <tooltip>CPU warm alarm</tooltip>
-			 <visible>false</visible>
+			 <visible>true</visible>
 		</image>
 
 
@@ -405,20 +405,9 @@
  		       <name>righthottext</name>
                        <src>Resources/righthottext.png</src>
                        <hOffset>356</hOffset>
-                       <visible>false</visible>
+                       <visible>true</visible>
                        <tooltip>GPU hot alarm</tooltip>
 
-                        <onMouseDown> <![CDATA[
-                               hotSliderRightdown();
-                        // ]]> </onMouseDown>
-
-                        <onMouseDrag> <![CDATA[
-                               hotSliderRightdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               hotSliderRightup();
-                        // ]]> </onMouseUp>
 		</image>
 
 		<image>
@@ -427,18 +416,7 @@
                        <hOffset>280</hOffset>
                        <vOffset>172</vOffset>
                        <tooltip>CPU hot alarm</tooltip>
-                       <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               hotSliderLeftdown();
-                        // ]]> </onMouseDown>
-
-                        <onMouseDrag> <![CDATA[
-                               hotSliderLeftdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               hotSliderLeftup();
-                        // ]]> </onMouseUp>
+                       <visible>true</visible>
 		</image>
 
                 <image>
@@ -447,38 +425,17 @@
                        <src>Resources/leftwarmtext.png</src>
                        <hOffset>278</hOffset>
                        <tooltip>CPU warm alarm</tooltip>
-                       <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               warmSliderLeftdown();
-                        // ]]> </onMouseDown>
+                       <visible>true</visible>
 
-                        <onMouseDrag> <![CDATA[
-                               warmSliderLeftdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               warmSliderLeftup();
-                        // ]]> </onMouseUp>
 		</image>
 
-                <image>
- 		       <name>rightwarmtext</name>
-                       <src>Resources/rightwarmtext.png</src>
-                       <hOffset>354</hOffset>
-                       <tooltip>GPU warm alarm</tooltip>
-                       <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               warmSliderRightdown();
-                        // ]]> </onMouseDown>
-
-                        <onMouseDrag> <![CDATA[
-                               warmSliderRightdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               warmSliderRightup();
-                        // ]]> </onMouseUp>
-		</image>
+  <image>
+		<name>rightwarmtext</name>
+		<src>Resources/rightwarmtext.png</src>
+		<hOffset>354</hOffset>
+		<tooltip>GPU warm alarm</tooltip>
+		<visible>true</visible>
+	</image>
 
 		<image>
  		       <name>rightTemperatureMaxIndex</name>
@@ -487,18 +444,6 @@
                        <vOffset>166</vOffset>
                        <visible>false</visible>
                        <tooltip>indicates max GPU temperature</tooltip>
-                        <onMouseDown> <![CDATA[
-                               rightTemperatureMaxIndexdown();
-                        // ]]> </onMouseDown>
-
-
-                        <onMouseDrag> <![CDATA[
-                               rightTemperatureMaxIndexdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               rightTemperatureMaxIndexup();
-                        // ]]> </onMouseUp>
 
 
 		</image>
@@ -511,18 +456,7 @@
                        <vOffset>143</vOffset>
                        <tooltip>indicates max CPU temperature</tooltip>
                        <visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               leftTemperatureMaxIndexdown();
-                        // ]]> </onMouseDown>
 
-
-                        <onMouseDrag> <![CDATA[
-                               leftTemperatureMaxIndexdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               leftTemperatureMaxIndexup();
-                        // ]]> </onMouseUp>
 
 
 		</image>
@@ -575,8 +509,7 @@
 			hOffset		= "283 "
 			vOffset		= "57 "
 			opacity		= "250"
-			tooltip         = "A red light indicates Speedfan is not present on this system"
-			visible         = "true"
+			visible   = "true"
 		/>
 
 
@@ -586,7 +519,6 @@
 			hOffset		= "283 "
 			vOffset		= "57 "
 			opacity		= "250"
-			tooltip         = "A red light indicates Speedfan is not present on this system"
 			visible         = "false"
 		/>
 
@@ -614,9 +546,6 @@
 			<vOffset>391</vOffset>
 			<opacity>255</opacity>
 			<tooltip>click on the clapper to mute audible alarm</tooltip>
-                        <onMouseDown> <![CDATA[
-                              bellding();
-                        // ]]> </onMouseDown>
 		</image>
 
                 <image>
@@ -627,9 +556,7 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me for help</tooltip>
-			<onMouseDown> <![CDATA[
-				helpdropdownmove();
-		        // ]]> </onMouseDown>
+
                 </image>
 
 
@@ -641,9 +568,7 @@
 			<opacity>1</opacity>
 			<visible>true</visible>
 			<tooltip>click me to lock the widget in place</tooltip>
-			<onMouseDown> <![CDATA[
-			      lockWidget();
-		        // ]]> </onMouseDown>
+
                 </image>
 
                 <image>
@@ -654,9 +579,7 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me to lock the widget in place</tooltip>
-			<onMouseDown> <![CDATA[
-			      lockWidget();
-		        // ]]> </onMouseDown>
+
                 </image>
 
 
@@ -668,9 +591,7 @@
 			<vOffset>419</vOffset>
 			<opacity>255</opacity>
 			<tooltip>click to mute audible alarm</tooltip>
-                        <onMouseDown> <![CDATA[
-                               togglechimes();
-                        // ]]> </onMouseDown>
+
 		</image>
 
                 <image>
@@ -681,17 +602,15 @@
 			<opacity>255</opacity>
 			<tooltip>click to enable audible alarm</tooltip>
 			<visible>false</visible>
-                        <onMouseDown> <![CDATA[
-                               togglechimes();
-                        // ]]> </onMouseDown>
+
 		</image>
 
 		<image>
  		       <name>frequencySlider</name>
-                       <src>Resources/frequencySlider.png</src>
-                       <hOffset>309</hOffset>
-                       <vOffset>364</vOffset>
-                       <tooltip>min/max 1-6 seconds</tooltip>
+            <src>Resources/frequencySlider.png</src>
+            <hOffset>309</hOffset>
+            <vOffset>364</vOffset>
+            <tooltip>min/max 1-6 seconds</tooltip>
 
 		</image>
 
@@ -703,18 +622,6 @@
                        <vOffset>360</vOffset>
                        <tooltip>frequency slider</tooltip>
 
-                        <onMouseDown> <![CDATA[
-                               ovalSliderdown();
-                        // ]]> </onMouseDown>
-
-
-                        <onMouseDrag> <![CDATA[
-                               ovalSliderdrag();
-                        // ]]> </onMouseDrag>
-
-                        <onMouseUp> <![CDATA[
-                               ovalSliderup();
-                        // ]]> </onMouseUp>
 
 		</image>
 
@@ -853,10 +760,7 @@
                        <height>27</height>
                        <zorder>10</zorder>
                        <tooltip>temperature levels</tooltip>
-                        <onMouseDown> <![CDATA[
-      				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-                                wobblepointer1();
-                       // ]]> </onMouseDown>
+
 		</image>
 
 		<text
@@ -917,10 +821,6 @@
                        <height>27</height>
                        <zorder>13</zorder>
                        <tooltip>temperature levels</tooltip>
-                        <onMouseDown> <![CDATA[
-      				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-                                wobblepointer2();
-                       // ]]> </onMouseDown>
 		</image>
 		<text
 			data		= "G"
@@ -1005,20 +905,6 @@
                        <height>30</height>
                        <width>30</width>
                        <tooltip>Click on me to switch from centigrade to fahrenheit</tooltip>
-                        <onMouseDown> <![CDATA[
-                              if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
-                              if(scaleswitchright.src == "Resources/scaleswitch.png"){
-                                   scaleswitchright.src = "Resources/scaleswitchcent.png";
-                                   rightscale.src = "Resources/centigradescale.png";
-                                   rightscale.width = 21;
-                              }
-                              else
-                              {
-                                   scaleswitchright.src = "Resources/scaleswitch.png";
-                                   rightscale.src = "Resources/fahrenheitscale.png";
-                                   rightscale.width = 18;
-                              }
-                        // ]]> </onMouseDown>
 		</image>
 
 
@@ -1030,20 +916,7 @@
                        <height>30</height>
                        <width>30</width>
                        <tooltip>Click on me to switch from centigrade to fahrenheit</tooltip>
-                        <onMouseDown> <![CDATA[
-                              if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
-                              if(scaleswitchleft.src == "Resources/scaleswitch.png"){
-                                   scaleswitchleft.src = "Resources/scaleswitchcent.png";
-                                   leftscale.src = "Resources/centigradescale.png";
-                                   leftscale.width = 21;
-                              }
-                              else
-                              {
-                                   scaleswitchleft.src = "Resources/scaleswitch.png";
-                                   leftscale.src = "Resources/fahrenheitscale.png";
-                                   leftscale.width = 18;
-                              }
-                        // ]]> </onMouseDown>
+
 		</image>
 
 		<image>
@@ -1053,10 +926,7 @@
 			<vOffset>100</vOffset>
 			<opacity>255</opacity>
 			<visible>false</visible>
-			<onMouseDown> <![CDATA[
-				popupplaque.visible = false;
-				if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
-		        // ]]> </onMouseDown>
+
 			<zorder>16</zorder>
                 </image>
 
@@ -1071,9 +941,6 @@
 			<zorder>10</zorder>
                         <tooltip>This window will go away when speedfan is ready</tooltip>
 			<zorder>15</zorder>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-		        // ]]> </onMouseDown>
 		</image>
 
 		<image>
@@ -1094,11 +961,6 @@
 			<opacity>255</opacity>
 			<visible>false</visible>
                         <tooltip>Click me to download speedfan</tooltip>
-			<onMouseDown> <![CDATA[
-				speedfanNotFound.visible = false;
-				if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
-                                openURL("http://www.almico.com/sfdownload.php");
-                        // ]]> </onMouseDown>
 		</image>
 
                 <image src="Resources/cpu-gauge-celsius.png">
@@ -1106,10 +968,6 @@
 		        <hOffset>115</hOffset>
 		        <vOffset>338</vOffset>
 		        <zorder>1</zorder>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(lower1Gauge.contextMenuItems, (115 * thermometerScale), (228 * thermometerScale));
-		        // ]]> </onMouseDown>
     	        </image>
 
                 <image src="Resources/point.png">
@@ -1132,10 +990,6 @@
 		        <name>upper1Gauge</name>
 		        <hOffset>375</hOffset>
 		        <vOffset>64</vOffset>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(upper1Gauge.contextMenuItems, (375 * thermometerScale), 0);
-		        // ]]> </onMouseDown>
     	        </image>
 
 
@@ -1144,21 +998,14 @@
 		        <hOffset>398</hOffset>
 		        <vOffset>246</vOffset>
 		        <visible>false</visible>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
-		        // ]]> </onMouseDown>
     	        </image>
+    	        
                 <image src="Resources/gauge-celsius.png">
 		        <name>upper2Gauge</name>
 		        <hOffset>376</hOffset>
 		        <vOffset>165</vOffset>
 		        <visible>false</visible>
 		        <zorder>0</zorder>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
-		        // ]]> </onMouseDown>
     	        </image>
 
                 <image src="Resources/cpu-gauge2-celsius.png">
@@ -1167,10 +1014,6 @@
 		        <vOffset>340</vOffset>
 		        <visible>false</visible>
 		        <zorder>0</zorder>
-			<onMouseDown> <![CDATA[
-				if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-			        popupMenu(lower2Gauge.contextMenuItems, (5 * thermometerScale), (228 * thermometerScale));
-		        // ]]> </onMouseDown>
     	        </image>
 
                 <image src="Resources/point.png">
@@ -1474,14 +1317,6 @@
 		        <vOffset>66</vOffset>
                         <width>65</width>
 		        <height>315</height>
-       			<onMouseDown> <![CDATA[
-                            if (preferences.resizingValvePref.value == "disabled")
-                            {
-                                   moveStretcher();
-                            } else {
-                            
-                            }
-                        // ]]> </onMouseDown>
                         <opacity>255</opacity>
                         <zorder>25</zorder>
     	        </image>
@@ -1686,7 +1521,7 @@
 		<type>text</type>
 		<defaultValue>170</defaultValue>
 		<description>Storage for the Right hand hot slider value.</description>
-		<hidden>false</hidden>
+		<hidden>true</hidden>
 	</preference>
 
 	<preference name="warmSliderLeftValuePref">
@@ -1704,7 +1539,7 @@
 		<type>text</type>
 		<defaultValue>200</defaultValue>
 		<description>Storage for the Right hand Warm slider value.</description>
-		<hidden>false</hidden>
+		<hidden>true</hidden>
 	</preference>
 
 	<preference name="widgetHideModePref">
@@ -1864,99 +1699,6 @@
                 changePrefs();
         </action>
 
-        <timer name="busyTimer">
-		<interval>.1</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-                       busy.visible = true;
-                       busyBlur.visible = true;
-                       busyCounter = busyCounter + 1 ;
-                       if (busyCounter >= 7) {busyCounter = 1};
-                       busy.src = "Resources/busy-F" + busyCounter + "-32x32x24.png";
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="SensorTingTimer">
-		<interval>.01</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-                       if (preferences.soundsPref.value != "mute" ) {play(ting, false);play(newclunk, false);};
-                       if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);play(ting, false);};
-                       SensorTingTimer.ticking = false;
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="screenLocationTimer">
-		<interval>0.5</interval>
-		<ticking>true</ticking>
-		<onTimerFired> <![CDATA[
-                       preferences.hLocationPref.value = mainWindow.hoffset;
-                       preferences.vLocationPref.value = mainWindow.voffset;
-                        // calculate the current hlocation in % of the screen
-                        //store the current hlocation in % of the screen
-                        preferences.hLocationPercPref.value = (mainWindow.hoffset / screen.width)* 100;
-                        preferences.vLocationPercPref.value = (mainWindow.voffset / screen.height)* 100;
-		// ]]> </onTimerFired>
-	</timer>
-
-
-        <timer name="FadeTimer">
-		<interval>1</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			fadeOut(tskmgr,1);
-                        FadeTimer.ticking=false;
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="Fade2Timer">
-		<interval>1</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			fadeOut(perfmon,1);
-                        Fade2Timer.ticking=false;
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="alarmTimer">
-		<interval>1</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			ringOverTemperatureAlarm();
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="samplingTimer">
-		<interval>5</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			sampletemperature();
-			samplingTimer.interval = parseInt((((ovalSlider.hoffset - 300) /10)* thermometerScale ));
-		// ]]> </onTimerFired>
-	</timer>
-        <timer name="leftLampTimer">
-		<interval>.5</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			flashleftlamp();
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="rightLampTimer">
-		<interval>.5</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			flashrightlamp();
-		// ]]> </onTimerFired>
-	</timer>
-
-        <timer name="speedfanindicatorlampTimer">
-		<interval>.5</interval>
-		<ticking>false</ticking>
-		<onTimerFired> <![CDATA[
-			flashspeedfanindicator();
-		// ]]> </onTimerFired>
-	</timer>
 
    <prefGroup name="development" order="8" icon="Resources/images/development-icon.png" title="Development"/>
    <preference hidden="false" description="Turning on the debugging will provide extra information in the debug window. To obtain the debug window press SHIFT+CTRL simultaneously whilst right clicking on the Yahoo widget systray icon, then select debug from the drop down menu. You will need to restart the widget properly rather than doing a simple restart for debugging information to appear." name="debugflgPref" group="development" title="Debug:" defaultValue="1" type="popup">
