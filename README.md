@@ -2,7 +2,9 @@
  
 Steampunk CPU_GPU Speedfan Thermometer Yahoo Widget, written in Javascript and 
 XML for the Yahoo Widget (Konfabulator) Engine. Created for XP, Vista, Win7, 8, 
-10+ as well as the Apple Mac OSX prior to Catalina.   .
+10+ as well as the Apple Mac OSX prior to Catalina.  
+
+![steampunk_cpu_gpu_thermometer_widget_for_speedfan_by_yereverluvinuncleber_d4lri07-375w-2x](https://github.com/yereverluvinunclebert/Steampunk-CPU_GPU-Speedfan-Thermometer/assets/2788342/386269b8-17d4-45fb-aad0-ea4879e0cb6b)
 
 This Speedfan Thermometer widget is an attractive dieselpunk Yahoo widget for 
 your desktop. 
