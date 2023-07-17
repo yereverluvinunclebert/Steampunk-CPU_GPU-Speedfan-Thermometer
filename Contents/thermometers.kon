@@ -129,9 +129,8 @@
 
   <window visible="true" name="mainWindow" title	= "CPU/GPU Temperature Monitor Widget" width="690" height="520" shadow="false">
 
-  	<image>
+  	<image src="Resources/thermometers-help-page.png">
 			<name>thermometersHelpPage</name>
-			<src>Resources/thermometers-help-page.png</src>
 			<vOffset>0</vOffset>
 			<tooltip>Click on me to make me go away</tooltip>
 			<visible>false</visible>

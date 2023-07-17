@@ -943,26 +943,26 @@ function startup() {
     // build the menu
     setmenu();           
    
-    //sound the bell alarm here
+    // sound the bell alarm here
     soundBellAlarm();
      
-    //check the lock on the widget is required
+    // check the lock on the widget is required
     checkLockWidget();     
     
-    //adjust the hot/warm sliders according to the stored voffset values
+    // adjust the hot/warm sliders according to the stored voffset values
     adjustSliderVoffset(); 
 
-    //initial checks of visibility dependant solely upon preferences as the no. of sensors is currently the default 8
-    //determine secondary upper gauge visibility
+    // initial checks of visibility dependant solely upon preferences as the no. of sensors is currently the default 8
+    // determine secondary upper gauge visibility
     setUpper2GaugeVisibility();  
     
-    //determine primary lower gauge visibility
+    // determine primary lower gauge visibility
     setLower1GaugeVisibility();  
     
-    //determine secondary lower gauge visibility
+    // determine secondary lower gauge visibility
     setLower2GaugeVisibility();  
 
-    //set out a puff on startup
+    // set out a visible puff on startup
     puff(420,205); 
 
     // Check speedfan executable exists in the expected folders
@@ -970,76 +970,20 @@ function startup() {
     
     // speedfan not found, blink the red lamps
     blinkRedIndicatorLamps();
-   
-    if (speedfanflag === "installed")
-      {
-            // kill speedfan, kill it first, we don't want two processes running...
-            // KillSpeedfanProcess();
-            // if windows XP or earlier then set speedfan to minimise
-            // later versions of Windows will not allow access to the program files folders
-            if (getWindowsVersion() <= "5.7" || getWindowsVersion() >= "5.0")
-            {
-                print ("********************************************************* ");
-                print("getWindowsVersion() " + getWindowsVersion());
-                getWindowsVersion();
-                modifySpeedfanConfiguration();  // function to read and modify the speedfan configuration file  LogEnabled=true
-            }
-            else
-            {
-               print("getWindowsVersion() " + getWindowsVersion());
-               print("Automatically minimising Speedfan only works in windows XP or older");
-               print("so you'll need to minimise speedfan yourself on newer versions of windows");
-               print("You will need to have Logging Enabled in speedfan to get the sensors");
-               
-               //try anyway
-               getWindowsVersion();
-               modifySpeedfanConfiguration();  // function to read and modify the speedfan configuration file  LogEnabled=true
-            }
-            // restart speedfan after change to minimise it on startup
-            StartSpeedfanProcess();
-    }
-   // make the message plaque
+    
+    // attempt to enable speedfan logging
+    stubEnableSpeedfanLogging();
+    
+    // play a droning sound
+    if (preferences.soundsPref.value !== "mute" ) {play(electricDrone,false);};
 
-   if (preferences.soundsPref.value !== "mute" ) {play(electricDrone,false);};
+    // obtain speedfan sensor names
+    stubGetWindowsSensorNames();
 
-   if (speedfanflag === "installed")
-   {
-        waitmessage.visible = true;
-        //var a = new FadeAnimation( waitmessage, 255, 500, animator.kEaseInOut );
-        //animator.start( a );  // won't work in this widget, don't know why
-        fadeIn(waitmessage,1);
-   }
-
-
-   puff(420,205);
-   //read speedfan's sensor cfg file to name the sensors
-   if (system.platform == "windows")
-   {
-      if (speedfanflag == "installed")
-      {
-            if (getWindowsVersion() <= "5.7" || getWindowsVersion() >= "5.0")
-            {
-                getWindowsSensorNames();
-            }
-            else
-            {
-                print("NT 6 systems cannot get the sensor names as they are stored in program files");
-                //try anyway
-                getWindowsSensorNames();
-            }
-      }
-   }
-
-   //start timer to sample temperature.
-   sampletemperature();
-   if (speedfanflag == "installed")
-   {
-            log ("start sampling timer");
-            samplingTimer.ticking = true;
-            samplingTimer.interval = 5;
-            ovalSlider.tooltip= "frequency slider set to "+samplingTimer.interval+ " seconds";
-
-   }
+    // start timer to sample temperature.
+    //sampleTemperaturesOnce();
+    
+    startSampling();
    
 }
 //=====================
@@ -1221,6 +1165,7 @@ function showdockicon()
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to pull down the help canvas
 //===========================================
@@ -1699,6 +1644,7 @@ function ovalSliderdown()
 //=====================
 //End function
 //=====================
+
 //===========================================
 // Function to
 //===========================================
@@ -1749,6 +1695,7 @@ function ovalSliderdrag()
 //=====================
 //End function
 //=====================
+
 //===========================================
 // Function to
 //===========================================
@@ -2403,7 +2350,7 @@ function changePrefs()
          print("preferences Changed");
 
          resizethermometer();
-         sampletemperature();
+         sampleTemperaturesOnce();
 }
 //=====================
 //End function
@@ -2632,7 +2579,7 @@ function doGraph (horizontalAdjust, useCanvas, verticalplot1, verticalplot2, tra
 //================================================
 // function to sample the temperature and do stuff
 //================================================
-function sampletemperature()
+function sampleTemperaturesOnce()
 {
       ReadTemperatures();
       storeTemperatures();
@@ -3867,7 +3814,7 @@ function ReadTemperatures()
 //===============================================================
 // function to read and modify the speedfan configuration file
 //===============================================================
-function modifySpeedfanConfiguration()
+function enableSpeedfanLogging()
 {
     var speedfanparamscfg = "";
     var newspeedfanparamscfg = "";
@@ -4477,6 +4424,7 @@ function RedrawUpper1Gauge() {
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to redraw Gauges
 //===========================================
@@ -4487,6 +4435,7 @@ function RedrawUpper2Gauge() {
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to redraw Gauges
 //===========================================
@@ -4498,6 +4447,7 @@ function Redrawlower1Gauge() {
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to redraw Gauges
 //===========================================
@@ -4535,6 +4485,7 @@ function puff(hoffset,voffset)
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to fade in an object
 //===========================================
@@ -4559,6 +4510,7 @@ function fadeIn(param,param1)
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to fade out an object
 //===========================================
@@ -5384,32 +5336,48 @@ warmSliderLeft.onmousedown = function () {
     warmSliderLeftup();
  }
  //=====================
- //End function 
+ //End function
  //=====================
-
-
-
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 cpuPlaque.onMouseDown = function () {
     popupplaque.visible = true;
     if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
-
-}
-    
-       
-       
-       
+    }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 thermometerLeft.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
     popupMenu(thermometerLeft.contextMenuItems, (155 * thermometerScale), 0);
 }
-
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 crank.onMouseDown = function () {
     crankhandle();
 }
-
-
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 sToggle.onMouseDown = function () {
     sToggle.hoffset=373;
     if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
@@ -5419,8 +5387,14 @@ sToggle.onMouseDown = function () {
     sToggle.hoffset=378;
     gettingSpeedfan.visible=false;
 }
-
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 mToggle.onMouseDown = function () {
     mToggle.hoffset=373;
     //this is the only sound that can't be muted
@@ -5436,7 +5410,14 @@ mToggle.onMouseDown = function () {
     sleep(300);
     mToggle.hoffset=378;
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 rToggle.onMouseDown = function () {
     rToggle.hoffset=373;
     if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
@@ -5452,7 +5433,7 @@ rToggle.onMouseDown = function () {
 
         if (getWindowsVersion() == "5.2" || getWindowsVersion() == "5.1" || getWindowsVersion() == "5.0")
         {
-           //modifySpeedfanConfiguration();
+           //enableSpeedfanLogging();
         }
         else
         {
@@ -5467,65 +5448,158 @@ rToggle.onMouseDown = function () {
 
     rToggle.hoffset=378;
 }
-
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 thermometerRight.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
         popupMenu(thermometerRight.contextMenuItems, (312 * thermometerScale), 0);
 }
-
-
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 lefthottext.onMouseDown = function () {
     hotSliderLeftdown();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 lefthottext.onMouseDrag = function () {
     hotSliderLeftdrag();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 lefthottext.onMouseUp = function () {
     hotSliderLeftup();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 leftwarmtext.onMouseDown = function () {
     warmSliderLeftdown();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 leftwarmtext.onMouseDrag = function () {
     warmSliderLeftdrag();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 leftwarmtext.onMouseUp = function () {
     warmSliderLeftup();
 }
-                        
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 rightwarmtext.onMouseDown = function () {
     warmSliderRightdown();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 lefthottext.onMouseDrag = function () {
     warmSliderRightdrag();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 lefthottext.onMouseUp = function () {
     warmSliderRightup();
 }
-                        
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 rightTemperatureMaxIndex.onMouseDown = function () {
     rightTemperatureMaxIndexdown();
 }
-                        
-                        
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 rightTemperatureMaxIndex.onMouseDrag = function () {
     rightTemperatureMaxIndexdrag();
 }
-                        
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 rightTemperatureMaxIndex.onMouseUp = function () {
-                                                       rightTemperatureMaxIndexup();
-                                                }
-
+        rightTemperatureMaxIndexup();
+ }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 leftTemperatureMaxIndex.onMouseDown = function () {
     leftTemperatureMaxIndexdown();
 }
@@ -5676,7 +5750,8 @@ if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
     popupMenu(lower2Gauge.contextMenuItems, (5 * thermometerScale), (228 * thermometerScale));
 }
            
-stretcher.onMouseDown = function () {
+stretcher.onMouseDown = function () 
+{
     if (preferences.resizingValvePref.value == "disabled")
     {
            moveStretcher();
@@ -5685,7 +5760,7 @@ stretcher.onMouseDown = function () {
     }
 }
          
-function revealDevelopmentOptions() {
+function revealDevelopmentOptions () {
     debugFlg = preferences.debugflgPref.value;
     if (debugFlg === "1") {
         preferences.imageEditPref.hidden=false;
@@ -5736,7 +5811,7 @@ function blinkRedIndicatorLamps() {
 
 
 //=================================
-// widget inline button timer setup
+// up
 //=================================
     var busyTimer = new Timer();
     busyTimer.ticking = false;
@@ -5746,7 +5821,7 @@ function blinkRedIndicatorLamps() {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 busyTimer.onTimerFired = function () {
     busy.visible = true;
@@ -5763,7 +5838,7 @@ busyTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var SensorTingTimer = new Timer();
     SensorTingTimer.ticking = false;
@@ -5773,7 +5848,7 @@ busyTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer
 //=================================
 SensorTingTimer.onTimerFired = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);play(newclunk, false);};
@@ -5787,7 +5862,7 @@ SensorTingTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+//
 //=================================
     var screenLocationTimer = new Timer();
     screenLocationTimer.ticking = true;
@@ -5797,7 +5872,7 @@ SensorTingTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer 
 //=================================
 screenLocationTimer.onTimerFired = function () {
     preferences.hLocationPref.value = mainWindow.hoffset;
@@ -5814,7 +5889,7 @@ screenLocationTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var FadeTimer = new Timer();
     FadeTimer.ticking = false;
@@ -5824,7 +5899,7 @@ screenLocationTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 FadeTimer.onTimerFired = function () {
     fadeOut(tskmgr,1);
@@ -5839,7 +5914,7 @@ FadeTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var Fade2Timer = new Timer();
     Fade2Timer.ticking = false;
@@ -5849,7 +5924,7 @@ FadeTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to
 //=================================
 Fade2Timer.onTimerFired = function () {
     fadeOut(perfmon,1);
@@ -5863,7 +5938,7 @@ Fade2Timer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var alarmTimer = new Timer();
     alarmTimer.ticking = false;
@@ -5874,7 +5949,7 @@ Fade2Timer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 alarmTimer.onTimerFired = function () {
     ringOverTemperatureAlarm();
@@ -5886,7 +5961,7 @@ alarmTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var samplingTimer = new Timer();
     samplingTimer.ticking = false;
@@ -5896,10 +5971,10 @@ alarmTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 samplingTimer.onTimerFired = function () {
-            sampletemperature();
+            sampleTemperaturesOnce();
             samplingTimer.interval = parseInt((((ovalSlider.hoffset - 300) /10)* thermometerScale ));
 };
 //=====================
@@ -5911,7 +5986,7 @@ samplingTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var leftLampTimer = new Timer();
     leftLampTimer.ticking = false;
@@ -5921,7 +5996,7 @@ samplingTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 leftLampTimer.onTimerFired = function () {
     flashleftlamp();
@@ -5934,7 +6009,7 @@ leftLampTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// widget 
 //=================================
     var rightLampTimer = new Timer();
     rightLampTimer.ticking = false;
@@ -5944,7 +6019,7 @@ leftLampTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 rightLampTimer.onTimerFired = function () {
     flashrightlamp();
@@ -5957,7 +6032,7 @@ rightLampTimer.onTimerFired = function () {
 
 
 //=================================
-// widget inline button timer setup
+// 
 //=================================
     var speedfanindicatorlampTimer = new Timer();
     speedfanindicatorlampTimer.ticking = false;
@@ -5967,7 +6042,7 @@ rightLampTimer.onTimerFired = function () {
 //=================================
 
 //=================================
-// timer to fade the buttons
+// timer to 
 //=================================
 speedfanindicatorlampTimer.onTimerFired = function () {
     flashspeedfanindicator();
@@ -5978,3 +6053,102 @@ speedfanindicatorlampTimer.onTimerFired = function () {
 
 
 
+//=================================
+// stub to call GetWindowsSensorNames
+//=================================
+function stubGetWindowsSensorNames() {
+
+   if (system.platform == "windows")
+   {
+      if (speedfanflag == "installed")
+      {
+        // make the message plaque
+        waitmessage.visible = true;
+        //var a = new FadeAnimation( waitmessage, 255, 500, animator.kEaseInOut );
+        //animator.start( a );  // won't work in this widget, don't know why
+        fadeIn(waitmessage,1);
+        
+        puff(420,205);
+        
+        //read speedfan's sensor cfg file to name the sensors
+        //NT 6 systems might not, in the future, be able to get the sensor names as they are stored in program files
+        getWindowsSensorNames();
+      }
+   }
+};
+//=====================
+//End function
+//=====================
+
+
+
+//=================================
+// stub to call EnableSpeedfanLogging
+//=================================
+function stubEnableSpeedfanLogging() {
+
+    if (system.platform == "windows")
+    {
+        if (speedfanflag === "installed")
+          {
+                // kill speedfan, kill it first, we don't want two processes running...
+                // KillSpeedfanProcess();
+                // if windows XP or earlier then set speedfan to minimise
+                // later versions of Windows will not allow access to the program files folders
+                if (getWindowsVersion() <= "5.7" || getWindowsVersion() >= "5.0")
+                {
+                    print ("********************************************************* ");
+                    print("getWindowsVersion() " + getWindowsVersion());
+                    enableSpeedfanLogging();  // function to read and modify the speedfan configuration file  LogEnabled=true
+                }
+                else
+                {
+                   print("getWindowsVersion() " + getWindowsVersion());
+                   print("Automatically minimising Speedfan only works in windows XP or older");
+                   print("so you'll need to minimise speedfan yourself on newer versions of windows");
+                   print("You will need to have Logging Enabled in speedfan to get the sensors");
+                   
+                   //try anyway
+                   //enableSpeedfanLogging();  // function to read and modify the speedfan configuration file  LogEnabled=true
+                }
+                // restart speedfan after change to minimise it on startup
+                StartSpeedfanProcess();
+        }
+    }
+};
+//=====================
+//End function
+//=====================
+
+    
+//=================================
+// stub to call 
+//=================================
+function startSampling() {
+      
+       if (speedfanflag == "installed")
+       {
+        log ("start sampling timer");
+        samplingTimer.ticking = true;
+        samplingTimer.interval = 5;
+        ovalSlider.tooltip= "frequency slider set to "+samplingTimer.interval+ " seconds";
+       }
+ };
+ //=====================
+ //End function
+ //=====================
+ 
+       
+       
+       
+
+
+//=================================
+// timer to 
+//=================================
+thermometersHelpPage.onMouseDown = function () {
+    helpdropdownmove();
+};
+//=================================
+// timer ends
+//=================================
