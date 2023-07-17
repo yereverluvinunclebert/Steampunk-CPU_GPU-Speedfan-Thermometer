@@ -32,7 +32,7 @@ Built using:
 
 	RJTextEd Advanced Editor  https://www.rj-texted.se/ 
 	Adobe Photoshop CS ver 8.0 (2003)  https://www.adobe.com/uk/products/photoshop/free-trial-download.html  
-  Yahoo Widgets SDK: engine (Konfabulator), runtime, debugger & documentation
+	Yahoo Widgets SDK: engine (Konfabulator), runtime, debugger & documentation
 
 Tested on :
 
@@ -58,7 +58,6 @@ Tested on :
 Running the widget using a javascript engine frees javascript from running only 
 within the captivity of a browser, you will now be able to run these widgets on 
 your Windows desktop as long as you have the correct widget engine installed.
-
 
  
 Instructions for running Yahoo widgets on Windows
