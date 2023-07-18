@@ -99,12 +99,10 @@ Instructions for the Steampunk-CPU_GPU-Speedfan-Thermometer
 ===========================================================
 
 1. Install yahoo widget SDK runtime engine
-2. Install Speedfan
+2. Install Speedfan and run it.
 3. In Speedfan open the configuration and click the log tab
 4. Select the Enable check box, leave all other logging options as they are.
 5. Run the widget, it should just find the speedfan location and start using it.
-
-
 
 
 LICENCE AGREEMENTS:
