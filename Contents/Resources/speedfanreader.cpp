@@ -68,7 +68,7 @@ int main() {
            printf("\n");
            //printf("GPU: %ic  HD0: %ic  HD1:  %ic  Core1: %ic  Core2: %ic  Ambient:  %ic ",temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 
-           printf(" %ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%  ",temp[0],5,temp[1],5,temp[2],5,temp[3],5,temp[4],5,temp[5],5,temp[6],5,temp[7]);
+           printf(" %ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic%*ic% ",temp[0],5,temp[1],5,temp[2],5,temp[3],5,temp[4],5,temp[5],5,temp[6],5,temp[7],5,temp[8],5,temp[9],5,temp[10],5,temp[11],5,temp[12],5,temp[13],5,temp[14],5,temp[15]);
 		   printf("\n");
         }
 	} else {

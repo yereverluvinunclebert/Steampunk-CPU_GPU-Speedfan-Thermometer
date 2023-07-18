@@ -3052,7 +3052,8 @@ function bellding ()
 //===========================================
 function KillSpeedfanProcess()
 {
-	//runCommand("%WINDIR%/system32/TASKKILL /F /IM speedfan");
+    // this command does nothing in NT6+ need to build my own binary to kill speedfan
+	runCommand("%WINDIR%/system32/TASKKILL /F /IM speedfan.exe");
 	print("Stopping Any Running Speedfan Process");
 }
 //=====================
@@ -3262,7 +3263,7 @@ function StartSpeedfanProcess()
                 var ss = drivename.indexOf("(");
                 drive =  drivename.substr( ss+1, 1 );
 
-        	print("Looking for ",drive+":/Program Files/SpeedFan/speedfan.exe");
+        	   print("Looking for ",drive+":/Program Files/SpeedFan/speedfan.exe");
 
                 if (filesystem.itemExists(drive+":/Program Files/SpeedFan/speedfan.exe") || filesystem.itemExists("c:/Program Files (x86)/SpeedFan/speedfan.exe"))
                 {
@@ -3651,67 +3652,97 @@ function ReadTemperatures()
             // this is because the sensors may occassionally deliver incorrect zero temperatures
             // using parseFloat because it is more reliable when parsing then parseInt unless you specify a radix.
 
-
             var oldSensorTemp = SensorTemp[1];
-            if (parseFloat(temperatureString.substring(1,3)) != 0) {
-              SensorTemp[1] = temperatureString.substring(1,3)
-            } else {
-              SensorTemp[1] = oldSensorTemp;
-              print("************** sensor 1 " + parseFloat(temperatureString.substring(1,3)));
-              print("************** zero value found sensor 1 " + " " + SensorTemp[1]);
-              print("************** zero value found sensor 1 " + " " + oldSensorTemp);
+            var substr1 = 1;
+            var substr2 = 3;
+            
+            for (var a = 1; a <= 32; a++)
+            {
+                if (parseFloat(temperatureString.substring(substr1,substr2)) != 0) {
+                  SensorTemp[a] = temperatureString.substring(substr1,substr2)
+                } else {
+                  SensorTemp[a] = temperatureString.substring(substr1,substr2)
+                  print("************** zero value found for sensor " + a + " data = " + SensorTemp[a]);
+                  SensorTemp[a] = oldSensorTemp;
+                }     
+                substr1 = substr1 + 6;       
+                substr2 = substr2 + 6;      
             }
-
-            if (parseFloat(temperatureString.substring(7,9)) != 0) {
-              SensorTemp[2] = temperatureString.substring(7,9)
-            } else {   // debug
-              SensorTemp[2] = SensorTemp[2];
-              print("sensor 2 " + parseFloat(temperatureString.substring(7,9)));
-              print("zero value found sensor 2 " + " " + SensorTemp[2]);
-            }
-
-            if (parseFloat(temperatureString.substring(13,15)) != 0) {
-              SensorTemp[3] = temperatureString.substring(13,15)
-            } else {   // debug
-              SensorTemp[3] = SensorTemp[3];
-              print("sensor 3 " + parseFloat(temperatureString.substring(13,15)));
-              print("zero value found sensor 3 " + " " + SensorTemp[3]);
-            }
-
-            if (parseFloat(temperatureString.substring(19,21)) != 0) {
-              SensorTemp[4] = temperatureString.substring(19,21)
-            } else {   // if zero value found
-              SensorTemp[4] = SensorTemp[4];
-              print("zero value found sensor 4 " + " " + SensorTemp[4]);
-            }
-
-            if (parseFloat(temperatureString.substring(25,27)) != 0) {
-              SensorTemp[5] = temperatureString.substring(25,27)
-            } else {   // debug
-              SensorTemp[5] = SensorTemp[5];
-              print("zero value found sensor 5 " + " " + SensorTemp[5]);
-            }
-
-            if (parseFloat(temperatureString.substring(31,33)) != 0) {
-              SensorTemp[6] = temperatureString.substring(31,33)
-            } else {   // debug
-              SensorTemp[6] = SensorTemp[6];
-              print("zero value found sensor 6 " + " " + SensorTemp[6]);
-            }
-
-            if (parseFloat(temperatureString.substring(37,39)) != 0) {
-              SensorTemp[7] = temperatureString.substring(37,39)
-            } else {   // debug
-              SensorTemp[7] = SensorTemp[7];
-              print("zero value found sensor 7 " + " " + SensorTemp[7]);
-            }
-
-            if (parseFloat(temperatureString.substring(43,45)) != 0) {
-              SensorTemp[8] = temperatureString.substring(43,45)
-            } else {   // debug
-              SensorTemp[8] = SensorTemp[8];
-              print("zero value found sensor 8 " + " " + SensorTemp[8]);
-            }
+            
+            
+//            if (parseFloat(temperatureString.substring(1,3)) != 0) {
+//              SensorTemp[1] = temperatureString.substring(1,3)
+//            } else {
+//              SensorTemp[1] = oldSensorTemp;
+//              print("************** sensor 1 " + parseFloat(temperatureString.substring(1,3)));
+//              print("************** zero value found sensor 1 " + " " + SensorTemp[1]);
+//              print("************** zero value found sensor 1 " + " " + oldSensorTemp);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(7,9)) != 0) {
+//              SensorTemp[2] = temperatureString.substring(7,9)
+//            } else {   // debug
+//              SensorTemp[2] = SensorTemp[2];
+//              print("sensor 2 " + parseFloat(temperatureString.substring(7,9)));
+//              print("zero value found sensor 2 " + " " + SensorTemp[2]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(13,15)) != 0) {
+//              SensorTemp[3] = temperatureString.substring(13,15)
+//            } else {   // debug
+//              SensorTemp[3] = SensorTemp[3];
+//              print("sensor 3 " + parseFloat(temperatureString.substring(13,15)));
+//              print("zero value found sensor 3 " + " " + SensorTemp[3]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(19,21)) != 0) {
+//              SensorTemp[4] = temperatureString.substring(19,21)
+//            } else {   // if zero value found
+//              SensorTemp[4] = SensorTemp[4];
+//              print("zero value found sensor 4 " + " " + SensorTemp[4]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(25,27)) != 0) {
+//              SensorTemp[5] = temperatureString.substring(25,27)
+//            } else {   // debug
+//              SensorTemp[5] = SensorTemp[5];
+//              print("zero value found sensor 5 " + " " + SensorTemp[5]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(31,33)) != 0) {
+//              SensorTemp[6] = temperatureString.substring(31,33)
+//            } else {   // debug
+//              SensorTemp[6] = SensorTemp[6];
+//              print("zero value found sensor 6 " + " " + SensorTemp[6]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(37,39)) != 0) {
+//              SensorTemp[7] = temperatureString.substring(37,39)
+//            } else {   // debug
+//              SensorTemp[7] = SensorTemp[7];
+//              print("zero value found sensor 7 " + " " + SensorTemp[7]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(43,45)) != 0) {
+//              SensorTemp[8] = temperatureString.substring(43,45)
+//            } else {   // debug
+//              SensorTemp[8] = SensorTemp[8];
+//              print("zero value found sensor 8 " + " " + SensorTemp[8]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(49,51)) != 0) {
+//              SensorTemp[9] = temperatureString.substring(49,51)
+//            } else {   // debug
+//              SensorTemp[9] = SensorTemp[9];
+//              print("zero value found sensor 9 " + " " + SensorTemp[9]);
+//            }
+//
+//            if (parseFloat(temperatureString.substring(55,57)) != 0) {
+//              SensorTemp[10] = temperatureString.substring(55,57)
+//            } else {   // debug
+//              SensorTemp[10] = SensorTemp[10];
+//              print("zero value found sensor 10 " + " " + SensorTemp[10]);
+//            }
 
             if (waitmessage.visible == true)
             {
@@ -6332,8 +6363,16 @@ function stubEnableSpeedfanLogging() {
     {
         if (speedfanflag === "installed")
           {
-                // kill speedfan, kill it first, we don't want two processes running...
-                // KillSpeedfanProcess();
+          
+                // kill speedfan, kill it first, we don't want two processes running...   
+
+                // isApplicationRunning( "speedfan.exe" );    does not work anymore returning false under NT6+          
+
+                print ("********************************************************* ");
+                print ("*********           Killing Speeedfan          ********** ");
+                print ("********************************************************* ");
+                KillSpeedfanProcess();
+                
                 // if windows XP or earlier then set speedfan to minimise
                 // later versions of Windows will not allow access to the program files folders
                 if (getWindowsVersion() <= "5.7" || getWindowsVersion() >= "5.0")
