@@ -3137,7 +3137,7 @@ function checkSpeedfanBinaryExists()
                     print("Looking for ",drive+":/Program Files/SpeedFan/speedfan.exe");
                     if (filesystem.itemExists(drive+":/Program Files/SpeedFan/speedfan.exe") || filesystem.itemExists("c:/Program Files (x86)/SpeedFan/speedfan.exe"))
                     {
-            		    print("Speedfan found (!) here: ",drive+":/Program Files/SpeedFan/speedfan.exe");
+            		    print("Speedfan folder found (!) here: ",drive+":/Program Files/SpeedFan/speedfan.exe");
                             speedfanindicatorred.visible = false;
                             speedfanindicator.visible = true;
                             speedfanflag = "installed";
@@ -3153,7 +3153,7 @@ function checkSpeedfanBinaryExists()
                     }
                 } else {
                        if (filesystem.itemExists(preferences.SpeedfanLocation.value+ "/speedfan.exe")) {
-                            print("Speedfan found (!) here: ",preferences.SpeedfanLocation.value+ "/speedfan.exe");
+                            print("Speedfan folder found (!) here: ",preferences.SpeedfanLocation.value+ "/speedfan.exe");
                             speedfanindicatorred.visible = false;
                             speedfanindicator.visible = true;
                             speedfanflag = "installed";
@@ -6364,8 +6364,10 @@ function stubEnableSpeedfanLogging() {
     {
         if (speedfanflag === "installed") {
         
-            // isApplicationRunning( "speedfan.exe" );    does not work anymore returning false under NT6+             
-            if (checkProcessRunning("speedfan") === false) {    
+            // the original YWE in-built function isApplicationRunning does not work anymore always returning false under NT6+ 
+            // this is using the home-grown version using tasklist and indexOf.
+
+            if (isApplicationRunning("speedfan.exe") === false) {    
                 // kill speedfan, kill it first, we don't want two processes running...   
                 print ("********************************************************* ");
                 print ("*********           Killing Speeedfan          ********** ");
@@ -6436,58 +6438,25 @@ thermometersHelpPage.onMouseDown = function () {
 //=================================
 
 
-//=================================
-// function to check whether speedfan exists
-//=================================
-function checkProcessRunning(procName) {
-    'use strict';
-    var procList = getProcList();
-    var value = procName;
-    var prc;
-    var found;
-    var answer;
-
-    if (value === undefined) {
-		value =  procName ;
-    }
-
-    proc = procList.forEach(function (ele) {
-        found = ele;
-        print ("*************" + found );
-	});
-
-	if (found) {
-    	print("Found process for " + procName);
-        return true;
-    } else {
-        print("Failed to find process for " + procName);
-        return false;
-    }
-}
-//=================================
-// function ends
-//=================================
-
-
 
 //=================================
-// function 
+// function to replace in-built YWE function no longer working
 //=================================
-function getProcList() {
+function isApplicationRunning(procName) {
     'use strict';
 	var procList = [];
     var psTable = runCommand('tasklist').split(/\r\n?|\n/);
-
+    var foundFlg = false;
+    
     psTable.forEach(function (ele) {
-        var found = ele.match(/^(.*?(\bspeedfan\b)[^$]*)$/);
-        //print (" " + ele );
-        if (found !== null) {
-            //print("speedfan found in processes ");
+        var found = ele.indexOf(procName);
+        if (found != -1) {
+            foundFlg = true;
+    	    print("Found running process for " + procName);
             procList.push([found[2], found[1]]);
-            //print ("*************" + ele );
         }
     });
-    return procList;
+    return foundFlg;
 }
 //=================================
 // function ends
