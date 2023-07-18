@@ -538,55 +538,55 @@ clear the selected sensor preferences before bundling
     var scaleswitchleftwidthDefault =  scaleswitchleft.width;
     var scaleswitchleftheightDefault =  scaleswitchleft.height;
 
-    var thermometerRightThermometerSensorChar1hoffsetDefault = thermometerRightThermometerSensorChar1.hoffset;
-    var thermometerRightThermometerSensorChar1voffsetDefault = thermometerRightThermometerSensorChar1.voffset;
-    var thermometerRightThermometerSensorChar1widthDefault =  thermometerRightThermometerSensorChar1.width;
-    var thermometerRightThermometerSensorChar1heightDefault =  thermometerRightThermometerSensorChar1.height;
+    var thermometerRightSensorChar1hoffsetDefault = thermometerRightSensorChar1.hoffset;
+    var thermometerRightSensorChar1voffsetDefault = thermometerRightSensorChar1.voffset;
+    var thermometerRightSensorChar1widthDefault =  thermometerRightSensorChar1.width;
+    var thermometerRightSensorChar1heightDefault =  thermometerRightSensorChar1.height;
 
-    var thermometerRightThermometerSensorChar2hoffsetDefault = thermometerRightThermometerSensorChar2.hoffset;
-    var thermometerRightThermometerSensorChar2voffsetDefault = thermometerRightThermometerSensorChar2.voffset;
-    var thermometerRightThermometerSensorChar2widthDefault =  thermometerRightThermometerSensorChar2.width;
-    var thermometerRightThermometerSensorChar2heightDefault =  thermometerRightThermometerSensorChar2.height;
+    var thermometerRightSensorChar2hoffsetDefault = thermometerRightSensorChar2.hoffset;
+    var thermometerRightSensorChar2voffsetDefault = thermometerRightSensorChar2.voffset;
+    var thermometerRightSensorChar2widthDefault =  thermometerRightSensorChar2.width;
+    var thermometerRightSensorChar2heightDefault =  thermometerRightSensorChar2.height;
 
-    var thermometerRightThermometerSensorChar3hoffsetDefault = thermometerRightThermometerSensorChar3.hoffset;
-    var thermometerRightThermometerSensorChar3voffsetDefault = thermometerRightThermometerSensorChar3.voffset;
-    var thermometerRightThermometerSensorChar3widthDefault =  thermometerRightThermometerSensorChar3.width;
-    var thermometerRightThermometerSensorChar3heightDefault =  thermometerRightThermometerSensorChar3.height;
+    var thermometerRightSensorChar3hoffsetDefault = thermometerRightSensorChar3.hoffset;
+    var thermometerRightSensorChar3voffsetDefault = thermometerRightSensorChar3.voffset;
+    var thermometerRightSensorChar3widthDefault =  thermometerRightSensorChar3.width;
+    var thermometerRightSensorChar3heightDefault =  thermometerRightSensorChar3.height;
 
-    var thermometerRightThermometerSensorChar4hoffsetDefault = thermometerRightThermometerSensorChar4.hoffset;
-    var thermometerRightThermometerSensorChar4voffsetDefault = thermometerRightThermometerSensorChar4.voffset;
-    var thermometerRightThermometerSensorChar4widthDefault =  thermometerRightThermometerSensorChar4.width;
-    var thermometerRightThermometerSensorChar4heightDefault =  thermometerRightThermometerSensorChar4.height;
+    var thermometerRightSensorChar4hoffsetDefault = thermometerRightSensorChar4.hoffset;
+    var thermometerRightSensorChar4voffsetDefault = thermometerRightSensorChar4.voffset;
+    var thermometerRightSensorChar4widthDefault =  thermometerRightSensorChar4.width;
+    var thermometerRightSensorChar4heightDefault =  thermometerRightSensorChar4.height;
 
-    var thermometerRightThermometerSensorChar5hoffsetDefault = thermometerRightThermometerSensorChar5.hoffset;
-    var thermometerRightThermometerSensorChar5voffsetDefault = thermometerRightThermometerSensorChar5.voffset;
-    var thermometerRightThermometerSensorChar5widthDefault =  thermometerRightThermometerSensorChar5.width;
-    var thermometerRightThermometerSensorChar5heightDefault =  thermometerRightThermometerSensorChar5.height;
+    var thermometerRightSensorChar5hoffsetDefault = thermometerRightSensorChar5.hoffset;
+    var thermometerRightSensorChar5voffsetDefault = thermometerRightSensorChar5.voffset;
+    var thermometerRightSensorChar5widthDefault =  thermometerRightSensorChar5.width;
+    var thermometerRightSensorChar5heightDefault =  thermometerRightSensorChar5.height;
 
-    var thermometerLeftThermometerSensorChar1hoffsetDefault = thermometerLeftThermometerSensorChar1.hoffset;
-    var thermometerLeftThermometerSensorChar1voffsetDefault = thermometerLeftThermometerSensorChar1.voffset;
-    var thermometerLeftThermometerSensorChar1widthDefault =  thermometerLeftThermometerSensorChar1.width;
-    var thermometerLeftThermometerSensorChar1heightDefault =  thermometerLeftThermometerSensorChar1.height;
+    var thermometerLeftSensorChar1hoffsetDefault = thermometerLeftSensorChar1.hoffset;
+    var thermometerLeftSensorChar1voffsetDefault = thermometerLeftSensorChar1.voffset;
+    var thermometerLeftSensorChar1widthDefault =  thermometerLeftSensorChar1.width;
+    var thermometerLeftSensorChar1heightDefault =  thermometerLeftSensorChar1.height;
 
-    var thermometerLeftThermometerSensorChar2hoffsetDefault = thermometerLeftThermometerSensorChar2.hoffset;
-    var thermometerLeftThermometerSensorChar2voffsetDefault = thermometerLeftThermometerSensorChar2.voffset;
-    var thermometerLeftThermometerSensorChar2widthDefault =  thermometerLeftThermometerSensorChar2.width;
-    var thermometerLeftThermometerSensorChar2heightDefault =  thermometerLeftThermometerSensorChar2.height;
+    var thermometerLeftSensorChar2hoffsetDefault = thermometerLeftSensorChar2.hoffset;
+    var thermometerLeftSensorChar2voffsetDefault = thermometerLeftSensorChar2.voffset;
+    var thermometerLeftSensorChar2widthDefault =  thermometerLeftSensorChar2.width;
+    var thermometerLeftSensorChar2heightDefault =  thermometerLeftSensorChar2.height;
 
-    var thermometerLeftThermometerSensorChar3hoffsetDefault = thermometerLeftThermometerSensorChar3.hoffset;
-    var thermometerLeftThermometerSensorChar3voffsetDefault = thermometerLeftThermometerSensorChar3.voffset;
-    var thermometerLeftThermometerSensorChar3widthDefault =  thermometerLeftThermometerSensorChar3.width;
-    var thermometerLeftThermometerSensorChar3heightDefault =  thermometerLeftThermometerSensorChar3.height;
+    var thermometerLeftSensorChar3hoffsetDefault = thermometerLeftSensorChar3.hoffset;
+    var thermometerLeftSensorChar3voffsetDefault = thermometerLeftSensorChar3.voffset;
+    var thermometerLeftSensorChar3widthDefault =  thermometerLeftSensorChar3.width;
+    var thermometerLeftSensorChar3heightDefault =  thermometerLeftSensorChar3.height;
 
-    var thermometerLeftThermometerSensorChar4hoffsetDefault = thermometerLeftThermometerSensorChar4.hoffset;
-    var thermometerLeftThermometerSensorChar4voffsetDefault = thermometerLeftThermometerSensorChar4.voffset;
-    var thermometerLeftThermometerSensorChar4widthDefault =  thermometerLeftThermometerSensorChar4.width;
-    var thermometerLeftThermometerSensorChar4heightDefault =  thermometerLeftThermometerSensorChar4.height;
+    var thermometerLeftSensorChar4hoffsetDefault = thermometerLeftSensorChar4.hoffset;
+    var thermometerLeftSensorChar4voffsetDefault = thermometerLeftSensorChar4.voffset;
+    var thermometerLeftSensorChar4widthDefault =  thermometerLeftSensorChar4.width;
+    var thermometerLeftSensorChar4heightDefault =  thermometerLeftSensorChar4.height;
 
-    var thermometerLeftThermometerSensorChar5hoffsetDefault = thermometerLeftThermometerSensorChar5.hoffset;
-    var thermometerLeftThermometerSensorChar5voffsetDefault = thermometerLeftThermometerSensorChar5.voffset;
-    var thermometerLeftThermometerSensorChar5widthDefault =  thermometerLeftThermometerSensorChar5.width;
-    var thermometerLeftThermometerSensorChar5heightDefault =  thermometerLeftThermometerSensorChar5.height;
+    var thermometerLeftSensorChar5hoffsetDefault = thermometerLeftSensorChar5.hoffset;
+    var thermometerLeftSensorChar5voffsetDefault = thermometerLeftSensorChar5.voffset;
+    var thermometerLeftSensorChar5widthDefault =  thermometerLeftSensorChar5.width;
+    var thermometerLeftSensorChar5heightDefault =  thermometerLeftSensorChar5.height;
 
     var gettingSpeedfanhoffsetDefault = gettingSpeedfan.hoffset;
     var gettingSpeedfanvoffsetDefault = gettingSpeedfan.voffset;
@@ -1968,55 +1968,55 @@ function resizethermometer()
         scaleswitchright.width =  scaleswitchrightwidthDefault * thermometerScale;
         scaleswitchright.height =  scaleswitchrightheightDefault * thermometerScale;
 
-        thermometerRightThermometerSensorChar1.hoffset =  thermometerRightThermometerSensorChar1hoffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar1.voffset =  thermometerRightThermometerSensorChar1voffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar1.width =  thermometerRightThermometerSensorChar1widthDefault * thermometerScale;
-        thermometerRightThermometerSensorChar1.height =  thermometerRightThermometerSensorChar1heightDefault * thermometerScale;
+        thermometerRightSensorChar1.hoffset =  thermometerRightSensorChar1hoffsetDefault * thermometerScale;
+        thermometerRightSensorChar1.voffset =  thermometerRightSensorChar1voffsetDefault * thermometerScale;
+        thermometerRightSensorChar1.width =  thermometerRightSensorChar1widthDefault * thermometerScale;
+        thermometerRightSensorChar1.height =  thermometerRightSensorChar1heightDefault * thermometerScale;
 
-        thermometerRightThermometerSensorChar2.hoffset =  thermometerRightThermometerSensorChar2hoffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar2.voffset =  thermometerRightThermometerSensorChar2voffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar2.width =  thermometerRightThermometerSensorChar2widthDefault * thermometerScale;
-        thermometerRightThermometerSensorChar2.height =  thermometerRightThermometerSensorChar2heightDefault * thermometerScale;
+        thermometerRightSensorChar2.hoffset =  thermometerRightSensorChar2hoffsetDefault * thermometerScale;
+        thermometerRightSensorChar2.voffset =  thermometerRightSensorChar2voffsetDefault * thermometerScale;
+        thermometerRightSensorChar2.width =  thermometerRightSensorChar2widthDefault * thermometerScale;
+        thermometerRightSensorChar2.height =  thermometerRightSensorChar2heightDefault * thermometerScale;
 
-        thermometerRightThermometerSensorChar3.hoffset =  thermometerRightThermometerSensorChar3hoffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar3.voffset =  thermometerRightThermometerSensorChar3voffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar3.width =  thermometerRightThermometerSensorChar3widthDefault * thermometerScale;
-        thermometerRightThermometerSensorChar3.height =  thermometerRightThermometerSensorChar3heightDefault * thermometerScale;
+        thermometerRightSensorChar3.hoffset =  thermometerRightSensorChar3hoffsetDefault * thermometerScale;
+        thermometerRightSensorChar3.voffset =  thermometerRightSensorChar3voffsetDefault * thermometerScale;
+        thermometerRightSensorChar3.width =  thermometerRightSensorChar3widthDefault * thermometerScale;
+        thermometerRightSensorChar3.height =  thermometerRightSensorChar3heightDefault * thermometerScale;
 
-        thermometerRightThermometerSensorChar4.hoffset =  thermometerRightThermometerSensorChar4hoffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar4.voffset =  thermometerRightThermometerSensorChar4voffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar4.width =  thermometerRightThermometerSensorChar4widthDefault * thermometerScale;
-        thermometerRightThermometerSensorChar4.height =  thermometerRightThermometerSensorChar4heightDefault * thermometerScale;
+        thermometerRightSensorChar4.hoffset =  thermometerRightSensorChar4hoffsetDefault * thermometerScale;
+        thermometerRightSensorChar4.voffset =  thermometerRightSensorChar4voffsetDefault * thermometerScale;
+        thermometerRightSensorChar4.width =  thermometerRightSensorChar4widthDefault * thermometerScale;
+        thermometerRightSensorChar4.height =  thermometerRightSensorChar4heightDefault * thermometerScale;
 
-        thermometerRightThermometerSensorChar5.hoffset =  thermometerRightThermometerSensorChar5hoffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar5.voffset =  thermometerRightThermometerSensorChar5voffsetDefault * thermometerScale;
-        thermometerRightThermometerSensorChar5.width =  thermometerRightThermometerSensorChar5widthDefault * thermometerScale;
-        thermometerRightThermometerSensorChar5.height =  thermometerRightThermometerSensorChar5heightDefault * thermometerScale;
+        thermometerRightSensorChar5.hoffset =  thermometerRightSensorChar5hoffsetDefault * thermometerScale;
+        thermometerRightSensorChar5.voffset =  thermometerRightSensorChar5voffsetDefault * thermometerScale;
+        thermometerRightSensorChar5.width =  thermometerRightSensorChar5widthDefault * thermometerScale;
+        thermometerRightSensorChar5.height =  thermometerRightSensorChar5heightDefault * thermometerScale;
 
-        thermometerLeftThermometerSensorChar1.hoffset =  thermometerLeftThermometerSensorChar1hoffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar1.voffset =  thermometerLeftThermometerSensorChar1voffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar1.width =  thermometerLeftThermometerSensorChar1widthDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar1.height =  thermometerLeftThermometerSensorChar1heightDefault * thermometerScale;
+        thermometerLeftSensorChar1.hoffset =  thermometerLeftSensorChar1hoffsetDefault * thermometerScale;
+        thermometerLeftSensorChar1.voffset =  thermometerLeftSensorChar1voffsetDefault * thermometerScale;
+        thermometerLeftSensorChar1.width =  thermometerLeftSensorChar1widthDefault * thermometerScale;
+        thermometerLeftSensorChar1.height =  thermometerLeftSensorChar1heightDefault * thermometerScale;
 
-        thermometerLeftThermometerSensorChar2.hoffset =  thermometerLeftThermometerSensorChar2hoffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar2.voffset =  thermometerLeftThermometerSensorChar2voffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar2.width =  thermometerLeftThermometerSensorChar2widthDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar2.height =  thermometerLeftThermometerSensorChar2heightDefault * thermometerScale;
+        thermometerLeftSensorChar2.hoffset =  thermometerLeftSensorChar2hoffsetDefault * thermometerScale;
+        thermometerLeftSensorChar2.voffset =  thermometerLeftSensorChar2voffsetDefault * thermometerScale;
+        thermometerLeftSensorChar2.width =  thermometerLeftSensorChar2widthDefault * thermometerScale;
+        thermometerLeftSensorChar2.height =  thermometerLeftSensorChar2heightDefault * thermometerScale;
 
-        thermometerLeftThermometerSensorChar3.hoffset =  thermometerLeftThermometerSensorChar3hoffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar3.voffset =  thermometerLeftThermometerSensorChar3voffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar3.width =  thermometerLeftThermometerSensorChar3widthDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar3.height =  thermometerLeftThermometerSensorChar3heightDefault * thermometerScale;
+        thermometerLeftSensorChar3.hoffset =  thermometerLeftSensorChar3hoffsetDefault * thermometerScale;
+        thermometerLeftSensorChar3.voffset =  thermometerLeftSensorChar3voffsetDefault * thermometerScale;
+        thermometerLeftSensorChar3.width =  thermometerLeftSensorChar3widthDefault * thermometerScale;
+        thermometerLeftSensorChar3.height =  thermometerLeftSensorChar3heightDefault * thermometerScale;
 
-        thermometerLeftThermometerSensorChar4.hoffset =  thermometerLeftThermometerSensorChar4hoffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar4.voffset =  thermometerLeftThermometerSensorChar4voffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar4.width =  thermometerLeftThermometerSensorChar4widthDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar4.height =  thermometerLeftThermometerSensorChar4heightDefault * thermometerScale;
+        thermometerLeftSensorChar4.hoffset =  thermometerLeftSensorChar4hoffsetDefault * thermometerScale;
+        thermometerLeftSensorChar4.voffset =  thermometerLeftSensorChar4voffsetDefault * thermometerScale;
+        thermometerLeftSensorChar4.width =  thermometerLeftSensorChar4widthDefault * thermometerScale;
+        thermometerLeftSensorChar4.height =  thermometerLeftSensorChar4heightDefault * thermometerScale;
 
-        thermometerLeftThermometerSensorChar5.hoffset =  thermometerLeftThermometerSensorChar5hoffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar5.voffset =  thermometerLeftThermometerSensorChar5voffsetDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar5.width =  thermometerLeftThermometerSensorChar5widthDefault * thermometerScale;
-        thermometerLeftThermometerSensorChar5.height =  thermometerLeftThermometerSensorChar5heightDefault * thermometerScale;
+        thermometerLeftSensorChar5.hoffset =  thermometerLeftSensorChar5hoffsetDefault * thermometerScale;
+        thermometerLeftSensorChar5.voffset =  thermometerLeftSensorChar5voffsetDefault * thermometerScale;
+        thermometerLeftSensorChar5.width =  thermometerLeftSensorChar5widthDefault * thermometerScale;
+        thermometerLeftSensorChar5.height =  thermometerLeftSensorChar5heightDefault * thermometerScale;
 
         gettingSpeedfan.hoffset =  gettingSpeedfanhoffsetDefault * thermometerScale;
         gettingSpeedfan.voffset =  gettingSpeedfanvoffsetDefault * thermometerScale;
@@ -4613,23 +4613,23 @@ function newCanvas(hOffset, vOffset, width, height, zOrder) {
 function buildRightThermometerSensorLabelText(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           thermometerRightThermometerSensorChar1.src = "Resources/questionmarktext.png";
-           thermometerRightThermometerSensorChar2.src =  "Resources/questionmarktext.png";
-           thermometerRightThermometerSensorChar3.src =  "Resources/questionmarktext.png";
-           thermometerRightThermometerSensorChar4.src =  "Resources/questionmarktext.png";
-           thermometerRightThermometerSensorChar5.src =  "Resources/questionmarktext.png";
+           thermometerRightSensorChar1.src = "Resources/questionmarktext.png";
+           thermometerRightSensorChar2.src =  "Resources/questionmarktext.png";
+           thermometerRightSensorChar3.src =  "Resources/questionmarktext.png";
+           thermometerRightSensorChar4.src =  "Resources/questionmarktext.png";
+           thermometerRightSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {thermometerRightThermometerSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {thermometerRightThermometerSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {thermometerRightThermometerSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {thermometerRightThermometerSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {thermometerRightThermometerSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("thermometerRightThermometerSensorChar5.src  "+thermometerRightThermometerSensorChar5.src );
+                  if (lettercnt == 1) {thermometerRightSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {thermometerRightSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {thermometerRightSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {thermometerRightSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {thermometerRightSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("thermometerRightSensorChar5.src  "+thermometerRightSensorChar5.src );
                 }
 	   }
 }
@@ -4643,23 +4643,23 @@ function buildRightThermometerSensorLabelText(a) {
 function buildLeftGaugeSensorLabelText(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           thermometerLeftThermometerSensorChar1.src = "Resources/questionmarktext.png";
-           thermometerLeftThermometerSensorChar2.src =  "Resources/questionmarktext.png";
-           thermometerLeftThermometerSensorChar3.src =  "Resources/questionmarktext.png";
-           thermometerLeftThermometerSensorChar4.src =  "Resources/questionmarktext.png";
-           thermometerLeftThermometerSensorChar5.src =  "Resources/questionmarktext.png";
+           thermometerLeftSensorChar1.src = "Resources/questionmarktext.png";
+           thermometerLeftSensorChar2.src =  "Resources/questionmarktext.png";
+           thermometerLeftSensorChar3.src =  "Resources/questionmarktext.png";
+           thermometerLeftSensorChar4.src =  "Resources/questionmarktext.png";
+           thermometerLeftSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {thermometerLeftThermometerSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {thermometerLeftThermometerSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {thermometerLeftThermometerSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {thermometerLeftThermometerSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {thermometerLeftThermometerSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("thermometerLeftThermometerSensorChar5.src  "+thermometerLeftThermometerSensorChar5.src );
+                  if (lettercnt == 1) {thermometerLeftSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {thermometerLeftSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {thermometerLeftSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {thermometerLeftSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {thermometerLeftSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("thermometerLeftSensorChar5.src  "+thermometerLeftSensorChar5.src );
                 }
 	   }
 }

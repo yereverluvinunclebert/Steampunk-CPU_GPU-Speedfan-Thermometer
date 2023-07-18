@@ -12,49 +12,16 @@
 
 -->
 
-        <about-box>
+<about-box>
 		<image>Resources/cpuPlaqueCopy.png</image>
 		<about-version>
 			<font>Times New Roman</font>
 			<url>http://lightquick.co.uk/downloads/steampunk-cpu-gpu-temperature-monitor-yahoo-widget.html</url>
 			<size>11</size>
-			<hOffset>185</hOffset>
-			<vOffset>26</vOffset>
+			<hOffset>60</hOffset>
+			<vOffset>360</vOffset>
 			<color>#000000</color>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
 		</about-version>
-
-		<about-text>
-			<data>http://lightquick.co.uk/</data>
-			<url>http://lightquick.co.uk/steampunk-widgets.html?Itemid=264</url>
-			<font>Times New Roman</font>
-			<size>12</size>
-			<hOffset>50</hOffset>
-			<vOffset>93</vOffset>
-			<shadow>
-				<color>#FFFFFF</color>
-				<hOffset>10</hOffset>
-				<vOffset>10</vOffset>
-			</shadow>
-		</about-text>
-
-		<about-text>
-			<data>steampunk-widgets.html?Itemid=264</data>
-			<url>http://lightquick.co.uk/steampunk-widgets.html?Itemid=264</url>
-			<font>Times New Roman</font>
-			<size>12</size>
-			<hOffset>25</hOffset>
-			<vOffset>103</vOffset>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
-		</about-text>
 
 		<about-text>
 			<data>Copyright</data>
@@ -62,12 +29,8 @@
 			<font>Times New Roman</font>
 			<size>10</size>
 			<hOffset>90</hOffset>
-			<vOffset>170</vOffset>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
+			<vOffset>315</vOffset>
+
 		</about-text>
 
 		<about-text>
@@ -76,12 +39,8 @@
 			<font>Times New Roman</font>
 			<size>10</size>
 			<hOffset>90</hOffset>
-			<vOffset>181</vOffset>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
+			<vOffset>330</vOffset>
+
 		</about-text>
 
 		<about-text>
@@ -90,12 +49,8 @@
 			<font>Times New Roman</font>
 			<size>10</size>
 			<hOffset>90</hOffset>
-			<vOffset>191</vOffset>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
+			<vOffset>345</vOffset>
+
 		</about-text>
 
 		<about-text>
@@ -104,12 +59,8 @@
 			<font>Times New Roman</font>
 			<size>10</size>
 			<hOffset>90</hOffset>
-			<vOffset>202</vOffset>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
+			<vOffset>360</vOffset>
+
 		</about-text>
 
 		<about-text>
@@ -118,12 +69,8 @@
 			<font>Times New Roman</font>
 			<size>10</size>
 			<hOffset>90</hOffset>
-			<vOffset>213</vOffset>
-			<shadow>
-				<color>#000000</color>
-				<hOffset>0</hOffset>
-				<vOffset>201</vOffset>
-			</shadow>
+			<vOffset>300</vOffset>
+
 		</about-text>
 	</about-box>
 
@@ -284,7 +231,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerLeftThermometerSensorChar1"
+			name		= "thermometerLeftSensorChar1"
 			hOffset		= "256 "
 			vOffset		= "83 "
 			width		= "10"
@@ -295,7 +242,7 @@
 
 		<image
 			src		= "Resources/1.png"
-			name		= "thermometerLeftThermometerSensorChar2"
+			name		= "thermometerLeftSensorChar2"
 			hOffset		= "262 "
 			vOffset		= "83 "
 			width		= "10"
@@ -306,7 +253,7 @@
 
 		<image
 			src		= "Resources/S.png"
-			name		= "thermometerLeftThermometerSensorChar3"
+			name		= "thermometerLeftSensorChar3"
 			hOffset		= "268 "
 			vOffset		= "83 "
 			opacity		= "255"
@@ -315,7 +262,7 @@
 
 		<image
 			src		= "Resources/T.png"
-			name		= "thermometerLeftThermometerSensorChar4"
+			name		= "thermometerLeftSensorChar4"
 			hOffset		= "274 "
 			vOffset		= "83 "
 			width		= "10"
@@ -326,7 +273,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerLeftThermometerSensorChar5"
+			name		= "thermometerLeftSensorChar5"
 			hOffset		= "280 "
 			vOffset		= "83 "
 			width		= "10"
@@ -338,7 +285,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerRightThermometerSensorChar1"
+			name		= "thermometerRightSensorChar1"
 			hOffset		= "332 "
 			vOffset		= "83 "
 			width		= "10"
@@ -349,7 +296,7 @@
 
 		<image
 			src		= "Resources/2.png"
-			name		= "thermometerRightThermometerSensorChar2"
+			name		= "thermometerRightSensorChar2"
 			hOffset		= "338 "
 			vOffset		= "83 "
 			width		= "10"
@@ -360,7 +307,7 @@
 
 		<image
 			src		= "Resources/n.png"
-			name		= "thermometerRightThermometerSensorChar3"
+			name		= "thermometerRightSensorChar3"
 			hOffset		= "344 "
 			vOffset		= "83 "
 			opacity		= "255"
@@ -369,7 +316,7 @@
 
 		<image
 			src		= "Resources/d.png"
-			name		= "thermometerRightThermometerSensorChar4"
+			name		= "thermometerRightSensorChar4"
 			hOffset		= "351 "
 			vOffset		= "83 "
 			width		= "10"
@@ -380,7 +327,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerRightThermometerSensorChar5"
+			name		= "thermometerRightSensorChar5"
 			hOffset		= "357 "
 			vOffset		= "83 "
 			width		= "10"
