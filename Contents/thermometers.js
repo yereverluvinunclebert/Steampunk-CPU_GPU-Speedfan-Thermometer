@@ -3662,7 +3662,7 @@ function ReadTemperatures()
                   SensorTemp[a] = temperatureString.substring(substr1,substr2)
                 } else {
                   SensorTemp[a] = temperatureString.substring(substr1,substr2)
-                  print("************** zero value found for sensor " + a + " data = " + SensorTemp[a]);
+                  print("************** zero value found for sensor no. " + a + " data = " + SensorTemp[a]);
                   SensorTemp[a] = oldSensorTemp;
                 }     
                 substr1 = substr1 + 6;       
@@ -4091,6 +4091,7 @@ function generateLeftThermometerSensorList(selectedMenuItem) {
 //=====================
 //End function
 //=====================
+
 //=================================================================================================
 // function to select the sensor, clear the menu and determine what to do when an item is selected.
 //=================================================================================================
@@ -6361,16 +6362,15 @@ function stubEnableSpeedfanLogging() {
 
     if (system.platform == "windows")
     {
-        if (speedfanflag === "installed")
-          {
-          
+        if (speedfanflag === "installed") {
+        
+            // isApplicationRunning( "speedfan.exe" );    does not work anymore returning false under NT6+             
+            if (checkProcessRunning("speedfan") === false) {    
                 // kill speedfan, kill it first, we don't want two processes running...   
-
-                // isApplicationRunning( "speedfan.exe" );    does not work anymore returning false under NT6+          
-
                 print ("********************************************************* ");
                 print ("*********           Killing Speeedfan          ********** ");
                 print ("********************************************************* ");
+                // this command does nothing in NT6+ need to build my own binary to kill speedfan
                 KillSpeedfanProcess();
                 
                 // if windows XP or earlier then set speedfan to minimise
@@ -6393,6 +6393,8 @@ function stubEnableSpeedfanLogging() {
                 }
                 // restart speedfan after change to minimise it on startup
                 StartSpeedfanProcess();
+            }
+                
         }
     }
 };
@@ -6424,7 +6426,7 @@ function startSampling() {
 
 
 //=================================
-// timer to 
+// function to  
 //=================================
 thermometersHelpPage.onMouseDown = function () {
     helpdropdownmove();
@@ -6432,3 +6434,62 @@ thermometersHelpPage.onMouseDown = function () {
 //=================================
 // timer ends
 //=================================
+
+
+//=================================
+// function to check whether speedfan exists
+//=================================
+function checkProcessRunning(procName) {
+    'use strict';
+    var procList = getProcList();
+    var value = procName;
+    var prc;
+    var found;
+    var answer;
+
+    if (value === undefined) {
+		value =  procName ;
+    }
+
+    proc = procList.forEach(function (ele) {
+        found = ele;
+        print ("*************" + found );
+	});
+
+	if (found) {
+    	print("Found process for " + procName);
+        return true;
+    } else {
+        print("Failed to find process for " + procName);
+        return false;
+    }
+}
+//=================================
+// function ends
+//=================================
+
+
+
+//=================================
+// function 
+//=================================
+function getProcList() {
+    'use strict';
+	var procList = [];
+    var psTable = runCommand('tasklist').split(/\r\n?|\n/);
+
+    psTable.forEach(function (ele) {
+        var found = ele.match(/^(.*?(\bspeedfan\b)[^$]*)$/);
+        //print (" " + ele );
+        if (found !== null) {
+            //print("speedfan found in processes ");
+            procList.push([found[2], found[1]]);
+            //print ("*************" + ele );
+        }
+    });
+    return procList;
+}
+//=================================
+// function ends
+//=================================
+
