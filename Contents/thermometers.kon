@@ -284,7 +284,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerLeftSensorChar1"
+			name		= "thermometerLeftThermometerSensorChar1"
 			hOffset		= "256 "
 			vOffset		= "83 "
 			width		= "10"
@@ -295,7 +295,7 @@
 
 		<image
 			src		= "Resources/1.png"
-			name		= "thermometerLeftSensorChar2"
+			name		= "thermometerLeftThermometerSensorChar2"
 			hOffset		= "262 "
 			vOffset		= "83 "
 			width		= "10"
@@ -306,7 +306,7 @@
 
 		<image
 			src		= "Resources/S.png"
-			name		= "thermometerLeftSensorChar3"
+			name		= "thermometerLeftThermometerSensorChar3"
 			hOffset		= "268 "
 			vOffset		= "83 "
 			opacity		= "255"
@@ -315,7 +315,7 @@
 
 		<image
 			src		= "Resources/T.png"
-			name		= "thermometerLeftSensorChar4"
+			name		= "thermometerLeftThermometerSensorChar4"
 			hOffset		= "274 "
 			vOffset		= "83 "
 			width		= "10"
@@ -326,7 +326,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerLeftSensorChar5"
+			name		= "thermometerLeftThermometerSensorChar5"
 			hOffset		= "280 "
 			vOffset		= "83 "
 			width		= "10"
@@ -338,7 +338,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerRightSensorChar1"
+			name		= "thermometerRightThermometerSensorChar1"
 			hOffset		= "332 "
 			vOffset		= "83 "
 			width		= "10"
@@ -349,7 +349,7 @@
 
 		<image
 			src		= "Resources/2.png"
-			name		= "thermometerRightSensorChar2"
+			name		= "thermometerRightThermometerSensorChar2"
 			hOffset		= "338 "
 			vOffset		= "83 "
 			width		= "10"
@@ -360,7 +360,7 @@
 
 		<image
 			src		= "Resources/n.png"
-			name		= "thermometerRightSensorChar3"
+			name		= "thermometerRightThermometerSensorChar3"
 			hOffset		= "344 "
 			vOffset		= "83 "
 			opacity		= "255"
@@ -369,7 +369,7 @@
 
 		<image
 			src		= "Resources/d.png"
-			name		= "thermometerRightSensorChar4"
+			name		= "thermometerRightThermometerSensorChar4"
 			hOffset		= "351 "
 			vOffset		= "83 "
 			width		= "10"
@@ -380,7 +380,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "thermometerRightSensorChar5"
+			name		= "thermometerRightThermometerSensorChar5"
 			hOffset		= "357 "
 			vOffset		= "83 "
 			width		= "10"
@@ -963,14 +963,14 @@
 		</image>
 
                 <image src="Resources/cpu-gauge-celsius.png">
-		        <name>lower1Gauge</name>
+		        <name>LowerRightGauge</name>
 		        <hOffset>115</hOffset>
 		        <vOffset>338</vOffset>
 		        <zorder>1</zorder>
     	        </image>
 
                 <image src="Resources/point.png">
-		        <name>lower1Pointer</name>
+		        <name>LowerRightPointer</name>
 		        <hOffset>176</hOffset>
 		        <vOffset>384</vOffset>
 		        <zorder>1</zorder>
@@ -986,21 +986,21 @@
 
 
                 <image src="Resources/gauge-celsius.png">
-		        <name>upper1Gauge</name>
+		        <name>UpperRightBottomGauge</name>
 		        <hOffset>375</hOffset>
 		        <vOffset>64</vOffset>
     	        </image>
 
 
                 <image src="Resources/label.png">
-		        <name>upper2GaugeLabel</name>
+		        <name>UpperRightTopGaugeGaugeLabel</name>
 		        <hOffset>398</hOffset>
 		        <vOffset>246</vOffset>
 		        <visible>false</visible>
     	        </image>
     	        
                 <image src="Resources/gauge-celsius.png">
-		        <name>upper2Gauge</name>
+		        <name>UpperRightTopGaugeGauge</name>
 		        <hOffset>376</hOffset>
 		        <vOffset>165</vOffset>
 		        <visible>false</visible>
@@ -1008,7 +1008,7 @@
     	        </image>
 
                 <image src="Resources/cpu-gauge2-celsius.png">
-		        <name>lower2Gauge</name>
+		        <name>LowerLeftGauge</name>
 		        <hOffset>10</hOffset>
 		        <vOffset>340</vOffset>
 		        <visible>false</visible>
@@ -1016,7 +1016,7 @@
     	        </image>
 
                 <image src="Resources/point.png">
-		        <name>lower2Pointer</name>
+		        <name>LowerLeftPointer</name>
 		        <hOffset>72</hOffset>
 		        <visible>false</visible>
 		        <vOffset>385</vOffset>
@@ -1026,7 +1026,7 @@
 
 
                 <image src="Resources/point.png">
-		        <name>upper1Pointer</name>
+		        <name>UpperRightBottomGaugePointer</name>
 		        <hOffset>417</hOffset>
 		        <vOffset>106</vOffset>
 		        <hRegistrationPoint>40</hRegistrationPoint>
@@ -1035,7 +1035,7 @@
 
 
                 <image src="Resources/point.png">
-		        <name>upper2Pointer</name>
+		        <name>UpperRightTopGaugePointer</name>
 		        <hOffset>417</hOffset>
 		        <vOffset>207</vOffset>
 		        <visible>false</visible>
@@ -1070,7 +1070,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "upper1GaugeSensorChar1"
+			name		= "UpperRightBottomGaugeSensorChar1"
 			hOffset		= "400 "
 			vOffset		= "155"
 			width		= "10"
@@ -1082,7 +1082,7 @@
 
 		<image
 			src		= "Resources/1.png"
-			name		= "upper1GaugeSensorChar2"
+			name		= "UpperRightBottomGaugeSensorChar2"
 			hOffset		= "406 "
 			vOffset		= "154"
 			width		= "10"
@@ -1094,7 +1094,7 @@
 
 		<image
 			src		= "Resources/S.png"
-			name		= "upper1GaugeSensorChar3"
+			name		= "UpperRightBottomGaugeSensorChar3"
 			hOffset		= "412 "
 			vOffset		= "153 "
 			opacity		= "255"
@@ -1104,7 +1104,7 @@
 
 		<image
 			src		= "Resources/T.png"
-			name		= "upper1GaugeSensorChar4"
+			name		= "UpperRightBottomGaugeSensorChar4"
 			hOffset		= "418 "
 			vOffset		= "152 "
 			width		= "10"
@@ -1116,7 +1116,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "upper1GaugeSensorChar5"
+			name		= "UpperRightBottomGaugeSensorChar5"
 			hOffset		= "422 "
 			vOffset		= "151"
 			width		= "10"
@@ -1129,7 +1129,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "upper2GaugeSensorChar1"
+			name		= "UpperRightTopGaugeGaugeSensorChar1"
 			hOffset		= "402 "
 			vOffset		= "251"
 			width		= "10"
@@ -1141,7 +1141,7 @@
 
 		<image
 			src		= "Resources/2.png"
-			name		= "upper2GaugeSensorChar2"
+			name		= "UpperRightTopGaugeGaugeSensorChar2"
 			hOffset		= "408 "
 			vOffset		= "251"
 			width		= "10"
@@ -1153,7 +1153,7 @@
 
 		<image
 			src		= "Resources/N.png"
-			name		= "upper2GaugeSensorChar3"
+			name		= "UpperRightTopGaugeGaugeSensorChar3"
 			hOffset		= "414 "
 			vOffset		= "251 "
 			opacity		= "255"
@@ -1163,7 +1163,7 @@
 
 		<image
 			src		= "Resources/D.png"
-			name		= "upper2GaugeSensorChar4"
+			name		= "UpperRightTopGaugeGaugeSensorChar4"
 			hOffset		= "420 "
 			vOffset		= "251 "
 			width		= "10"
@@ -1175,7 +1175,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "upper2GaugeSensorChar5"
+			name		= "UpperRightTopGaugeGaugeSensorChar5"
 			hOffset		= "424 "
 			vOffset		= "251"
 			width		= "10"
@@ -1187,7 +1187,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "lower1GaugeSensorChar1"
+			name		= "LowerRightGaugeSensorChar1"
 			hOffset		= "205 "
 			vOffset		= "439"
 			width		= "10"
@@ -1199,7 +1199,7 @@
 
 		<image
 			src		= "Resources/3.png"
-			name		= "lower1GaugeSensorChar2"
+			name		= "LowerRightGaugeSensorChar2"
 			hOffset		= "211 "
 			vOffset		= "440"
 			width		= "10"
@@ -1212,7 +1212,7 @@
 
 		<image
 			src		= "Resources/R.png"
-			name		= "lower1GaugeSensorChar3"
+			name		= "LowerRightGaugeSensorChar3"
 			hOffset		= "217 "
 			vOffset		= "440 "
 			opacity		= "255"
@@ -1223,7 +1223,7 @@
 
 		<image
 			src		= "Resources/D.png"
-			name		= "lower1GaugeSensorChar4"
+			name		= "LowerRightGaugeSensorChar4"
 			hOffset		= "223 "
 			vOffset		= "441 "
 			width		= "10"
@@ -1236,7 +1236,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "lower1GaugeSensorChar5"
+			name		= "LowerRightGaugeSensorChar5"
 			hOffset		= "229 "
 			vOffset		= "443"
 			width		= "10"
@@ -1250,7 +1250,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "lower2GaugeSensorChar1"
+			name		= "LowerLeftGaugeSensorChar1"
 			hOffset		= "98 "
 			vOffset		= "443"
 			width		= "10"
@@ -1262,7 +1262,7 @@
 
 		<image
 			src		= "Resources/4.png"
-			name		= "lower2GaugeSensorChar2"
+			name		= "LowerLeftGaugeSensorChar2"
 			hOffset		= "104 "
 			vOffset		= "443"
 			width		= "10"
@@ -1275,7 +1275,7 @@
 
 		<image
 			src		= "Resources/T.png"
-			name		= "lower2GaugeSensorChar3"
+			name		= "LowerLeftGaugeSensorChar3"
 			hOffset		= "110 "
 			vOffset		= "441 "
 			opacity		= "255"
@@ -1286,7 +1286,7 @@
 
 		<image
 			src		= "Resources/H.png"
-			name		= "lower2GaugeSensorChar4"
+			name		= "LowerLeftGaugeSensorChar4"
 			hOffset		= "116 "
 			vOffset		= "440 "
 			width		= "10"
@@ -1299,7 +1299,7 @@
 
 		<image
 			src		= "Resources/questionmarktext.png"
-			name		= "lower2GaugeSensorChar5"
+			name		= "LowerLeftGaugeSensorChar5"
 			hOffset		= "122 "
 			vOffset		= "438"
 			width		= "10"
@@ -1482,16 +1482,27 @@
 		<description>Decide whether the thermometer chimes an alarm or not when over-temperature is reached.</description>
 	</preference>
 
-	<preference name="soundsPref">
-		<title>Sounds</title>
-		<group>sounds</group>
-		<type>popup</type>
-		<option>enabled</option>
-		<option>mute </option>
-		<option>-</option>
-		<defaultValue>enabled</defaultValue>
-		<description>Mute or enable all the thermometers sounds.</description>
-	</preference>
+  <preference name="soundsPref">
+    <title>Sounds</title>
+    <group>sounds</group>
+    <type>popup</type>
+    <option>enabled</option>
+    <option>mute </option>
+    <option>-</option>
+    <defaultValue>enabled</defaultValue>
+    <description>Mute or enable all the thermometers sounds.</description>
+  </preference>
+
+  <preference name="scribblePref">
+    <title>Scribble Sounds</title>
+    <group>sounds</group>
+    <type>popup</type>
+    <option>enabled</option>
+    <option>mute </option>
+    <option>-</option>
+    <defaultValue>enabled</defaultValue>
+    <description>Mute or enable all the scribble sounds.</description>
+  </preference>
 
 
 	<preference name="fadePref">
@@ -1572,7 +1583,7 @@
 		<description>Disable or enable the resizing slider.</description>
 	</preference>
 
-	<preference name="upper2GaugeShownPref">
+	<preference name="UpperRightTopGaugeGaugeShownPref">
 		<title>Upper Gauge Visibility</title>
 		<type>popup</type>
 		<option>enabled</option>
@@ -1583,7 +1594,7 @@
 		<description>Disable or enable the secondary upper gauge on the right hand side.</description>
 	</preference>
 
-	<preference name="lower2GaugeShownPref">
+	<preference name="LowerLeftGaugeShownPref">
 		<title>Lower Gauge Visibility</title>
 		<type>popup</type>
 		<option>enabled</option>
@@ -1609,7 +1620,7 @@
 		<description>The chosen sensor for the right thermometer.</description>
 	</preference>
 
-	<preference name="upper1GaugeDefaultSensorPref">
+	<preference name="UpperRightBottomGaugeDefaultSensorPref">
 		<title>Top Right Gauge Selected Sensor</title>
 		<type>text</type>
 		<hidden>true
@@ -1617,21 +1628,21 @@
 		<description>The chosen sensor for the upper gauge on the right hand side.</description>
 	</preference>
 
-	<preference name="upper2GaugeDefaultSensorPref">
+	<preference name="UpperRightTopGaugeGaugeDefaultSensorPref">
 		<title>Right Gauge Selected Sensor</title>
 		<type>text</type>
 		<hidden>true</hidden>
 		<description>The chosen sensor for the secondary upper gauge on the right hand side.</description>
 	</preference>
 
-	<preference name="lower1GaugeDefaultSensorPref">
+	<preference name="LowerRightGaugeDefaultSensorPref">
 		<title>Lower Gauge Selected Sensor</title>
 		<type>text</type>
 		<hidden>true</hidden>
 		<description>The chosen sensor for the lower gauge on the lower left hand side.</description>
 	</preference>
 
-	<preference name="lower2GaugeDefaultSensorPref">
+	<preference name="LowerLeftGaugeDefaultSensorPref">
 		<title>Lower Gauge Selected Sensor</title>
 		<type>text</type>
 		<hidden>true</hidden>

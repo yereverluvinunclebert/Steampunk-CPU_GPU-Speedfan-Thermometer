@@ -214,7 +214,7 @@ clear the selected sensor preferences before bundling
     var lineColour = null;
     var thick = null;
 
-    // Do this once to extract the file to the Widget's data folder.
+    // Do this once to extract the file to the Widget's selectedMenuItem folder.
     var tempmonitor = widget.extractFile("Resources/tempmonitor");
     var speedFanExePath = widget.extractFile("Resources/speedfanreader.exe");
     var widgetName = "Steampunk CPU_GPU Speedfan Thermometer.widget";
@@ -232,40 +232,40 @@ clear the selected sensor preferences before bundling
     var SensorTemp = new Array();
     var leftmenuitems = new Array();
     var rightmenuitems = new Array();
-    var upper1MenuItems = new Array();
-    var upper2MenuItems = new Array();
-    var lower1MenuItems = new Array();
-    var lower2MenuItems = new Array();
-    var selectedLeftSensor = new Array();
-    var selectedRightSensor = new Array();
-    var selectedUpper1Sensor = new Array();
-    var selectedUpper2Sensor = new Array();
-    var selectedlower1Sensor = new Array();
-    var selectedlower2Sensor = new Array();
+    var UpperRightBottomGaugeMenuItems = new Array();
+    var UpperRightTopGaugeMenuItems = new Array();
+    var LowerRightMenuItems = new Array();
+    var LowerLeftMenuItems = new Array();
+    var selectedLeftThermometerSensor = new Array();
+    var selectedRightThermometerSensor = new Array();
+    var selectedUpperRightBottomGaugeSensor = new Array();
+    var selectedUpperRightTopGaugeSensor = new Array();
+    var selectedLowerRightGaugeSensor = new Array();
+    var selectedLowerLeftGaugeSensor = new Array();
     var noofsensors = 8;
     var getSensorList = 0;
-    var  currentLeftSensor = 1;
-    var  currentRightSensor = 5;
-    var  currentUpper1Sensor = 2;
-    var  currentUpper2Sensor = 2;
-    var  currentlower1Sensor = 2;
-    var  currentlower2Sensor = 2;
+    var  currentLeftThermometerSensor = 1;
+    var  currentRightThermometerSensor = 5;
+    var  currentUpperRightBottomGaugeSensor = 2;
+    var  currentUpperRightTopGaugeSensor = 2;
+    var  currentLowerRightGaugeSensor = 2;
+    var  currentLowerLeftThermometerSensor = 2;
 
     var leftmenunameitems = new Array();
     var rightmenunameitems = new Array();
-    var selectedLeftSensorName = new Array();
-    var selectedRightSensorName  = new Array();
-    var currentLeftSensorName = 1;
-    var currentRightSensorName = 5;
-    var currentUpper1SensorName = 3;
-    var currentUpper2SensorName = 4;
+    var selectedLeftThermometerSensorName = new Array();
+    var selectedRightThermometerSensorName  = new Array();
+    var currentLeftThermometerSensorName = 1;
+    var currentRightThermometerSensorName = 5;
+    var currentUpperRightBottomGaugeSensorName = 3;
+    var currentUpperRightTopGaugeSensorName = 4;
 
-    var currentLeftSensorNameText ="Core 0";
-    var currentRightSensorNameText ="GPU";
-    var currentUpper1SensorNameText ="HD0";
-    var currentUpper2SensorNameText ="HD0";
-    var currentlower1SensorNameText ="HD1";
-    var currentlower2SensorNameText ="HD1";
+    var currentLeftThermometerSensorNameText ="Core 0";
+    var currentRightThermometerSensorNameText ="GPU";
+    var currentUpperRightBottomGaugeSensorNameText ="HD0";
+    var currentUpperRightTopGaugeSensorNameText ="HD0";
+    var currentLowerRightGaugeSensorNameText ="HD1";
+    var currentLowerLeftThermometerSensorNameText ="HD1";
 
     var speedfanflag = "unknown";
     var PreviousredMercuryLeftvoffset= 250;
@@ -275,16 +275,16 @@ clear the selected sensor preferences before bundling
 
     var leftTemperatureMax = 0;
     var rightTemperatureMax = 0;
-    var upper1TemperatureMax = 0;
-    var upper2TemperatureMax = 0;
-    var lower1TemperatureMax = 0;
-    var lower2TemperatureMax = 0;
+    var UpperRightBottomGaugeTemperatureMax = 0;
+    var UpperRightTopGaugeTemperatureMax = 0;
+    var LowerRightTemperatureMax = 0;
+    var LowerLeftTemperatureMax = 0;
     var leftTemperature = 0;
     var rightTemperature = 0;
-    var upper1Temperature = 0;
-    var upper2Temperature = 0;
-    var lower1Temperature = 0;
-    var lower2Temperature = 0;
+    var UpperRightBottomGaugeTemperature = 0;
+    var UpperRightTopGaugeTemperature = 0;
+    var LowerRightTemperature = 0;
+    var LowerLeftTemperature = 0;
 
 
 
@@ -308,6 +308,7 @@ clear the selected sensor preferences before bundling
     var ting = "Resources/ting.mp3" ;
     var lock = "Resources/lock.mp3" ;
     var pop = "Resources/pop.mp3" ;
+    var pageFumble = "Resources/page-fumble.mp3";    
 
     //resizing variables
 
@@ -322,33 +323,33 @@ clear the selected sensor preferences before bundling
     var thermometersHelpPagewidthDefault =  thermometersHelpPage.width;
     var thermometersHelpPageheightDefault =  thermometersHelpPage.height;
 
-    var lower1PointerhoffsetDefault = lower1Pointer.hoffset;
-    var lower1PointervoffsetDefault = lower1Pointer.voffset;
-    var lower1PointerwidthDefault =  lower1Pointer.width;
-    var lower1PointerheightDefault =  lower1Pointer.height;
-    var lower1PointerhRegistrationPointDefault =  lower1Pointer.hRegistrationPoint;
-    var lower1PointervRegistrationPointDefault =  lower1Pointer.vRegistrationPoint;
+    var LowerRightPointerhoffsetDefault = LowerRightPointer.hoffset;
+    var LowerRightPointervoffsetDefault = LowerRightPointer.voffset;
+    var LowerRightPointerwidthDefault =  LowerRightPointer.width;
+    var LowerRightPointerheightDefault =  LowerRightPointer.height;
+    var LowerRightPointerhRegistrationPointDefault =  LowerRightPointer.hRegistrationPoint;
+    var LowerRightPointervRegistrationPointDefault =  LowerRightPointer.vRegistrationPoint;
 
-    var lower2PointerhoffsetDefault = lower2Pointer.hoffset;
-    var lower2PointervoffsetDefault = lower2Pointer.voffset;
-    var lower2PointerwidthDefault =  lower2Pointer.width;
-    var lower2PointerheightDefault =  lower2Pointer.height;
-    var lower2PointerhRegistrationPointDefault =  lower2Pointer.hRegistrationPoint;
-    var lower2PointervRegistrationPointDefault =  lower2Pointer.vRegistrationPoint;
+    var LowerLeftPointerhoffsetDefault = LowerLeftPointer.hoffset;
+    var LowerLeftPointervoffsetDefault = LowerLeftPointer.voffset;
+    var LowerLeftPointerwidthDefault =  LowerLeftPointer.width;
+    var LowerLeftPointerheightDefault =  LowerLeftPointer.height;
+    var LowerLeftPointerhRegistrationPointDefault =  LowerLeftPointer.hRegistrationPoint;
+    var LowerLeftPointervRegistrationPointDefault =  LowerLeftPointer.vRegistrationPoint;
 
-    var upper1PointerhoffsetDefault = upper1Pointer.hoffset;
-    var upper1PointervoffsetDefault = upper1Pointer.voffset;
-    var upper1PointerwidthDefault =  upper1Pointer.width;
-    var upper1PointerheightDefault =  upper1Pointer.height;
-    var upper1PointerhRegistrationPointDefault =  upper1Pointer.hRegistrationPoint;
-    var upper1PointervRegistrationPointDefault =  upper1Pointer.vRegistrationPoint;
+    var UpperRightBottomGaugePointerhoffsetDefault = UpperRightBottomGaugePointer.hoffset;
+    var UpperRightBottomGaugePointervoffsetDefault = UpperRightBottomGaugePointer.voffset;
+    var UpperRightBottomGaugePointerwidthDefault =  UpperRightBottomGaugePointer.width;
+    var UpperRightBottomGaugePointerheightDefault =  UpperRightBottomGaugePointer.height;
+    var UpperRightBottomGaugePointerhRegistrationPointDefault =  UpperRightBottomGaugePointer.hRegistrationPoint;
+    var UpperRightBottomGaugePointervRegistrationPointDefault =  UpperRightBottomGaugePointer.vRegistrationPoint;
 
-    var upper2PointerhoffsetDefault = upper2Pointer.hoffset;
-    var upper2PointervoffsetDefault = upper2Pointer.voffset;
-    var upper2PointerwidthDefault =   upper2Pointer.width;
-    var upper2PointerheightDefault =  upper2Pointer.height;
-    var upper2PointerhRegistrationPointDefault =  upper2Pointer.hRegistrationPoint;
-    var upper2PointervRegistrationPointDefault =  upper2Pointer.vRegistrationPoint;
+    var UpperRightTopGaugePointerhoffsetDefault = UpperRightTopGaugePointer.hoffset;
+    var UpperRightTopGaugePointervoffsetDefault = UpperRightTopGaugePointer.voffset;
+    var UpperRightTopGaugePointerwidthDefault =   UpperRightTopGaugePointer.width;
+    var UpperRightTopGaugePointerheightDefault =  UpperRightTopGaugePointer.height;
+    var UpperRightTopGaugePointerhRegistrationPointDefault =  UpperRightTopGaugePointer.hRegistrationPoint;
+    var UpperRightTopGaugePointervRegistrationPointDefault =  UpperRightTopGaugePointer.vRegistrationPoint;
 
     var steamhoffsetDefault = steam.hoffset;
     var steamvoffsetDefault = steam.voffset;
@@ -375,107 +376,107 @@ clear the selected sensor preferences before bundling
     var memTapwidthDefault =   memTap.width;
     var memTapheightDefault =  memTap.height;
 
-    var upper1GaugeSensorChar1hoffsetDefault = upper1GaugeSensorChar1.hoffset;
-    var upper1GaugeSensorChar1voffsetDefault = upper1GaugeSensorChar1.voffset;
-    var upper1GaugeSensorChar1widthDefault =   upper1GaugeSensorChar1.width;
-    var upper1GaugeSensorChar1heightDefault =  upper1GaugeSensorChar1.height;
+    var UpperRightBottomGaugeSensorChar1hoffsetDefault = UpperRightBottomGaugeSensorChar1.hoffset;
+    var UpperRightBottomGaugeSensorChar1voffsetDefault = UpperRightBottomGaugeSensorChar1.voffset;
+    var UpperRightBottomGaugeSensorChar1widthDefault =   UpperRightBottomGaugeSensorChar1.width;
+    var UpperRightBottomGaugeSensorChar1heightDefault =  UpperRightBottomGaugeSensorChar1.height;
 
-    var upper1GaugeSensorChar2hoffsetDefault = upper1GaugeSensorChar2.hoffset;
-    var upper1GaugeSensorChar2voffsetDefault = upper1GaugeSensorChar2.voffset;
-    var upper1GaugeSensorChar2widthDefault =   upper1GaugeSensorChar2.width;
-    var upper1GaugeSensorChar2heightDefault =  upper1GaugeSensorChar2.height;
+    var UpperRightBottomGaugeSensorChar2hoffsetDefault = UpperRightBottomGaugeSensorChar2.hoffset;
+    var UpperRightBottomGaugeSensorChar2voffsetDefault = UpperRightBottomGaugeSensorChar2.voffset;
+    var UpperRightBottomGaugeSensorChar2widthDefault =   UpperRightBottomGaugeSensorChar2.width;
+    var UpperRightBottomGaugeSensorChar2heightDefault =  UpperRightBottomGaugeSensorChar2.height;
 
-    var upper1GaugeSensorChar3hoffsetDefault = upper1GaugeSensorChar3.hoffset;
-    var upper1GaugeSensorChar3voffsetDefault = upper1GaugeSensorChar3.voffset;
-    var upper1GaugeSensorChar3widthDefault =   upper1GaugeSensorChar3.width;
-    var upper1GaugeSensorChar3heightDefault =  upper1GaugeSensorChar3.height;
+    var UpperRightBottomGaugeSensorChar3hoffsetDefault = UpperRightBottomGaugeSensorChar3.hoffset;
+    var UpperRightBottomGaugeSensorChar3voffsetDefault = UpperRightBottomGaugeSensorChar3.voffset;
+    var UpperRightBottomGaugeSensorChar3widthDefault =   UpperRightBottomGaugeSensorChar3.width;
+    var UpperRightBottomGaugeSensorChar3heightDefault =  UpperRightBottomGaugeSensorChar3.height;
 
-    var upper1GaugeSensorChar4hoffsetDefault = upper1GaugeSensorChar4.hoffset;
-    var upper1GaugeSensorChar4voffsetDefault = upper1GaugeSensorChar4.voffset;
-    var upper1GaugeSensorChar4widthDefault =   upper1GaugeSensorChar4.width;
-    var upper1GaugeSensorChar4heightDefault =  upper1GaugeSensorChar4.height;
+    var UpperRightBottomGaugeSensorChar4hoffsetDefault = UpperRightBottomGaugeSensorChar4.hoffset;
+    var UpperRightBottomGaugeSensorChar4voffsetDefault = UpperRightBottomGaugeSensorChar4.voffset;
+    var UpperRightBottomGaugeSensorChar4widthDefault =   UpperRightBottomGaugeSensorChar4.width;
+    var UpperRightBottomGaugeSensorChar4heightDefault =  UpperRightBottomGaugeSensorChar4.height;
 
-    var upper1GaugeSensorChar5hoffsetDefault = upper1GaugeSensorChar5.hoffset;
-    var upper1GaugeSensorChar5voffsetDefault = upper1GaugeSensorChar5.voffset;
-    var upper1GaugeSensorChar5widthDefault =   upper1GaugeSensorChar5.width;
-    var upper1GaugeSensorChar5heightDefault =  upper1GaugeSensorChar5.height;
-
-
-    var upper2GaugeSensorChar1hoffsetDefault = upper2GaugeSensorChar1.hoffset;
-    var upper2GaugeSensorChar1voffsetDefault = upper2GaugeSensorChar1.voffset;
-    var upper2GaugeSensorChar1widthDefault =   upper2GaugeSensorChar1.width;
-    var upper2GaugeSensorChar1heightDefault =  upper2GaugeSensorChar1.height;
-
-    var upper2GaugeSensorChar2hoffsetDefault = upper2GaugeSensorChar2.hoffset;
-    var upper2GaugeSensorChar2voffsetDefault = upper2GaugeSensorChar2.voffset;
-    var upper2GaugeSensorChar2widthDefault =   upper2GaugeSensorChar2.width;
-    var upper2GaugeSensorChar2heightDefault =  upper2GaugeSensorChar2.height;
-
-    var upper2GaugeSensorChar3hoffsetDefault = upper2GaugeSensorChar3.hoffset;
-    var upper2GaugeSensorChar3voffsetDefault = upper2GaugeSensorChar3.voffset;
-    var upper2GaugeSensorChar3widthDefault =   upper2GaugeSensorChar3.width;
-    var upper2GaugeSensorChar3heightDefault =  upper2GaugeSensorChar3.height;
-
-    var upper2GaugeSensorChar4hoffsetDefault = upper2GaugeSensorChar4.hoffset;
-    var upper2GaugeSensorChar4voffsetDefault = upper2GaugeSensorChar4.voffset;
-    var upper2GaugeSensorChar4widthDefault =   upper2GaugeSensorChar4.width;
-    var upper2GaugeSensorChar4heightDefault =  upper2GaugeSensorChar4.height;
-
-    var upper2GaugeSensorChar5hoffsetDefault = upper2GaugeSensorChar5.hoffset;
-    var upper2GaugeSensorChar5voffsetDefault = upper2GaugeSensorChar5.voffset;
-    var upper2GaugeSensorChar5widthDefault =   upper2GaugeSensorChar5.width;
-    var upper2GaugeSensorChar5heightDefault =  upper2GaugeSensorChar5.height;
-
-    var lower1GaugeSensorChar1hoffsetDefault = lower1GaugeSensorChar1.hoffset;
-    var lower1GaugeSensorChar1voffsetDefault = lower1GaugeSensorChar1.voffset;
-    var lower1GaugeSensorChar1widthDefault =   lower1GaugeSensorChar1.width;
-    var lower1GaugeSensorChar1heightDefault =  lower1GaugeSensorChar1.height;
-
-    var lower1GaugeSensorChar2hoffsetDefault = lower1GaugeSensorChar2.hoffset;
-    var lower1GaugeSensorChar2voffsetDefault = lower1GaugeSensorChar2.voffset;
-    var lower1GaugeSensorChar2widthDefault =   lower1GaugeSensorChar2.width;
-    var lower1GaugeSensorChar2heightDefault =  lower1GaugeSensorChar2.height;
-
-    var lower1GaugeSensorChar3hoffsetDefault = lower1GaugeSensorChar3.hoffset;
-    var lower1GaugeSensorChar3voffsetDefault = lower1GaugeSensorChar3.voffset;
-    var lower1GaugeSensorChar3widthDefault =   lower1GaugeSensorChar3.width;
-    var lower1GaugeSensorChar3heightDefault =  lower1GaugeSensorChar3.height;
-
-    var lower1GaugeSensorChar4hoffsetDefault = lower1GaugeSensorChar4.hoffset;
-    var lower1GaugeSensorChar4voffsetDefault = lower1GaugeSensorChar4.voffset;
-    var lower1GaugeSensorChar4widthDefault =   lower1GaugeSensorChar4.width;
-    var lower1GaugeSensorChar4heightDefault =  lower1GaugeSensorChar4.height;
-
-    var lower1GaugeSensorChar5hoffsetDefault = lower1GaugeSensorChar5.hoffset;
-    var lower1GaugeSensorChar5voffsetDefault = lower1GaugeSensorChar5.voffset;
-    var lower1GaugeSensorChar5widthDefault =   lower1GaugeSensorChar5.width;
-    var lower1GaugeSensorChar5heightDefault =  lower1GaugeSensorChar5.height;
+    var UpperRightBottomGaugeSensorChar5hoffsetDefault = UpperRightBottomGaugeSensorChar5.hoffset;
+    var UpperRightBottomGaugeSensorChar5voffsetDefault = UpperRightBottomGaugeSensorChar5.voffset;
+    var UpperRightBottomGaugeSensorChar5widthDefault =   UpperRightBottomGaugeSensorChar5.width;
+    var UpperRightBottomGaugeSensorChar5heightDefault =  UpperRightBottomGaugeSensorChar5.height;
 
 
-    var lower2GaugeSensorChar1hoffsetDefault = lower2GaugeSensorChar1.hoffset;
-    var lower2GaugeSensorChar1voffsetDefault = lower2GaugeSensorChar1.voffset;
-    var lower2GaugeSensorChar1widthDefault =   lower2GaugeSensorChar1.width;
-    var lower2GaugeSensorChar1heightDefault =  lower2GaugeSensorChar1.height;
+    var UpperRightTopGaugeGaugeSensorChar1hoffsetDefault = UpperRightTopGaugeGaugeSensorChar1.hoffset;
+    var UpperRightTopGaugeGaugeSensorChar1voffsetDefault = UpperRightTopGaugeGaugeSensorChar1.voffset;
+    var UpperRightTopGaugeGaugeSensorChar1widthDefault =   UpperRightTopGaugeGaugeSensorChar1.width;
+    var UpperRightTopGaugeGaugeSensorChar1heightDefault =  UpperRightTopGaugeGaugeSensorChar1.height;
 
-    var lower2GaugeSensorChar2hoffsetDefault = lower2GaugeSensorChar2.hoffset;
-    var lower2GaugeSensorChar2voffsetDefault = lower2GaugeSensorChar2.voffset;
-    var lower2GaugeSensorChar2widthDefault =   lower2GaugeSensorChar2.width;
-    var lower2GaugeSensorChar2heightDefault =  lower2GaugeSensorChar2.height;
+    var UpperRightTopGaugeGaugeSensorChar2hoffsetDefault = UpperRightTopGaugeGaugeSensorChar2.hoffset;
+    var UpperRightTopGaugeGaugeSensorChar2voffsetDefault = UpperRightTopGaugeGaugeSensorChar2.voffset;
+    var UpperRightTopGaugeGaugeSensorChar2widthDefault =   UpperRightTopGaugeGaugeSensorChar2.width;
+    var UpperRightTopGaugeGaugeSensorChar2heightDefault =  UpperRightTopGaugeGaugeSensorChar2.height;
 
-    var lower2GaugeSensorChar3hoffsetDefault = lower2GaugeSensorChar3.hoffset;
-    var lower2GaugeSensorChar3voffsetDefault = lower2GaugeSensorChar3.voffset;
-    var lower2GaugeSensorChar3widthDefault =   lower2GaugeSensorChar3.width;
-    var lower2GaugeSensorChar3heightDefault =  lower2GaugeSensorChar3.height;
+    var UpperRightTopGaugeGaugeSensorChar3hoffsetDefault = UpperRightTopGaugeGaugeSensorChar3.hoffset;
+    var UpperRightTopGaugeGaugeSensorChar3voffsetDefault = UpperRightTopGaugeGaugeSensorChar3.voffset;
+    var UpperRightTopGaugeGaugeSensorChar3widthDefault =   UpperRightTopGaugeGaugeSensorChar3.width;
+    var UpperRightTopGaugeGaugeSensorChar3heightDefault =  UpperRightTopGaugeGaugeSensorChar3.height;
 
-    var lower2GaugeSensorChar4hoffsetDefault = lower2GaugeSensorChar4.hoffset;
-    var lower2GaugeSensorChar4voffsetDefault = lower2GaugeSensorChar4.voffset;
-    var lower2GaugeSensorChar4widthDefault =   lower2GaugeSensorChar4.width;
-    var lower2GaugeSensorChar4heightDefault =  lower2GaugeSensorChar4.height;
+    var UpperRightTopGaugeGaugeSensorChar4hoffsetDefault = UpperRightTopGaugeGaugeSensorChar4.hoffset;
+    var UpperRightTopGaugeGaugeSensorChar4voffsetDefault = UpperRightTopGaugeGaugeSensorChar4.voffset;
+    var UpperRightTopGaugeGaugeSensorChar4widthDefault =   UpperRightTopGaugeGaugeSensorChar4.width;
+    var UpperRightTopGaugeGaugeSensorChar4heightDefault =  UpperRightTopGaugeGaugeSensorChar4.height;
 
-    var lower2GaugeSensorChar5hoffsetDefault = lower2GaugeSensorChar5.hoffset;
-    var lower2GaugeSensorChar5voffsetDefault = lower2GaugeSensorChar5.voffset;
-    var lower2GaugeSensorChar5widthDefault =   lower2GaugeSensorChar5.width;
-    var lower2GaugeSensorChar5heightDefault =  lower2GaugeSensorChar5.height;
+    var UpperRightTopGaugeGaugeSensorChar5hoffsetDefault = UpperRightTopGaugeGaugeSensorChar5.hoffset;
+    var UpperRightTopGaugeGaugeSensorChar5voffsetDefault = UpperRightTopGaugeGaugeSensorChar5.voffset;
+    var UpperRightTopGaugeGaugeSensorChar5widthDefault =   UpperRightTopGaugeGaugeSensorChar5.width;
+    var UpperRightTopGaugeGaugeSensorChar5heightDefault =  UpperRightTopGaugeGaugeSensorChar5.height;
+
+    var LowerRightGaugeSensorChar1hoffsetDefault = LowerRightGaugeSensorChar1.hoffset;
+    var LowerRightGaugeSensorChar1voffsetDefault = LowerRightGaugeSensorChar1.voffset;
+    var LowerRightGaugeSensorChar1widthDefault =   LowerRightGaugeSensorChar1.width;
+    var LowerRightGaugeSensorChar1heightDefault =  LowerRightGaugeSensorChar1.height;
+
+    var LowerRightGaugeSensorChar2hoffsetDefault = LowerRightGaugeSensorChar2.hoffset;
+    var LowerRightGaugeSensorChar2voffsetDefault = LowerRightGaugeSensorChar2.voffset;
+    var LowerRightGaugeSensorChar2widthDefault =   LowerRightGaugeSensorChar2.width;
+    var LowerRightGaugeSensorChar2heightDefault =  LowerRightGaugeSensorChar2.height;
+
+    var LowerRightGaugeSensorChar3hoffsetDefault = LowerRightGaugeSensorChar3.hoffset;
+    var LowerRightGaugeSensorChar3voffsetDefault = LowerRightGaugeSensorChar3.voffset;
+    var LowerRightGaugeSensorChar3widthDefault =   LowerRightGaugeSensorChar3.width;
+    var LowerRightGaugeSensorChar3heightDefault =  LowerRightGaugeSensorChar3.height;
+
+    var LowerRightGaugeSensorChar4hoffsetDefault = LowerRightGaugeSensorChar4.hoffset;
+    var LowerRightGaugeSensorChar4voffsetDefault = LowerRightGaugeSensorChar4.voffset;
+    var LowerRightGaugeSensorChar4widthDefault =   LowerRightGaugeSensorChar4.width;
+    var LowerRightGaugeSensorChar4heightDefault =  LowerRightGaugeSensorChar4.height;
+
+    var LowerRightGaugeSensorChar5hoffsetDefault = LowerRightGaugeSensorChar5.hoffset;
+    var LowerRightGaugeSensorChar5voffsetDefault = LowerRightGaugeSensorChar5.voffset;
+    var LowerRightGaugeSensorChar5widthDefault =   LowerRightGaugeSensorChar5.width;
+    var LowerRightGaugeSensorChar5heightDefault =  LowerRightGaugeSensorChar5.height;
+
+
+    var LowerLeftGaugeSensorChar1hoffsetDefault = LowerLeftGaugeSensorChar1.hoffset;
+    var LowerLeftGaugeSensorChar1voffsetDefault = LowerLeftGaugeSensorChar1.voffset;
+    var LowerLeftGaugeSensorChar1widthDefault =   LowerLeftGaugeSensorChar1.width;
+    var LowerLeftGaugeSensorChar1heightDefault =  LowerLeftGaugeSensorChar1.height;
+
+    var LowerLeftGaugeSensorChar2hoffsetDefault = LowerLeftGaugeSensorChar2.hoffset;
+    var LowerLeftGaugeSensorChar2voffsetDefault = LowerLeftGaugeSensorChar2.voffset;
+    var LowerLeftGaugeSensorChar2widthDefault =   LowerLeftGaugeSensorChar2.width;
+    var LowerLeftGaugeSensorChar2heightDefault =  LowerLeftGaugeSensorChar2.height;
+
+    var LowerLeftGaugeSensorChar3hoffsetDefault = LowerLeftGaugeSensorChar3.hoffset;
+    var LowerLeftGaugeSensorChar3voffsetDefault = LowerLeftGaugeSensorChar3.voffset;
+    var LowerLeftGaugeSensorChar3widthDefault =   LowerLeftGaugeSensorChar3.width;
+    var LowerLeftGaugeSensorChar3heightDefault =  LowerLeftGaugeSensorChar3.height;
+
+    var LowerLeftGaugeSensorChar4hoffsetDefault = LowerLeftGaugeSensorChar4.hoffset;
+    var LowerLeftGaugeSensorChar4voffsetDefault = LowerLeftGaugeSensorChar4.voffset;
+    var LowerLeftGaugeSensorChar4widthDefault =   LowerLeftGaugeSensorChar4.width;
+    var LowerLeftGaugeSensorChar4heightDefault =  LowerLeftGaugeSensorChar4.height;
+
+    var LowerLeftGaugeSensorChar5hoffsetDefault = LowerLeftGaugeSensorChar5.hoffset;
+    var LowerLeftGaugeSensorChar5voffsetDefault = LowerLeftGaugeSensorChar5.voffset;
+    var LowerLeftGaugeSensorChar5widthDefault =   LowerLeftGaugeSensorChar5.width;
+    var LowerLeftGaugeSensorChar5heightDefault =  LowerLeftGaugeSensorChar5.height;
 
     var leftscalehoffsetDefault = leftscale.hoffset;
     var leftscalevoffsetDefault = leftscale.voffset;
@@ -492,30 +493,30 @@ clear the selected sensor preferences before bundling
     var stanchionwidthDefault =  stanchion.width;
     var stanchionheightDefault =  stanchion.height;
 
-    var upper1GaugehoffsetDefault = upper1Gauge.hoffset;
-    var upper1GaugevoffsetDefault = upper1Gauge.voffset;
-    var upper1GaugewidthDefault =  upper1Gauge.width;
-    var upper1GaugeheightDefault =  upper1Gauge.height;
+    var UpperRightBottomGaugehoffsetDefault = UpperRightBottomGauge.hoffset;
+    var UpperRightBottomGaugevoffsetDefault = UpperRightBottomGauge.voffset;
+    var UpperRightBottomGaugewidthDefault =  UpperRightBottomGauge.width;
+    var UpperRightBottomGaugeheightDefault =  UpperRightBottomGauge.height;
 
-    var upper2GaugeLabelhoffsetDefault = upper2GaugeLabel.hoffset;
-    var upper2GaugeLabelvoffsetDefault = upper2GaugeLabel.voffset;
-    var upper2GaugeLabelwidthDefault =  upper2GaugeLabel.width;
-    var upper2GaugeLabelheightDefault =  upper2GaugeLabel.height;
+    var UpperRightTopGaugeGaugeLabelhoffsetDefault = UpperRightTopGaugeGaugeLabel.hoffset;
+    var UpperRightTopGaugeGaugeLabelvoffsetDefault = UpperRightTopGaugeGaugeLabel.voffset;
+    var UpperRightTopGaugeGaugeLabelwidthDefault =  UpperRightTopGaugeGaugeLabel.width;
+    var UpperRightTopGaugeGaugeLabelheightDefault =  UpperRightTopGaugeGaugeLabel.height;
 
-    var upper2GaugehoffsetDefault = upper2Gauge.hoffset;
-    var upper2GaugevoffsetDefault = upper2Gauge.voffset;
-    var upper2GaugewidthDefault =  upper2Gauge.width;
-    var upper2GaugeheightDefault =  upper2Gauge.height;
+    var UpperRightTopGaugeGaugehoffsetDefault = UpperRightTopGaugeGauge.hoffset;
+    var UpperRightTopGaugeGaugevoffsetDefault = UpperRightTopGaugeGauge.voffset;
+    var UpperRightTopGaugeGaugewidthDefault =  UpperRightTopGaugeGauge.width;
+    var UpperRightTopGaugeGaugeheightDefault =  UpperRightTopGaugeGauge.height;
 
-    var lower1GaugehoffsetDefault = lower1Gauge.hoffset;
-    var lower1GaugevoffsetDefault = lower1Gauge.voffset;
-    var lower1GaugewidthDefault =  lower1Gauge.width;
-    var lower1GaugeheightDefault =  lower1Gauge.height;
+    var LowerRightGaugehoffsetDefault = LowerRightGauge.hoffset;
+    var LowerRightGaugevoffsetDefault = LowerRightGauge.voffset;
+    var LowerRightGaugewidthDefault =  LowerRightGauge.width;
+    var LowerRightGaugeheightDefault =  LowerRightGauge.height;
 
-    var lower2GaugehoffsetDefault = lower2Gauge.hoffset;
-    var lower2GaugevoffsetDefault = lower2Gauge.voffset;
-    var lower2GaugewidthDefault =  lower2Gauge.width;
-    var lower2GaugeheightDefault =  lower2Gauge.height;
+    var LowerLeftGaugehoffsetDefault = LowerLeftGauge.hoffset;
+    var LowerLeftGaugevoffsetDefault = LowerLeftGauge.voffset;
+    var LowerLeftGaugewidthDefault =  LowerLeftGauge.width;
+    var LowerLeftGaugeheightDefault =  LowerLeftGauge.height;
 
     var rTogglehoffsetDefault = rToggle.hoffset;
     var rTogglevoffsetDefault = rToggle.voffset;
@@ -537,55 +538,55 @@ clear the selected sensor preferences before bundling
     var scaleswitchleftwidthDefault =  scaleswitchleft.width;
     var scaleswitchleftheightDefault =  scaleswitchleft.height;
 
-    var thermometerRightSensorChar1hoffsetDefault = thermometerRightSensorChar1.hoffset;
-    var thermometerRightSensorChar1voffsetDefault = thermometerRightSensorChar1.voffset;
-    var thermometerRightSensorChar1widthDefault =  thermometerRightSensorChar1.width;
-    var thermometerRightSensorChar1heightDefault =  thermometerRightSensorChar1.height;
+    var thermometerRightThermometerSensorChar1hoffsetDefault = thermometerRightThermometerSensorChar1.hoffset;
+    var thermometerRightThermometerSensorChar1voffsetDefault = thermometerRightThermometerSensorChar1.voffset;
+    var thermometerRightThermometerSensorChar1widthDefault =  thermometerRightThermometerSensorChar1.width;
+    var thermometerRightThermometerSensorChar1heightDefault =  thermometerRightThermometerSensorChar1.height;
 
-    var thermometerRightSensorChar2hoffsetDefault = thermometerRightSensorChar2.hoffset;
-    var thermometerRightSensorChar2voffsetDefault = thermometerRightSensorChar2.voffset;
-    var thermometerRightSensorChar2widthDefault =  thermometerRightSensorChar2.width;
-    var thermometerRightSensorChar2heightDefault =  thermometerRightSensorChar2.height;
+    var thermometerRightThermometerSensorChar2hoffsetDefault = thermometerRightThermometerSensorChar2.hoffset;
+    var thermometerRightThermometerSensorChar2voffsetDefault = thermometerRightThermometerSensorChar2.voffset;
+    var thermometerRightThermometerSensorChar2widthDefault =  thermometerRightThermometerSensorChar2.width;
+    var thermometerRightThermometerSensorChar2heightDefault =  thermometerRightThermometerSensorChar2.height;
 
-    var thermometerRightSensorChar3hoffsetDefault = thermometerRightSensorChar3.hoffset;
-    var thermometerRightSensorChar3voffsetDefault = thermometerRightSensorChar3.voffset;
-    var thermometerRightSensorChar3widthDefault =  thermometerRightSensorChar3.width;
-    var thermometerRightSensorChar3heightDefault =  thermometerRightSensorChar3.height;
+    var thermometerRightThermometerSensorChar3hoffsetDefault = thermometerRightThermometerSensorChar3.hoffset;
+    var thermometerRightThermometerSensorChar3voffsetDefault = thermometerRightThermometerSensorChar3.voffset;
+    var thermometerRightThermometerSensorChar3widthDefault =  thermometerRightThermometerSensorChar3.width;
+    var thermometerRightThermometerSensorChar3heightDefault =  thermometerRightThermometerSensorChar3.height;
 
-    var thermometerRightSensorChar4hoffsetDefault = thermometerRightSensorChar4.hoffset;
-    var thermometerRightSensorChar4voffsetDefault = thermometerRightSensorChar4.voffset;
-    var thermometerRightSensorChar4widthDefault =  thermometerRightSensorChar4.width;
-    var thermometerRightSensorChar4heightDefault =  thermometerRightSensorChar4.height;
+    var thermometerRightThermometerSensorChar4hoffsetDefault = thermometerRightThermometerSensorChar4.hoffset;
+    var thermometerRightThermometerSensorChar4voffsetDefault = thermometerRightThermometerSensorChar4.voffset;
+    var thermometerRightThermometerSensorChar4widthDefault =  thermometerRightThermometerSensorChar4.width;
+    var thermometerRightThermometerSensorChar4heightDefault =  thermometerRightThermometerSensorChar4.height;
 
-    var thermometerRightSensorChar5hoffsetDefault = thermometerRightSensorChar5.hoffset;
-    var thermometerRightSensorChar5voffsetDefault = thermometerRightSensorChar5.voffset;
-    var thermometerRightSensorChar5widthDefault =  thermometerRightSensorChar5.width;
-    var thermometerRightSensorChar5heightDefault =  thermometerRightSensorChar5.height;
+    var thermometerRightThermometerSensorChar5hoffsetDefault = thermometerRightThermometerSensorChar5.hoffset;
+    var thermometerRightThermometerSensorChar5voffsetDefault = thermometerRightThermometerSensorChar5.voffset;
+    var thermometerRightThermometerSensorChar5widthDefault =  thermometerRightThermometerSensorChar5.width;
+    var thermometerRightThermometerSensorChar5heightDefault =  thermometerRightThermometerSensorChar5.height;
 
-    var thermometerLeftSensorChar1hoffsetDefault = thermometerLeftSensorChar1.hoffset;
-    var thermometerLeftSensorChar1voffsetDefault = thermometerLeftSensorChar1.voffset;
-    var thermometerLeftSensorChar1widthDefault =  thermometerLeftSensorChar1.width;
-    var thermometerLeftSensorChar1heightDefault =  thermometerLeftSensorChar1.height;
+    var thermometerLeftThermometerSensorChar1hoffsetDefault = thermometerLeftThermometerSensorChar1.hoffset;
+    var thermometerLeftThermometerSensorChar1voffsetDefault = thermometerLeftThermometerSensorChar1.voffset;
+    var thermometerLeftThermometerSensorChar1widthDefault =  thermometerLeftThermometerSensorChar1.width;
+    var thermometerLeftThermometerSensorChar1heightDefault =  thermometerLeftThermometerSensorChar1.height;
 
-    var thermometerLeftSensorChar2hoffsetDefault = thermometerLeftSensorChar2.hoffset;
-    var thermometerLeftSensorChar2voffsetDefault = thermometerLeftSensorChar2.voffset;
-    var thermometerLeftSensorChar2widthDefault =  thermometerLeftSensorChar2.width;
-    var thermometerLeftSensorChar2heightDefault =  thermometerLeftSensorChar2.height;
+    var thermometerLeftThermometerSensorChar2hoffsetDefault = thermometerLeftThermometerSensorChar2.hoffset;
+    var thermometerLeftThermometerSensorChar2voffsetDefault = thermometerLeftThermometerSensorChar2.voffset;
+    var thermometerLeftThermometerSensorChar2widthDefault =  thermometerLeftThermometerSensorChar2.width;
+    var thermometerLeftThermometerSensorChar2heightDefault =  thermometerLeftThermometerSensorChar2.height;
 
-    var thermometerLeftSensorChar3hoffsetDefault = thermometerLeftSensorChar3.hoffset;
-    var thermometerLeftSensorChar3voffsetDefault = thermometerLeftSensorChar3.voffset;
-    var thermometerLeftSensorChar3widthDefault =  thermometerLeftSensorChar3.width;
-    var thermometerLeftSensorChar3heightDefault =  thermometerLeftSensorChar3.height;
+    var thermometerLeftThermometerSensorChar3hoffsetDefault = thermometerLeftThermometerSensorChar3.hoffset;
+    var thermometerLeftThermometerSensorChar3voffsetDefault = thermometerLeftThermometerSensorChar3.voffset;
+    var thermometerLeftThermometerSensorChar3widthDefault =  thermometerLeftThermometerSensorChar3.width;
+    var thermometerLeftThermometerSensorChar3heightDefault =  thermometerLeftThermometerSensorChar3.height;
 
-    var thermometerLeftSensorChar4hoffsetDefault = thermometerLeftSensorChar4.hoffset;
-    var thermometerLeftSensorChar4voffsetDefault = thermometerLeftSensorChar4.voffset;
-    var thermometerLeftSensorChar4widthDefault =  thermometerLeftSensorChar4.width;
-    var thermometerLeftSensorChar4heightDefault =  thermometerLeftSensorChar4.height;
+    var thermometerLeftThermometerSensorChar4hoffsetDefault = thermometerLeftThermometerSensorChar4.hoffset;
+    var thermometerLeftThermometerSensorChar4voffsetDefault = thermometerLeftThermometerSensorChar4.voffset;
+    var thermometerLeftThermometerSensorChar4widthDefault =  thermometerLeftThermometerSensorChar4.width;
+    var thermometerLeftThermometerSensorChar4heightDefault =  thermometerLeftThermometerSensorChar4.height;
 
-    var thermometerLeftSensorChar5hoffsetDefault = thermometerLeftSensorChar5.hoffset;
-    var thermometerLeftSensorChar5voffsetDefault = thermometerLeftSensorChar5.voffset;
-    var thermometerLeftSensorChar5widthDefault =  thermometerLeftSensorChar5.width;
-    var thermometerLeftSensorChar5heightDefault =  thermometerLeftSensorChar5.height;
+    var thermometerLeftThermometerSensorChar5hoffsetDefault = thermometerLeftThermometerSensorChar5.hoffset;
+    var thermometerLeftThermometerSensorChar5voffsetDefault = thermometerLeftThermometerSensorChar5.voffset;
+    var thermometerLeftThermometerSensorChar5widthDefault =  thermometerLeftThermometerSensorChar5.width;
+    var thermometerLeftThermometerSensorChar5heightDefault =  thermometerLeftThermometerSensorChar5.height;
 
     var gettingSpeedfanhoffsetDefault = gettingSpeedfan.hoffset;
     var gettingSpeedfanvoffsetDefault = gettingSpeedfan.voffset;
@@ -954,13 +955,13 @@ function startup() {
 
     // initial checks of visibility dependant solely upon preferences as the no. of sensors is currently the default 8
     // determine secondary upper gauge visibility
-    setUpper2GaugeVisibility();  
+    setUpperRightTopGaugeGaugeVisibility();  
     
     // determine primary lower gauge visibility
-    setLower1GaugeVisibility();  
+    setLowerRightGaugeVisibility();  
     
     // determine secondary lower gauge visibility
-    setLower2GaugeVisibility();  
+    setLowerLeftGaugeVisibility();  
 
     // set out a visible puff on startup
     puff(420,205); 
@@ -1072,34 +1073,34 @@ speedfanindicatorredglowing.onmousedown = function () {
 //===========================================
 valve.onMouseDown = function () {
     if (waitmessage.visible == false) {
-        if (preferences.upper2GaugeShownPref.value == "disabled"  && noofsensors >= 4) {
-            preferences.upper2GaugeShownPref.value = "enabled";
+        if (preferences.UpperRightTopGaugeGaugeShownPref.value == "disabled"  && noofsensors >= 4) {
+            preferences.UpperRightTopGaugeGaugeShownPref.value = "enabled";
             valve.src="Resources/valve-rotated.png";
-            upper2GaugeLabel.visible = true;
+            UpperRightTopGaugeGaugeLabel.visible = true;
             if (preferences.soundsPref.value != "mute" ) {play(pop, false);};
-            upper2Gauge.visible = true;
-            upper2Pointer.visible = true;
-            upper2GaugeSensorChar1.visible = true;
-            upper2GaugeSensorChar2.visible = true;
-            upper2GaugeSensorChar3.visible = true;
-            upper2GaugeSensorChar4.visible = true;
-            upper2GaugeSensorChar5.visible = true;
+            UpperRightTopGaugeGauge.visible = true;
+            UpperRightTopGaugePointer.visible = true;
+            UpperRightTopGaugeGaugeSensorChar1.visible = true;
+            UpperRightTopGaugeGaugeSensorChar2.visible = true;
+            UpperRightTopGaugeGaugeSensorChar3.visible = true;
+            UpperRightTopGaugeGaugeSensorChar4.visible = true;
+            UpperRightTopGaugeGaugeSensorChar5.visible = true;
             puff(428,215);     // scaling change required here
             ReadTemperatures();
         }
         else
         {
-            preferences.upper2GaugeShownPref.value = "disabled";
+            preferences.UpperRightTopGaugeGaugeShownPref.value = "disabled";
             valve.src="Resources/valve.png";
             if (preferences.soundsPref.value != "mute" ) {play(pop, false);};
-            upper2GaugeLabel.visible = false;
-            upper2Gauge.visible = false;
-            upper2Pointer.visible = false;
-            upper2GaugeSensorChar1.visible = false;
-            upper2GaugeSensorChar2.visible = false;
-            upper2GaugeSensorChar3.visible = false;
-            upper2GaugeSensorChar4.visible = false;
-            upper2GaugeSensorChar5.visible = false;
+            UpperRightTopGaugeGaugeLabel.visible = false;
+            UpperRightTopGaugeGauge.visible = false;
+            UpperRightTopGaugePointer.visible = false;
+            UpperRightTopGaugeGaugeSensorChar1.visible = false;
+            UpperRightTopGaugeGaugeSensorChar2.visible = false;
+            UpperRightTopGaugeGaugeSensorChar3.visible = false;
+            UpperRightTopGaugeGaugeSensorChar4.visible = false;
+            UpperRightTopGaugeGaugeSensorChar5.visible = false;
             puff(425,130);     // scaling change required here
         }
     }
@@ -1116,30 +1117,30 @@ valve.onMouseDown = function () {
 //===========================================
 valve2.onMouseDown = function () {
     if (waitmessage.visible == false) {
-        if (preferences.lower2GaugeShownPref.value == "disabled"  && noofsensors >= 6) {
-            preferences.lower2GaugeShownPref.value = "enabled";
+        if (preferences.LowerLeftGaugeShownPref.value == "disabled"  && noofsensors >= 6) {
+            preferences.LowerLeftGaugeShownPref.value = "enabled";
             valve2.src="Resources/valve-rotated.png";
-            lower2Gauge.visible = true;
-            lower2Pointer.visible = true;
-            lower2GaugeSensorChar1.visible = true;
-            lower2GaugeSensorChar2.visible = true;
-            lower2GaugeSensorChar3.visible = true;
-            lower2GaugeSensorChar4.visible = true;
-            lower2GaugeSensorChar5.visible = true;
+            LowerLeftGauge.visible = true;
+            LowerLeftPointer.visible = true;
+            LowerLeftGaugeSensorChar1.visible = true;
+            LowerLeftGaugeSensorChar2.visible = true;
+            LowerLeftGaugeSensorChar3.visible = true;
+            LowerLeftGaugeSensorChar4.visible = true;
+            LowerLeftGaugeSensorChar5.visible = true;
             puff(220,305);
             if (preferences.soundsPref.value != "mute" ) {play(pop, false);};
         }
         else
         {
-            preferences.lower2GaugeShownPref.value = "disabled";
+            preferences.LowerLeftGaugeShownPref.value = "disabled";
             valve2.src="Resources/valve.png";
-            lower2Gauge.visible = false;
-            lower2Pointer.visible = false;
-            lower2GaugeSensorChar1.visible = false;
-            lower2GaugeSensorChar2.visible = false;
-            lower2GaugeSensorChar3.visible = false;
-            lower2GaugeSensorChar4.visible = false;
-            lower2GaugeSensorChar5.visible = false;
+            LowerLeftGauge.visible = false;
+            LowerLeftPointer.visible = false;
+            LowerLeftGaugeSensorChar1.visible = false;
+            LowerLeftGaugeSensorChar2.visible = false;
+            LowerLeftGaugeSensorChar3.visible = false;
+            LowerLeftGaugeSensorChar4.visible = false;
+            LowerLeftGaugeSensorChar5.visible = false;
             puff(220,305);
             if (preferences.soundsPref.value != "mute" ) {play(pop, false);};
         }
@@ -1171,6 +1172,10 @@ function showdockicon()
 //===========================================
 function helpdropdownmove()
 {
+
+if (preferences.soundsPref.value === "enabled") {
+    play(pageFumble, false);
+}
  if ( thermometersHelpPageFront.visible == false ) {
         thermometersHelpPage.visible = true;
         thermometersHelpPageFront.visible = true;
@@ -1743,19 +1748,19 @@ function resizethermometer()
 	mainWindow.width  = mainWindowwidthDefault * thermometerScale;
 	mainWindow.height = mainWindowheightDefault * thermometerScale;
 
-        upper1Pointer.hoffset =  upper1PointerhoffsetDefault * thermometerScale;
-        upper1Pointer.voffset =  upper1PointervoffsetDefault * thermometerScale;
-        upper1Pointer.width =  upper1PointerwidthDefault * thermometerScale;
-        upper1Pointer.height =  upper1PointerheightDefault * thermometerScale;
-        upper1Pointer.hRegistrationPoint =  upper1PointerhRegistrationPointDefault * thermometerScale;
-        upper1Pointer.vRegistrationPoint =  upper1PointervRegistrationPointDefault * thermometerScale;
+        UpperRightBottomGaugePointer.hoffset =  UpperRightBottomGaugePointerhoffsetDefault * thermometerScale;
+        UpperRightBottomGaugePointer.voffset =  UpperRightBottomGaugePointervoffsetDefault * thermometerScale;
+        UpperRightBottomGaugePointer.width =  UpperRightBottomGaugePointerwidthDefault * thermometerScale;
+        UpperRightBottomGaugePointer.height =  UpperRightBottomGaugePointerheightDefault * thermometerScale;
+        UpperRightBottomGaugePointer.hRegistrationPoint =  UpperRightBottomGaugePointerhRegistrationPointDefault * thermometerScale;
+        UpperRightBottomGaugePointer.vRegistrationPoint =  UpperRightBottomGaugePointervRegistrationPointDefault * thermometerScale;
 
-        upper2Pointer.hoffset =  upper2PointerhoffsetDefault * thermometerScale;
-        upper2Pointer.voffset =  upper2PointervoffsetDefault * thermometerScale;
-        upper2Pointer.width =  upper2PointerwidthDefault * thermometerScale;
-        upper2Pointer.height =  upper2PointerheightDefault * thermometerScale;
-        upper2Pointer.hRegistrationPoint =  upper2PointerhRegistrationPointDefault * thermometerScale;
-        upper2Pointer.vRegistrationPoint =  upper2PointervRegistrationPointDefault * thermometerScale;
+        UpperRightTopGaugePointer.hoffset =  UpperRightTopGaugePointerhoffsetDefault * thermometerScale;
+        UpperRightTopGaugePointer.voffset =  UpperRightTopGaugePointervoffsetDefault * thermometerScale;
+        UpperRightTopGaugePointer.width =  UpperRightTopGaugePointerwidthDefault * thermometerScale;
+        UpperRightTopGaugePointer.height =  UpperRightTopGaugePointerheightDefault * thermometerScale;
+        UpperRightTopGaugePointer.hRegistrationPoint =  UpperRightTopGaugePointerhRegistrationPointDefault * thermometerScale;
+        UpperRightTopGaugePointer.vRegistrationPoint =  UpperRightTopGaugePointervRegistrationPointDefault * thermometerScale;
 
         steam.hoffset =  steamhoffsetDefault * thermometerScale;
         steam.voffset =  steamvoffsetDefault * thermometerScale;
@@ -1782,105 +1787,105 @@ function resizethermometer()
         memTap.width =  memTapwidthDefault * thermometerScale;
         memTap.height =  memTapheightDefault * thermometerScale;
 
-        upper1GaugeSensorChar1.hoffset =  upper1GaugeSensorChar1hoffsetDefault * thermometerScale;
-        upper1GaugeSensorChar1.voffset =  upper1GaugeSensorChar1voffsetDefault * thermometerScale;
-        upper1GaugeSensorChar1.width =  upper1GaugeSensorChar1widthDefault * thermometerScale;
-        upper1GaugeSensorChar1.height =  upper1GaugeSensorChar1heightDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar1.hoffset =  UpperRightBottomGaugeSensorChar1hoffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar1.voffset =  UpperRightBottomGaugeSensorChar1voffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar1.width =  UpperRightBottomGaugeSensorChar1widthDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar1.height =  UpperRightBottomGaugeSensorChar1heightDefault * thermometerScale;
 
-        upper1GaugeSensorChar2.hoffset =  upper1GaugeSensorChar2hoffsetDefault * thermometerScale;
-        upper1GaugeSensorChar2.voffset =  upper1GaugeSensorChar2voffsetDefault * thermometerScale;
-        upper1GaugeSensorChar2.width =  upper1GaugeSensorChar2widthDefault * thermometerScale;
-        upper1GaugeSensorChar2.height =  upper1GaugeSensorChar2heightDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar2.hoffset =  UpperRightBottomGaugeSensorChar2hoffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar2.voffset =  UpperRightBottomGaugeSensorChar2voffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar2.width =  UpperRightBottomGaugeSensorChar2widthDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar2.height =  UpperRightBottomGaugeSensorChar2heightDefault * thermometerScale;
 
-        upper1GaugeSensorChar3.hoffset =  upper1GaugeSensorChar3hoffsetDefault * thermometerScale;
-        upper1GaugeSensorChar3.voffset =  upper1GaugeSensorChar3voffsetDefault * thermometerScale;
-        upper1GaugeSensorChar3.width =  upper1GaugeSensorChar3widthDefault * thermometerScale;
-        upper1GaugeSensorChar3.height =  upper1GaugeSensorChar3heightDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar3.hoffset =  UpperRightBottomGaugeSensorChar3hoffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar3.voffset =  UpperRightBottomGaugeSensorChar3voffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar3.width =  UpperRightBottomGaugeSensorChar3widthDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar3.height =  UpperRightBottomGaugeSensorChar3heightDefault * thermometerScale;
 
-        upper1GaugeSensorChar4.hoffset =  upper1GaugeSensorChar4hoffsetDefault * thermometerScale;
-        upper1GaugeSensorChar4.voffset =  upper1GaugeSensorChar4voffsetDefault * thermometerScale;
-        upper1GaugeSensorChar4.width =  upper1GaugeSensorChar4widthDefault * thermometerScale;
-        upper1GaugeSensorChar4.height =  upper1GaugeSensorChar4heightDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar4.hoffset =  UpperRightBottomGaugeSensorChar4hoffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar4.voffset =  UpperRightBottomGaugeSensorChar4voffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar4.width =  UpperRightBottomGaugeSensorChar4widthDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar4.height =  UpperRightBottomGaugeSensorChar4heightDefault * thermometerScale;
 
-        upper1GaugeSensorChar5.hoffset =  upper1GaugeSensorChar5hoffsetDefault * thermometerScale;
-        upper1GaugeSensorChar5.voffset =  upper1GaugeSensorChar5voffsetDefault * thermometerScale;
-        upper1GaugeSensorChar5.width =  upper1GaugeSensorChar5widthDefault * thermometerScale;
-        upper1GaugeSensorChar5.height =  upper1GaugeSensorChar5heightDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar5.hoffset =  UpperRightBottomGaugeSensorChar5hoffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar5.voffset =  UpperRightBottomGaugeSensorChar5voffsetDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar5.width =  UpperRightBottomGaugeSensorChar5widthDefault * thermometerScale;
+        UpperRightBottomGaugeSensorChar5.height =  UpperRightBottomGaugeSensorChar5heightDefault * thermometerScale;
 
-        upper2GaugeSensorChar1.hoffset =  upper2GaugeSensorChar1hoffsetDefault * thermometerScale;
-        upper2GaugeSensorChar1.voffset =  upper2GaugeSensorChar1voffsetDefault * thermometerScale;
-        upper2GaugeSensorChar1.width =  upper2GaugeSensorChar1widthDefault * thermometerScale;
-        upper2GaugeSensorChar1.height =  upper2GaugeSensorChar1heightDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar1.hoffset =  UpperRightTopGaugeGaugeSensorChar1hoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar1.voffset =  UpperRightTopGaugeGaugeSensorChar1voffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar1.width =  UpperRightTopGaugeGaugeSensorChar1widthDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar1.height =  UpperRightTopGaugeGaugeSensorChar1heightDefault * thermometerScale;
 
-        upper2GaugeSensorChar2.hoffset =  upper2GaugeSensorChar2hoffsetDefault * thermometerScale;
-        upper2GaugeSensorChar2.voffset =  upper2GaugeSensorChar2voffsetDefault * thermometerScale;
-        upper2GaugeSensorChar2.width =  upper2GaugeSensorChar2widthDefault * thermometerScale;
-        upper2GaugeSensorChar2.height =  upper2GaugeSensorChar2heightDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar2.hoffset =  UpperRightTopGaugeGaugeSensorChar2hoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar2.voffset =  UpperRightTopGaugeGaugeSensorChar2voffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar2.width =  UpperRightTopGaugeGaugeSensorChar2widthDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar2.height =  UpperRightTopGaugeGaugeSensorChar2heightDefault * thermometerScale;
 
-        upper2GaugeSensorChar3.hoffset =  upper2GaugeSensorChar3hoffsetDefault * thermometerScale;
-        upper2GaugeSensorChar3.voffset =  upper2GaugeSensorChar3voffsetDefault * thermometerScale;
-        upper2GaugeSensorChar3.width =  upper2GaugeSensorChar3widthDefault * thermometerScale;
-        upper2GaugeSensorChar3.height =  upper2GaugeSensorChar3heightDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar3.hoffset =  UpperRightTopGaugeGaugeSensorChar3hoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar3.voffset =  UpperRightTopGaugeGaugeSensorChar3voffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar3.width =  UpperRightTopGaugeGaugeSensorChar3widthDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar3.height =  UpperRightTopGaugeGaugeSensorChar3heightDefault * thermometerScale;
 
-        upper2GaugeSensorChar4.hoffset =  upper2GaugeSensorChar4hoffsetDefault * thermometerScale;
-        upper2GaugeSensorChar4.voffset =  upper2GaugeSensorChar4voffsetDefault * thermometerScale;
-        upper2GaugeSensorChar4.width =  upper2GaugeSensorChar4widthDefault * thermometerScale;
-        upper2GaugeSensorChar4.height =  upper2GaugeSensorChar4heightDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar4.hoffset =  UpperRightTopGaugeGaugeSensorChar4hoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar4.voffset =  UpperRightTopGaugeGaugeSensorChar4voffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar4.width =  UpperRightTopGaugeGaugeSensorChar4widthDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar4.height =  UpperRightTopGaugeGaugeSensorChar4heightDefault * thermometerScale;
 
-        upper2GaugeSensorChar5.hoffset =  upper2GaugeSensorChar5hoffsetDefault * thermometerScale;
-        upper2GaugeSensorChar5.voffset =  upper2GaugeSensorChar5voffsetDefault * thermometerScale;
-        upper2GaugeSensorChar5.width =  upper2GaugeSensorChar5widthDefault * thermometerScale;
-        upper2GaugeSensorChar5.height =  upper2GaugeSensorChar5heightDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar5.hoffset =  UpperRightTopGaugeGaugeSensorChar5hoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar5.voffset =  UpperRightTopGaugeGaugeSensorChar5voffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar5.width =  UpperRightTopGaugeGaugeSensorChar5widthDefault * thermometerScale;
+        UpperRightTopGaugeGaugeSensorChar5.height =  UpperRightTopGaugeGaugeSensorChar5heightDefault * thermometerScale;
 
-        lower1GaugeSensorChar1.hoffset =  lower1GaugeSensorChar1hoffsetDefault * thermometerScale;
-        lower1GaugeSensorChar1.voffset =  lower1GaugeSensorChar1voffsetDefault * thermometerScale;
-        lower1GaugeSensorChar1.width =  lower1GaugeSensorChar1widthDefault * thermometerScale;
-        lower1GaugeSensorChar1.height =  lower1GaugeSensorChar1heightDefault * thermometerScale;
+        LowerRightGaugeSensorChar1.hoffset =  LowerRightGaugeSensorChar1hoffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar1.voffset =  LowerRightGaugeSensorChar1voffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar1.width =  LowerRightGaugeSensorChar1widthDefault * thermometerScale;
+        LowerRightGaugeSensorChar1.height =  LowerRightGaugeSensorChar1heightDefault * thermometerScale;
 
-        lower1GaugeSensorChar2.hoffset =  lower1GaugeSensorChar2hoffsetDefault * thermometerScale;
-        lower1GaugeSensorChar2.voffset =  lower1GaugeSensorChar2voffsetDefault * thermometerScale;
-        lower1GaugeSensorChar2.width =  lower1GaugeSensorChar2widthDefault * thermometerScale;
-        lower1GaugeSensorChar2.height =  lower1GaugeSensorChar2heightDefault * thermometerScale;
+        LowerRightGaugeSensorChar2.hoffset =  LowerRightGaugeSensorChar2hoffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar2.voffset =  LowerRightGaugeSensorChar2voffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar2.width =  LowerRightGaugeSensorChar2widthDefault * thermometerScale;
+        LowerRightGaugeSensorChar2.height =  LowerRightGaugeSensorChar2heightDefault * thermometerScale;
 
-        lower1GaugeSensorChar3.hoffset =  lower1GaugeSensorChar3hoffsetDefault * thermometerScale;
-        lower1GaugeSensorChar3.voffset =  lower1GaugeSensorChar3voffsetDefault * thermometerScale;
-        lower1GaugeSensorChar3.width =  lower1GaugeSensorChar3widthDefault * thermometerScale;
-        lower1GaugeSensorChar3.height =  lower1GaugeSensorChar3heightDefault * thermometerScale;
+        LowerRightGaugeSensorChar3.hoffset =  LowerRightGaugeSensorChar3hoffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar3.voffset =  LowerRightGaugeSensorChar3voffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar3.width =  LowerRightGaugeSensorChar3widthDefault * thermometerScale;
+        LowerRightGaugeSensorChar3.height =  LowerRightGaugeSensorChar3heightDefault * thermometerScale;
 
-        lower1GaugeSensorChar4.hoffset =  lower1GaugeSensorChar4hoffsetDefault * thermometerScale;
-        lower1GaugeSensorChar4.voffset =  lower1GaugeSensorChar4voffsetDefault * thermometerScale;
-        lower1GaugeSensorChar4.width =  lower1GaugeSensorChar4widthDefault * thermometerScale;
-        lower1GaugeSensorChar4.height =  lower1GaugeSensorChar4heightDefault * thermometerScale;
+        LowerRightGaugeSensorChar4.hoffset =  LowerRightGaugeSensorChar4hoffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar4.voffset =  LowerRightGaugeSensorChar4voffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar4.width =  LowerRightGaugeSensorChar4widthDefault * thermometerScale;
+        LowerRightGaugeSensorChar4.height =  LowerRightGaugeSensorChar4heightDefault * thermometerScale;
 
-        lower1GaugeSensorChar5.hoffset =  lower1GaugeSensorChar5hoffsetDefault * thermometerScale;
-        lower1GaugeSensorChar5.voffset =  lower1GaugeSensorChar5voffsetDefault * thermometerScale;
-        lower1GaugeSensorChar5.width =  lower1GaugeSensorChar5widthDefault * thermometerScale;
-        lower1GaugeSensorChar5.height =  lower1GaugeSensorChar5heightDefault * thermometerScale;
+        LowerRightGaugeSensorChar5.hoffset =  LowerRightGaugeSensorChar5hoffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar5.voffset =  LowerRightGaugeSensorChar5voffsetDefault * thermometerScale;
+        LowerRightGaugeSensorChar5.width =  LowerRightGaugeSensorChar5widthDefault * thermometerScale;
+        LowerRightGaugeSensorChar5.height =  LowerRightGaugeSensorChar5heightDefault * thermometerScale;
 
-        lower2GaugeSensorChar1.hoffset =  lower2GaugeSensorChar1hoffsetDefault * thermometerScale;
-        lower2GaugeSensorChar1.voffset =  lower2GaugeSensorChar1voffsetDefault * thermometerScale;
-        lower2GaugeSensorChar1.width =  lower2GaugeSensorChar1widthDefault * thermometerScale;
-        lower2GaugeSensorChar1.height =  lower2GaugeSensorChar1heightDefault * thermometerScale;
+        LowerLeftGaugeSensorChar1.hoffset =  LowerLeftGaugeSensorChar1hoffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar1.voffset =  LowerLeftGaugeSensorChar1voffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar1.width =  LowerLeftGaugeSensorChar1widthDefault * thermometerScale;
+        LowerLeftGaugeSensorChar1.height =  LowerLeftGaugeSensorChar1heightDefault * thermometerScale;
 
-        lower2GaugeSensorChar2.hoffset =  lower2GaugeSensorChar2hoffsetDefault * thermometerScale;
-        lower2GaugeSensorChar2.voffset =  lower2GaugeSensorChar2voffsetDefault * thermometerScale;
-        lower2GaugeSensorChar2.width =  lower2GaugeSensorChar2widthDefault * thermometerScale;
-        lower2GaugeSensorChar2.height =  lower2GaugeSensorChar2heightDefault * thermometerScale;
+        LowerLeftGaugeSensorChar2.hoffset =  LowerLeftGaugeSensorChar2hoffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar2.voffset =  LowerLeftGaugeSensorChar2voffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar2.width =  LowerLeftGaugeSensorChar2widthDefault * thermometerScale;
+        LowerLeftGaugeSensorChar2.height =  LowerLeftGaugeSensorChar2heightDefault * thermometerScale;
 
-        lower2GaugeSensorChar3.hoffset =  lower2GaugeSensorChar3hoffsetDefault * thermometerScale;
-        lower2GaugeSensorChar3.voffset =  lower2GaugeSensorChar3voffsetDefault * thermometerScale;
-        lower2GaugeSensorChar3.width =  lower2GaugeSensorChar3widthDefault * thermometerScale;
-        lower2GaugeSensorChar3.height =  lower2GaugeSensorChar3heightDefault * thermometerScale;
+        LowerLeftGaugeSensorChar3.hoffset =  LowerLeftGaugeSensorChar3hoffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar3.voffset =  LowerLeftGaugeSensorChar3voffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar3.width =  LowerLeftGaugeSensorChar3widthDefault * thermometerScale;
+        LowerLeftGaugeSensorChar3.height =  LowerLeftGaugeSensorChar3heightDefault * thermometerScale;
 
-        lower2GaugeSensorChar4.hoffset =  lower2GaugeSensorChar4hoffsetDefault * thermometerScale;
-        lower2GaugeSensorChar4.voffset =  lower2GaugeSensorChar4voffsetDefault * thermometerScale;
-        lower2GaugeSensorChar4.width =  lower2GaugeSensorChar4widthDefault * thermometerScale;
-        lower2GaugeSensorChar4.height =  lower2GaugeSensorChar4heightDefault * thermometerScale;
+        LowerLeftGaugeSensorChar4.hoffset =  LowerLeftGaugeSensorChar4hoffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar4.voffset =  LowerLeftGaugeSensorChar4voffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar4.width =  LowerLeftGaugeSensorChar4widthDefault * thermometerScale;
+        LowerLeftGaugeSensorChar4.height =  LowerLeftGaugeSensorChar4heightDefault * thermometerScale;
 
-        lower2GaugeSensorChar5.hoffset =  lower2GaugeSensorChar5hoffsetDefault * thermometerScale;
-        lower2GaugeSensorChar5.voffset =  lower2GaugeSensorChar5voffsetDefault * thermometerScale;
-        lower2GaugeSensorChar5.width =  lower2GaugeSensorChar5widthDefault * thermometerScale;
-        lower2GaugeSensorChar5.height =  lower2GaugeSensorChar5heightDefault * thermometerScale;
+        LowerLeftGaugeSensorChar5.hoffset =  LowerLeftGaugeSensorChar5hoffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar5.voffset =  LowerLeftGaugeSensorChar5voffsetDefault * thermometerScale;
+        LowerLeftGaugeSensorChar5.width =  LowerLeftGaugeSensorChar5widthDefault * thermometerScale;
+        LowerLeftGaugeSensorChar5.height =  LowerLeftGaugeSensorChar5heightDefault * thermometerScale;
 
 
         thermometersHelpPage.hoffset =  thermometersHelpPagehoffsetDefault * thermometerScale;
@@ -1888,19 +1893,19 @@ function resizethermometer()
         thermometersHelpPage.width =  thermometersHelpPagewidthDefault * thermometerScale;
         thermometersHelpPage.height =  thermometersHelpPageheightDefault * thermometerScale;
 
-        lower1Pointer.hoffset =  lower1PointerhoffsetDefault * thermometerScale;
-        lower1Pointer.voffset =  lower1PointervoffsetDefault * thermometerScale;
-        lower1Pointer.width =  lower1PointerwidthDefault * thermometerScale;
-        lower1Pointer.height =  lower1PointerheightDefault * thermometerScale;
-        lower1Pointer.hRegistrationPoint =  lower1PointerhRegistrationPointDefault * thermometerScale;
-        lower1Pointer.vRegistrationPoint =  lower1PointervRegistrationPointDefault * thermometerScale;
+        LowerRightPointer.hoffset =  LowerRightPointerhoffsetDefault * thermometerScale;
+        LowerRightPointer.voffset =  LowerRightPointervoffsetDefault * thermometerScale;
+        LowerRightPointer.width =  LowerRightPointerwidthDefault * thermometerScale;
+        LowerRightPointer.height =  LowerRightPointerheightDefault * thermometerScale;
+        LowerRightPointer.hRegistrationPoint =  LowerRightPointerhRegistrationPointDefault * thermometerScale;
+        LowerRightPointer.vRegistrationPoint =  LowerRightPointervRegistrationPointDefault * thermometerScale;
 
-        lower2Pointer.hoffset =  lower2PointerhoffsetDefault * thermometerScale;
-        lower2Pointer.voffset =  lower2PointervoffsetDefault * thermometerScale;
-        lower2Pointer.width =  lower2PointerwidthDefault * thermometerScale;
-        lower2Pointer.height =  lower2PointerheightDefault * thermometerScale;
-        lower2Pointer.hRegistrationPoint =  lower2PointerhRegistrationPointDefault * thermometerScale;
-        lower2Pointer.vRegistrationPoint =  lower2PointervRegistrationPointDefault * thermometerScale;
+        LowerLeftPointer.hoffset =  LowerLeftPointerhoffsetDefault * thermometerScale;
+        LowerLeftPointer.voffset =  LowerLeftPointervoffsetDefault * thermometerScale;
+        LowerLeftPointer.width =  LowerLeftPointerwidthDefault * thermometerScale;
+        LowerLeftPointer.height =  LowerLeftPointerheightDefault * thermometerScale;
+        LowerLeftPointer.hRegistrationPoint =  LowerLeftPointerhRegistrationPointDefault * thermometerScale;
+        LowerLeftPointer.vRegistrationPoint =  LowerLeftPointervRegistrationPointDefault * thermometerScale;
 
         leftscale.hoffset =  leftscalehoffsetDefault * thermometerScale;
         leftscale.voffset =  leftscalevoffsetDefault * thermometerScale;
@@ -1917,30 +1922,30 @@ function resizethermometer()
         stanchion.width =  stanchionwidthDefault * thermometerScale;
         stanchion.height =  stanchionheightDefault * thermometerScale;
 
-        upper1Gauge.hoffset =  upper1GaugehoffsetDefault * thermometerScale;
-        upper1Gauge.voffset =  upper1GaugevoffsetDefault * thermometerScale;
-        upper1Gauge.width =  upper1GaugewidthDefault * thermometerScale;
-        upper1Gauge.height =  upper1GaugeheightDefault * thermometerScale;
+        UpperRightBottomGauge.hoffset =  UpperRightBottomGaugehoffsetDefault * thermometerScale;
+        UpperRightBottomGauge.voffset =  UpperRightBottomGaugevoffsetDefault * thermometerScale;
+        UpperRightBottomGauge.width =  UpperRightBottomGaugewidthDefault * thermometerScale;
+        UpperRightBottomGauge.height =  UpperRightBottomGaugeheightDefault * thermometerScale;
 
-        upper2GaugeLabel.hoffset =  upper2GaugeLabelhoffsetDefault * thermometerScale;
-        upper2GaugeLabel.voffset =  upper2GaugeLabelvoffsetDefault * thermometerScale;
-        upper2GaugeLabel.width =  upper2GaugeLabelwidthDefault * thermometerScale;
-        upper2GaugeLabel.height =  upper2GaugeLabelheightDefault * thermometerScale;
+        UpperRightTopGaugeGaugeLabel.hoffset =  UpperRightTopGaugeGaugeLabelhoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeLabel.voffset =  UpperRightTopGaugeGaugeLabelvoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGaugeLabel.width =  UpperRightTopGaugeGaugeLabelwidthDefault * thermometerScale;
+        UpperRightTopGaugeGaugeLabel.height =  UpperRightTopGaugeGaugeLabelheightDefault * thermometerScale;
 
-        upper2Gauge.hoffset =  upper2GaugehoffsetDefault * thermometerScale;
-        upper2Gauge.voffset =  upper2GaugevoffsetDefault * thermometerScale;
-        upper2Gauge.width =  upper2GaugewidthDefault * thermometerScale;
-        upper2Gauge.height =  upper2GaugeheightDefault * thermometerScale;
+        UpperRightTopGaugeGauge.hoffset =  UpperRightTopGaugeGaugehoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGauge.voffset =  UpperRightTopGaugeGaugevoffsetDefault * thermometerScale;
+        UpperRightTopGaugeGauge.width =  UpperRightTopGaugeGaugewidthDefault * thermometerScale;
+        UpperRightTopGaugeGauge.height =  UpperRightTopGaugeGaugeheightDefault * thermometerScale;
 
-        lower1Gauge.hoffset =  lower1GaugehoffsetDefault * thermometerScale;
-        lower1Gauge.voffset =  lower1GaugevoffsetDefault * thermometerScale;
-        lower1Gauge.width =  lower1GaugewidthDefault * thermometerScale;
-        lower1Gauge.height =  lower1GaugeheightDefault * thermometerScale;
+        LowerRightGauge.hoffset =  LowerRightGaugehoffsetDefault * thermometerScale;
+        LowerRightGauge.voffset =  LowerRightGaugevoffsetDefault * thermometerScale;
+        LowerRightGauge.width =  LowerRightGaugewidthDefault * thermometerScale;
+        LowerRightGauge.height =  LowerRightGaugeheightDefault * thermometerScale;
 
-        lower2Gauge.hoffset =  lower2GaugehoffsetDefault * thermometerScale;
-        lower2Gauge.voffset =  lower2GaugevoffsetDefault * thermometerScale;
-        lower2Gauge.width =  lower2GaugewidthDefault * thermometerScale;
-        lower2Gauge.height =  lower2GaugeheightDefault * thermometerScale;
+        LowerLeftGauge.hoffset =  LowerLeftGaugehoffsetDefault * thermometerScale;
+        LowerLeftGauge.voffset =  LowerLeftGaugevoffsetDefault * thermometerScale;
+        LowerLeftGauge.width =  LowerLeftGaugewidthDefault * thermometerScale;
+        LowerLeftGauge.height =  LowerLeftGaugeheightDefault * thermometerScale;
 
         rToggle.hoffset =  rTogglehoffsetDefault * thermometerScale;
         rToggle.voffset =  rTogglevoffsetDefault * thermometerScale;
@@ -1963,55 +1968,55 @@ function resizethermometer()
         scaleswitchright.width =  scaleswitchrightwidthDefault * thermometerScale;
         scaleswitchright.height =  scaleswitchrightheightDefault * thermometerScale;
 
-        thermometerRightSensorChar1.hoffset =  thermometerRightSensorChar1hoffsetDefault * thermometerScale;
-        thermometerRightSensorChar1.voffset =  thermometerRightSensorChar1voffsetDefault * thermometerScale;
-        thermometerRightSensorChar1.width =  thermometerRightSensorChar1widthDefault * thermometerScale;
-        thermometerRightSensorChar1.height =  thermometerRightSensorChar1heightDefault * thermometerScale;
+        thermometerRightThermometerSensorChar1.hoffset =  thermometerRightThermometerSensorChar1hoffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar1.voffset =  thermometerRightThermometerSensorChar1voffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar1.width =  thermometerRightThermometerSensorChar1widthDefault * thermometerScale;
+        thermometerRightThermometerSensorChar1.height =  thermometerRightThermometerSensorChar1heightDefault * thermometerScale;
 
-        thermometerRightSensorChar2.hoffset =  thermometerRightSensorChar2hoffsetDefault * thermometerScale;
-        thermometerRightSensorChar2.voffset =  thermometerRightSensorChar2voffsetDefault * thermometerScale;
-        thermometerRightSensorChar2.width =  thermometerRightSensorChar2widthDefault * thermometerScale;
-        thermometerRightSensorChar2.height =  thermometerRightSensorChar2heightDefault * thermometerScale;
+        thermometerRightThermometerSensorChar2.hoffset =  thermometerRightThermometerSensorChar2hoffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar2.voffset =  thermometerRightThermometerSensorChar2voffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar2.width =  thermometerRightThermometerSensorChar2widthDefault * thermometerScale;
+        thermometerRightThermometerSensorChar2.height =  thermometerRightThermometerSensorChar2heightDefault * thermometerScale;
 
-        thermometerRightSensorChar3.hoffset =  thermometerRightSensorChar3hoffsetDefault * thermometerScale;
-        thermometerRightSensorChar3.voffset =  thermometerRightSensorChar3voffsetDefault * thermometerScale;
-        thermometerRightSensorChar3.width =  thermometerRightSensorChar3widthDefault * thermometerScale;
-        thermometerRightSensorChar3.height =  thermometerRightSensorChar3heightDefault * thermometerScale;
+        thermometerRightThermometerSensorChar3.hoffset =  thermometerRightThermometerSensorChar3hoffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar3.voffset =  thermometerRightThermometerSensorChar3voffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar3.width =  thermometerRightThermometerSensorChar3widthDefault * thermometerScale;
+        thermometerRightThermometerSensorChar3.height =  thermometerRightThermometerSensorChar3heightDefault * thermometerScale;
 
-        thermometerRightSensorChar4.hoffset =  thermometerRightSensorChar4hoffsetDefault * thermometerScale;
-        thermometerRightSensorChar4.voffset =  thermometerRightSensorChar4voffsetDefault * thermometerScale;
-        thermometerRightSensorChar4.width =  thermometerRightSensorChar4widthDefault * thermometerScale;
-        thermometerRightSensorChar4.height =  thermometerRightSensorChar4heightDefault * thermometerScale;
+        thermometerRightThermometerSensorChar4.hoffset =  thermometerRightThermometerSensorChar4hoffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar4.voffset =  thermometerRightThermometerSensorChar4voffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar4.width =  thermometerRightThermometerSensorChar4widthDefault * thermometerScale;
+        thermometerRightThermometerSensorChar4.height =  thermometerRightThermometerSensorChar4heightDefault * thermometerScale;
 
-        thermometerRightSensorChar5.hoffset =  thermometerRightSensorChar5hoffsetDefault * thermometerScale;
-        thermometerRightSensorChar5.voffset =  thermometerRightSensorChar5voffsetDefault * thermometerScale;
-        thermometerRightSensorChar5.width =  thermometerRightSensorChar5widthDefault * thermometerScale;
-        thermometerRightSensorChar5.height =  thermometerRightSensorChar5heightDefault * thermometerScale;
+        thermometerRightThermometerSensorChar5.hoffset =  thermometerRightThermometerSensorChar5hoffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar5.voffset =  thermometerRightThermometerSensorChar5voffsetDefault * thermometerScale;
+        thermometerRightThermometerSensorChar5.width =  thermometerRightThermometerSensorChar5widthDefault * thermometerScale;
+        thermometerRightThermometerSensorChar5.height =  thermometerRightThermometerSensorChar5heightDefault * thermometerScale;
 
-        thermometerLeftSensorChar1.hoffset =  thermometerLeftSensorChar1hoffsetDefault * thermometerScale;
-        thermometerLeftSensorChar1.voffset =  thermometerLeftSensorChar1voffsetDefault * thermometerScale;
-        thermometerLeftSensorChar1.width =  thermometerLeftSensorChar1widthDefault * thermometerScale;
-        thermometerLeftSensorChar1.height =  thermometerLeftSensorChar1heightDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar1.hoffset =  thermometerLeftThermometerSensorChar1hoffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar1.voffset =  thermometerLeftThermometerSensorChar1voffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar1.width =  thermometerLeftThermometerSensorChar1widthDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar1.height =  thermometerLeftThermometerSensorChar1heightDefault * thermometerScale;
 
-        thermometerLeftSensorChar2.hoffset =  thermometerLeftSensorChar2hoffsetDefault * thermometerScale;
-        thermometerLeftSensorChar2.voffset =  thermometerLeftSensorChar2voffsetDefault * thermometerScale;
-        thermometerLeftSensorChar2.width =  thermometerLeftSensorChar2widthDefault * thermometerScale;
-        thermometerLeftSensorChar2.height =  thermometerLeftSensorChar2heightDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar2.hoffset =  thermometerLeftThermometerSensorChar2hoffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar2.voffset =  thermometerLeftThermometerSensorChar2voffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar2.width =  thermometerLeftThermometerSensorChar2widthDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar2.height =  thermometerLeftThermometerSensorChar2heightDefault * thermometerScale;
 
-        thermometerLeftSensorChar3.hoffset =  thermometerLeftSensorChar3hoffsetDefault * thermometerScale;
-        thermometerLeftSensorChar3.voffset =  thermometerLeftSensorChar3voffsetDefault * thermometerScale;
-        thermometerLeftSensorChar3.width =  thermometerLeftSensorChar3widthDefault * thermometerScale;
-        thermometerLeftSensorChar3.height =  thermometerLeftSensorChar3heightDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar3.hoffset =  thermometerLeftThermometerSensorChar3hoffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar3.voffset =  thermometerLeftThermometerSensorChar3voffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar3.width =  thermometerLeftThermometerSensorChar3widthDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar3.height =  thermometerLeftThermometerSensorChar3heightDefault * thermometerScale;
 
-        thermometerLeftSensorChar4.hoffset =  thermometerLeftSensorChar4hoffsetDefault * thermometerScale;
-        thermometerLeftSensorChar4.voffset =  thermometerLeftSensorChar4voffsetDefault * thermometerScale;
-        thermometerLeftSensorChar4.width =  thermometerLeftSensorChar4widthDefault * thermometerScale;
-        thermometerLeftSensorChar4.height =  thermometerLeftSensorChar4heightDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar4.hoffset =  thermometerLeftThermometerSensorChar4hoffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar4.voffset =  thermometerLeftThermometerSensorChar4voffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar4.width =  thermometerLeftThermometerSensorChar4widthDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar4.height =  thermometerLeftThermometerSensorChar4heightDefault * thermometerScale;
 
-        thermometerLeftSensorChar5.hoffset =  thermometerLeftSensorChar5hoffsetDefault * thermometerScale;
-        thermometerLeftSensorChar5.voffset =  thermometerLeftSensorChar5voffsetDefault * thermometerScale;
-        thermometerLeftSensorChar5.width =  thermometerLeftSensorChar5widthDefault * thermometerScale;
-        thermometerLeftSensorChar5.height =  thermometerLeftSensorChar5heightDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar5.hoffset =  thermometerLeftThermometerSensorChar5hoffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar5.voffset =  thermometerLeftThermometerSensorChar5voffsetDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar5.width =  thermometerLeftThermometerSensorChar5widthDefault * thermometerScale;
+        thermometerLeftThermometerSensorChar5.height =  thermometerLeftThermometerSensorChar5heightDefault * thermometerScale;
 
         gettingSpeedfan.hoffset =  gettingSpeedfanhoffsetDefault * thermometerScale;
         gettingSpeedfan.voffset =  gettingSpeedfanvoffsetDefault * thermometerScale;
@@ -2585,10 +2590,10 @@ function sampleTemperaturesOnce()
       storeTemperatures();
       drawTemperatures();
       SetMercuryLevels();
-      RedrawUpper1Gauge();  //standard upper gauge
-      if (preferences.upper2GaugeShownPref.value != "disabled") {RedrawUpper2Gauge();};   //extra upper gauge
-      Redrawlower1Gauge();  //standard lower gauge
-      if (preferences.lower2GaugeShownPref.value != "disabled") {Redrawlower2Gauge();};   //extra upper gauge
+      RedrawUpperRightBottomGauge();  //standard upper gauge
+      if (preferences.UpperRightTopGaugeGaugeShownPref.value != "disabled") {RedrawUpperRightTopGaugeGauge();};   //extra upper gauge
+      RedrawLowerRightGauge();  //standard lower gauge
+      if (preferences.LowerLeftGaugeShownPref.value != "disabled") {RedrawLowerLeftGauge();};   //extra upper gauge
       SetCurrentTemperatureTooltips();
       MoveScribes();
       if (printer == "showing")
@@ -2599,9 +2604,9 @@ function sampleTemperaturesOnce()
       preferences.resizingValvePref.value = "disabled"
       buildVitality(currIcon, leftTemperature); // build the dock vitality
       //checks of gauge visibility dependant upon no of sensors found
-      setUpper2GaugeVisibility();  //determine secondary upper gauge visibility
-      setLower1GaugeVisibility();  //determine primary lower gauge visibility
-      setLower2GaugeVisibility();  //determine secondary lower gauge visibility
+      setUpperRightTopGaugeGaugeVisibility();  //determine secondary upper gauge visibility
+      setLowerRightGaugeVisibility();  //determine primary lower gauge visibility
+      setLowerLeftGaugeVisibility();  //determine secondary lower gauge visibility
    
 
 
@@ -2675,7 +2680,8 @@ function MoveScribes()
                leftScribeHeadShadow.voffset = leftScribeHead.voffset +(2* thermometerScale);
                shortWire.voffset = leftScribeHead.voffset;
 
-               if (preferences.soundsPref.value != "mute" ) {play(draw, false);};
+               if (preferences.soundsPref.value != "mute" && preferences.scribblePref.value != "mute" ) {play(draw, false);};
+               
                sleep(20);
                leftScribeHead.voffset = leftScribeHead.voffset -(4* thermometerScale);
                leftScribeHeadShadow.voffset = leftScribeHead.voffset -(4* thermometerScale);
@@ -2691,7 +2697,7 @@ function MoveScribes()
                rightScribeHeadShadow.voffset = rightScribeHead.voffset +(2* thermometerScale);
                longWire.voffset = rightScribeHead.voffset;
                
-               if (preferences.soundsPref.value != "mute" ) {play(draw, false);};
+               if (preferences.soundsPref.value != "mute" && preferences.scribblePref.value != "mute" ) {play(draw, false);};
                sleep(20);
                rightScribeHead.voffset = rightScribeHead.voffset -(4* thermometerScale);
                rightScribeHeadShadow.voffset = rightScribeHead.voffset -(4* thermometerScale);
@@ -2918,33 +2924,33 @@ function flashrightlamp()
 //===========================================
 function SetCurrentTemperatureTooltips()
 {
-    redMercuryLeft.tooltip =  currentLeftSensorNameText + " temperature "+ leftTemperature  + " degrees celsius";
-    leftScribeHead.tooltip =  currentLeftSensorNameText + " temperature "+ leftTemperature + " degrees celsius";
-    scribeHeadNoWireTwo.tooltip =  currentLeftSensorNameText + " temperature "+ leftTemperature + " degrees celsius";
-    thermometerLeft.tooltip =  currentLeftSensorNameText + " temperature "+ leftTemperature + " degrees celsius";
-    leftTemperatureMaxIndex.tooltip =  currentLeftSensorNameText + " Max. temperature reached " + leftTemperatureMax + " degrees celsius";
+    redMercuryLeft.tooltip =  currentLeftThermometerSensorNameText + " temperature "+ leftTemperature  + " degrees celsius";
+    leftScribeHead.tooltip =  currentLeftThermometerSensorNameText + " temperature "+ leftTemperature + " degrees celsius";
+    scribeHeadNoWireTwo.tooltip =  currentLeftThermometerSensorNameText + " temperature "+ leftTemperature + " degrees celsius";
+    thermometerLeft.tooltip =  currentLeftThermometerSensorNameText + " temperature "+ leftTemperature + " degrees celsius";
+    leftTemperatureMaxIndex.tooltip =  currentLeftThermometerSensorNameText + " Max. temperature reached " + leftTemperatureMax + " degrees celsius";
 
-    redMercuryRight.tooltip =  currentRightSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
-    rightScribeHead.tooltip =  currentRightSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
-    scribeHeadNoWireOne.tooltip =  currentRightSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
-    thermometerRight.tooltip =  currentRightSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
-    rightTemperatureMaxIndex.tooltip =  currentRightSensorNameText + " Max. temperature reached " + rightTemperatureMax + " degrees celsius";
+    redMercuryRight.tooltip =  currentRightThermometerSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
+    rightScribeHead.tooltip =  currentRightThermometerSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
+    scribeHeadNoWireOne.tooltip =  currentRightThermometerSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
+    thermometerRight.tooltip =  currentRightThermometerSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
+    rightTemperatureMaxIndex.tooltip =  currentRightThermometerSensorNameText + " Max. temperature reached " + rightTemperatureMax + " degrees celsius";
 
     var rightSliderHotAlarmTemperature =  (220-(hotSliderRight.voffset));
-    hotSliderRight.tooltip = currentRightSensorNameText + " temperature HOT alarm currently set to " + (rightSliderHotAlarmTemperature) +" Celsius";
-    righthottext.tooltip = currentRightSensorNameText + " temperature HOT alarm currently set to " + (rightSliderHotAlarmTemperature) +" Celsius";
+    hotSliderRight.tooltip = currentRightThermometerSensorNameText + " temperature HOT alarm currently set to " + (rightSliderHotAlarmTemperature) +" Celsius";
+    righthottext.tooltip = currentRightThermometerSensorNameText + " temperature HOT alarm currently set to " + (rightSliderHotAlarmTemperature) +" Celsius";
 
     var rightSliderWarmAlarmTemperature =  (220-(warmSliderRight.voffset));
-    warmSliderRight.tooltip = currentRightSensorNameText + " temperature WARM alarm currently set to " + (rightSliderWarmAlarmTemperature) +" Celsius";
-    rightwarmtext.tooltip = currentRightSensorNameText + " temperature WARM alarm currently set to " + (rightSliderWarmAlarmTemperature) +" Celsius";
+    warmSliderRight.tooltip = currentRightThermometerSensorNameText + " temperature WARM alarm currently set to " + (rightSliderWarmAlarmTemperature) +" Celsius";
+    rightwarmtext.tooltip = currentRightThermometerSensorNameText + " temperature WARM alarm currently set to " + (rightSliderWarmAlarmTemperature) +" Celsius";
 
     var leftSliderHotAlarmTemperature =  (220-(hotSliderLeft.voffset));
-    hotSliderLeft.tooltip = currentLeftSensorNameText + " temperature HOT alarm currently set to " + (leftSliderHotAlarmTemperature) +" Celsius";
-    lefthottext.tooltip = currentLeftSensorNameText + " temperature HOT alarm currently set to " + (leftSliderHotAlarmTemperature) +" Celsius";
+    hotSliderLeft.tooltip = currentLeftThermometerSensorNameText + " temperature HOT alarm currently set to " + (leftSliderHotAlarmTemperature) +" Celsius";
+    lefthottext.tooltip = currentLeftThermometerSensorNameText + " temperature HOT alarm currently set to " + (leftSliderHotAlarmTemperature) +" Celsius";
 
     var leftSliderWarmAlarmTemperature =  (220-(warmSliderLeft.voffset));
-    warmSliderLeft.tooltip = currentLeftSensorNameText + " temperature WARM alarm currently set to " + (leftSliderWarmAlarmTemperature) +" Celsius";
-    leftwarmtext.tooltip = currentLeftSensorNameText + " temperature WARM alarm currently set to " + (leftSliderWarmAlarmTemperature) +" Celsius";
+    warmSliderLeft.tooltip = currentLeftThermometerSensorNameText + " temperature WARM alarm currently set to " + (leftSliderWarmAlarmTemperature) +" Celsius";
+    leftwarmtext.tooltip = currentLeftThermometerSensorNameText + " temperature WARM alarm currently set to " + (leftSliderWarmAlarmTemperature) +" Celsius";
 }
 //=====================
 //End function
@@ -3398,7 +3404,7 @@ function crankhandle()
                if (preferences.soundsPref.value != "mute" ) {play(mechanism, false);};
                if (preferences.soundsPref.value != "mute" ) {play(slider, false);};
 
-               for (var a =0;a<=80;a++)
+               for (var a =0;a<=80; a++)
                {
                    newtrunnionhoffset = newtrunnionhoffset + 2;
                    stretcherhoffset = stretcherhoffset + 1.04;
@@ -3454,7 +3460,7 @@ function crankhandle()
                  var stretcherhoffset = 170;
                  if (preferences.soundsPref.value != "mute" ) {play(mechanism, false);};
                  if (preferences.soundsPref.value != "mute" ) {play(slider, false);};;
-                 for (var a =0;a<=87;a++)
+                 for (var a =0;a<=87; a++)
                  {
                      newtrunnionhoffset = newtrunnionhoffset - 2;
                      trunnion.hoffset = (newtrunnionhoffset* thermometerScale);
@@ -3502,7 +3508,7 @@ function crankhandle()
 
                  /*movinglines.visible= true;
                  var tmpmovinglineshoffset = 210;
-                 for (var a =0;a<=193;a++)
+                 for (var a =0;a<=193; a++)
                  {
                      tmpmovinglineshoffset = tmpmovinglineshoffset - 1;
                      movinglines.hoffset = (tmpmovinglineshoffset* thermometerScale);
@@ -3559,6 +3565,7 @@ function getWindowsSensorNames()
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to remove the path
 //===========================================
@@ -3568,6 +3575,7 @@ function escapePath(path) {
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to get the temperatures from a MAC (currently unused)
 //===========================================
@@ -3581,6 +3589,7 @@ function getLeftTemp() {
 //=====================
 //End function
 //=====================
+
 //===========================================
 // function to get the temperatures from a MAC (currently unused)
 //===========================================
@@ -3626,7 +3635,7 @@ function ReadTemperatures()
         //if (filesystem.itemExists("Resources/speedfan.exe"))
         //{
           var speedfanexe = runCommand(convertPathToPlatform(speedFanExePath));
-          print(" >>>>>>>> speedfanexe = "+speedfanexe);
+          print("  speedfanexe = "+speedfanexe);
         //}
 
 	// returns a string separated by spaces otherwise unusable
@@ -3634,7 +3643,7 @@ function ReadTemperatures()
         noofsensors = speedfanexe[1];
 	//print("number of speedfan sensors = " + noofsensors );
         var temperatureString = speedfanexe[2];
-        print(" >>>>>>>> temperatureString = "+temperatureString);
+        print("  temperatureString = "+temperatureString);
 
 	if (temperatureString != "no temperatureString")
 	{
@@ -3722,11 +3731,11 @@ function ReadTemperatures()
         {
            print("Running First time");
            print("No. of sensors = "+noofsensors);
-           selectedLeftSensor[noofsensors-2] = 1;
-           selectedRightSensor[1] = 1;
+           selectedLeftThermometerSensor[noofsensors-2] = 1;
+           selectedRightThermometerSensor[1] = 1;
 
-           currentLeftSensor = noofsensors-3;
-           currentRightSensor = 1;
+           currentLeftThermometerSensor = noofsensors-3;
+           currentRightThermometerSensor = 1;
 
            // noofsensors-2 might always be the cpu sensor?   - needs checking
 
@@ -3735,56 +3744,56 @@ function ReadTemperatures()
              print("preferences.leftThermometerDefaultSensorPref.value " + preferences.leftThermometerDefaultSensorPref.value);
              if (preferences.leftThermometerDefaultSensorPref.value != "" ) {
                   leftTemperature = parseFloat(preferences.leftThermometerDefaultSensorPref.value);
-                  generateLeftSensorList(preferences.leftThermometerDefaultSensorPref.value);
+                  generateLeftThermometerSensorList(preferences.leftThermometerDefaultSensorPref.value);
              } else {
                   leftTemperature = parseFloat(SensorTemp[1]);
-                  generateLeftSensorList(1);
+                  generateLeftThermometerSensorList(1);
              }
            }
            if (noofsensors >= 2) {
     	       if (preferences.rightThermometerDefaultSensorPref.value != "" ) {
                     rightTemperature = parseFloat(preferences.rightThermometerDefaultSensorPref.value);
-                    generateRightSensorList(preferences.rightThermometerDefaultSensorPref.value);
+                    generateRightThermometerSensorList(preferences.rightThermometerDefaultSensorPref.value);
                } else {
                     rightTemperature = parseFloat(SensorTemp[2]);
-                    generateRightSensorList(2);
+                    generateRightThermometerSensorList(2);
                }
            }
            if (noofsensors >= 3) {
-    	       if (preferences.upper1GaugeDefaultSensorPref.value != "" ) {
-                    upper1Temperature = parseFloat(preferences.upper1GaugeDefaultSensorPref.value);
-                    generateUpper1SensorList(preferences.upper1GaugeDefaultSensorPref.value);
+    	       if (preferences.UpperRightBottomGaugeDefaultSensorPref.value != "" ) {
+                    UpperRightBottomGaugeTemperature = parseFloat(preferences.UpperRightBottomGaugeDefaultSensorPref.value);
+                    generateUpperRightBottomGaugeSensorList(preferences.UpperRightBottomGaugeDefaultSensorPref.value);
                } else {
-                    upper1Temperature = parseFloat(SensorTemp[3]);
-                    generateUpper1SensorList(3);
+                    UpperRightBottomGaugeTemperature = parseFloat(SensorTemp[3]);
+                    generateUpperRightBottomGaugeSensorList(3);
                }
            }
 
            if (noofsensors >= 4) {
-    	       if (preferences.upper2GaugeDefaultSensorPref.value != "" ) {
-                    upper2Temperature = parseFloat(preferences.upper2GaugeDefaultSensorPref.value);
-                    generateUpper2SensorList(preferences.upper2GaugeDefaultSensorPref.value);
+    	       if (preferences.UpperRightTopGaugeGaugeDefaultSensorPref.value != "" ) {
+                    UpperRightTopGaugeTemperature = parseFloat(preferences.UpperRightTopGaugeGaugeDefaultSensorPref.value);
+                    generateUpperRightTopGaugeSensorList(preferences.UpperRightTopGaugeGaugeDefaultSensorPref.value);
                } else {
-                    upper2Temperature = parseFloat(SensorTemp[4]);
-                    generateUpper2SensorList(4);
+                    UpperRightTopGaugeTemperature = parseFloat(SensorTemp[4]);
+                    generateUpperRightTopGaugeSensorList(4);
                }
            }
            if (noofsensors >= 5) {
-    	       if (preferences.lower1GaugeDefaultSensorPref.value != "" ) {
-                    lower1Temperature = parseFloat(preferences.lower1GaugeDefaultSensorPref.value);
-                    generateLower1SensorList(preferences.lower1GaugeDefaultSensorPref.value);
+    	       if (preferences.LowerRightGaugeDefaultSensorPref.value != "" ) {
+                    LowerRightTemperature = parseFloat(preferences.LowerRightGaugeDefaultSensorPref.value);
+                    generateLowerRightGaugeSensorList(preferences.LowerRightGaugeDefaultSensorPref.value);
                } else {
-                    lower1Temperature = parseFloat(SensorTemp[5]);
-                    generateLower1SensorList(5);
+                    LowerRightTemperature = parseFloat(SensorTemp[5]);
+                    generateLowerRightGaugeSensorList(5);
                }
            }
            if (noofsensors >= 6) {
-    	       if (preferences.lower2GaugeDefaultSensorPref.value != "" ) {
-                    lower2Temperature = parseFloat(preferences.lower2GaugeDefaultSensorPref.value);
-                    generateLower2SensorList(preferences.lower2GaugeDefaultSensorPref.value);
+    	       if (preferences.LowerLeftGaugeDefaultSensorPref.value != "" ) {
+                    LowerLeftTemperature = parseFloat(preferences.LowerLeftGaugeDefaultSensorPref.value);
+                    generateLowerLeftGaugeSensorList(preferences.LowerLeftGaugeDefaultSensorPref.value);
                } else {
-                    lower2Temperature = parseFloat(SensorTemp[6]);
-                    generateLower2SensorList(6);
+                    LowerLeftTemperature = parseFloat(SensorTemp[6]);
+                    generateLowerLeftGaugeSensorList(6);
                }
             }
 
@@ -3793,18 +3802,18 @@ function ReadTemperatures()
            getSensorList = 1;
         } else {
            //print("Second time");
-           //print("currentLeftSensor "+currentLeftSensor);
+           //print("currentLeftThermometerSensor "+currentLeftThermometerSensor);
            //print("leftTemperature "+leftTemperature);
 
-           if (noofsensors>=1) {leftTemperature = parseFloat(SensorTemp[currentLeftSensor]);};
-           if (noofsensors>=2) {rightTemperature = parseFloat(SensorTemp[currentRightSensor]);};
-           if (noofsensors>=3) {upper1Temperature = parseFloat(SensorTemp[currentUpper1Sensor]);};
-           if (noofsensors>=4) {upper2Temperature = parseFloat(SensorTemp[currentUpper2Sensor]);};
-           if (noofsensors>=5) {lower1Temperature = parseFloat(SensorTemp[currentlower1Sensor]);};
-           if (noofsensors>=6) {lower2Temperature = parseFloat(SensorTemp[currentlower2Sensor]);};
+           if (noofsensors>=1) {leftTemperature = parseFloat(SensorTemp[currentLeftThermometerSensor]);};
+           if (noofsensors>=2) {rightTemperature = parseFloat(SensorTemp[currentRightThermometerSensor]);};
+           if (noofsensors>=3) {UpperRightBottomGaugeTemperature = parseFloat(SensorTemp[currentUpperRightBottomGaugeSensor]);};
+           if (noofsensors>=4) {UpperRightTopGaugeTemperature = parseFloat(SensorTemp[currentUpperRightTopGaugeSensor]);};
+           if (noofsensors>=5) {LowerRightTemperature = parseFloat(SensorTemp[currentLowerRightGaugeSensor]);};
+           if (noofsensors>=6) {LowerLeftTemperature = parseFloat(SensorTemp[currentLowerLeftThermometerSensor]);};
         }
-        //print("selected sensor" + data+ " for the left hand display" + selectedLeftSensor[data]);
-        //print("selected sensor" + data+ " for the right hand display" + selectedRightSensor[data]);
+        //print("selected sensor" + data+ " for the left hand display" + selectedLeftThermometerSensor[data]);
+        //print("selected sensor" + data+ " for the right hand display" + selectedRightThermometerSensor[data]);
       }
 }
 //=====================
@@ -3906,411 +3915,425 @@ function getWindowsVersion(data) {
 //=====================
 //End function
 //=====================
+
+
 //=================================================================================================
 // function to select the sensor, clear the menu and determine what to do when an item is selected.
 //=================================================================================================
-function generateRightSensorList(data) {
-            print("selecting sensor" + data + " for the right hand thermometer" );
+function generateRightThermometerSensorList(selectedMenuItem) {
+    print("selecting sensor" + selectedMenuItem + " for the right hand thermometer" );
+    // clear the previous sensor, ensure none selected
+    for (var a = 1; a <= noofsensors; a++)
+    {
+         if (a != selectedMenuItem) {selectedRightThermometerSensor[a] = 0;};
+    }
+    selectedRightThermometerSensor[selectedMenuItem] = 1;
+    currentRightThermometerSensor = selectedMenuItem;
+    SensorTingTimer.ticking = true; // set a ting for the sensor
+    //loop through the sensor names adding each into the menu array changing the menu item
+    for (var a = 1; a <= noofsensors; a++)
+    {
+      rightmenuitems[a] = new MenuItem();
+      // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
+      // if windows XP then display the actual sensor names from the config files
+      rightmenuitems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
+      //enable all menu items
+      rightmenuitems[a].enabled = true;
+      //if this is the selected sensor then change the image &c
+      if (selectedRightThermometerSensor[a] == 1)
+      {
+        rightmenuitems[a].checked = true;
+        currentRightThermometerSensorNameText = sensorName[a];
+        preferences.rightThermometerDefaultSensorPref.value = selectedMenuItem;
+        //if windows XP then get the associated image and display it as the selection is made
+        //print("selecting " + sensorName[a] + " sensor");
+        buildRightThermometerSensorLabelText(sensorName[a]);
+        buildRightScribeHeadNames(sensorName[a]);
+      }
+      else
+      {
+          rightmenuitems[a].checked = false;
+      }
+      // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
+      // allows up to 16 sensors
+
+      if (a ==1) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[1] = 1; generateRightThermometerSensorList(1);}};
+      if (a ==2) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[2] = 1; generateRightThermometerSensorList(2);}};
+      if (a ==3) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[3] = 1; generateRightThermometerSensorList(3);}};
+      if (a ==4) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[4] = 1; generateRightThermometerSensorList(4);}};
+      if (a ==5) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[5] = 1; generateRightThermometerSensorList(5);}};
+      if (a ==6) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[6] = 1; generateRightThermometerSensorList(6);}};
+      if (a ==7) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[7] = 1; generateRightThermometerSensorList(7);}};
+      if (a ==8) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[8] = 1; generateRightThermometerSensorList(8);}};
+      if (a ==9) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[9] = 1; generateRightThermometerSensorList(9);}};
+      if (a ==10) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[10] = 1; generateRightThermometerSensorList(10);}};
+      if (a ==11) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[11] = 1; generateRightThermometerSensorList(11);}};
+      if (a ==12) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[12] = 1; generateRightThermometerSensorList(12);}};
+      if (a ==13) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[13] = 1; generateRightThermometerSensorList(13);}};
+      if (a ==14) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[14] = 1; generateRightThermometerSensorList(14);}};
+      if (a ==15) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[15] = 1; generateRightThermometerSensorList(15);}};
+      if (a ==16) {rightmenuitems[a].onSelect = function() {selectedRightThermometerSensor[16] = 1; generateRightThermometerSensorList(16);}};
+     }
+     rightmenuitems[17] = new MenuItem();
+     rightmenuitems[17].title = "Right Hand Sensor List Shown above";
+     //set the context menu for the thermometer background
+     thermometerRight.contextMenuItems = rightmenuitems;
+             samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
+}
+//=====================
+//End function
+//=====================
+
+//=================================================================================================
+// function to select the sensor, clear the menu and determine what to do when an item is selected.
+//=================================================================================================
+function generateLeftThermometerSensorList(selectedMenuItem) {
+    print("selecting sensor" + selectedMenuItem + " for the left hand thermometer" );
+
+    // clears the sensor list
+    // stores the currently selected sensor
+    // loop through all the sensor names adding each into the menu array 
+    // build the sensor label names and scribe naming
+    // select the chosen menu item, ie. tick it
+    // add onSelect call to each menu item
+
+    // clear the previous sensor, ensure none selected
+    for (var a = 1; a <= noofsensors; a++)
+    {
+        if (a != selectedMenuItem) {selectedLeftThermometerSensor[a] = 0;};
+    }
+
+    selectedLeftThermometerSensor[selectedMenuItem] = 1;
+    currentLeftThermometerSensor = selectedMenuItem;
+    SensorTingTimer.ticking = true; // set a ting for the sensor
+
+    //loop through the sensor names adding each into the menu array changing the menu item
+    for (var a = 1; a <= noofsensors; a++)
+    {
+      leftmenuitems[a] = new MenuItem();
+      leftmenuitems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
+      
+      //enable all menu items
+      leftmenuitems[a].enabled = true;
+      
+      // select the chosen menu item, ie. tick it
+      if (selectedLeftThermometerSensor[a] == 1)
+      {
+        leftmenuitems[a].checked = true;
+        currentLeftThermometerSensorNameText = sensorName[a];
+        preferences.leftThermometerDefaultSensorPref.value = selectedMenuItem;
+        
+        //if this is the selected sensor then change the image &c
+        buildLeftGaugeSensorLabelText(sensorName[a]);
+        buildscribeHeadNoWireTwoNames(sensorName[a]);
+      }
+      else
+      {
+          leftmenuitems[a].checked = false;
+      }
+      // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
+      // allows up to 16 sensors
+
+      if (a ==1) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(1);}};
+      if (a ==2) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(2);}};
+      if (a ==3) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(3);}};
+      if (a ==4) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(4);}};
+      if (a ==5) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(5);}};
+      if (a ==6) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(6);}};
+      if (a ==7) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(7);}};
+      if (a ==8) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(8);}};
+      if (a ==9) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(9);}};
+      if (a ==10) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(10);}};
+      if (a ==11) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(11);}};
+      if (a ==12) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(12);}};
+      if (a ==13) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(13);}};
+      if (a ==14) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(14);}};
+      if (a ==15) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(15);}};
+      if (a ==16) {leftmenuitems[a].onSelect = function() {selectedLeftThermometerSensor[a] = 1; generateLeftThermometerSensorList(16);}};
+     }
+     leftmenuitems[17] = new MenuItem();
+     leftmenuitems[17].title = "Left Hand Sensor List Shown Above";
+     //set the context menu for the thermometer background
+     thermometerLeft.contextMenuItems = leftmenuitems;
+     samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
+}
+//=====================
+//End function
+//=====================
+//=================================================================================================
+// function to select the sensor, clear the menu and determine what to do when an item is selected.
+//=================================================================================================
+function generateUpperRightBottomGaugeSensorList(selectedMenuItem) {
+    print("selecting sensor" + selectedMenuItem + " for the Upper 1 Right gauge" );
+    // clear the previous sensor, ensure none selected
+    for (var a = 1; a <= noofsensors; a++)
+    {
+         if (a != selectedMenuItem) {selectedUpperRightBottomGaugeSensor[a] = 0;};
+    }
+    selectedUpperRightBottomGaugeSensor[selectedMenuItem] = 1;
+    currentUpperRightBottomGaugeSensor = selectedMenuItem;
+    SensorTingTimer.ticking = true; // set a ting for the sensor
+
+    //loop through the sensor names adding each into the menu array changing the menu item
+    for (var a = 1; a <= noofsensors; a++)
+    {
+      UpperRightBottomGaugeMenuItems[a] = new MenuItem();
+      // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
+      // if windows XP then display the actual sensor names from the config files
+      UpperRightBottomGaugeMenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
+      //enable all menu items
+      UpperRightBottomGaugeMenuItems[a].enabled = true;
+      //if this is the selected sensor then change the image &c
+      if (selectedUpperRightBottomGaugeSensor[a] == 1)
+      {
+          UpperRightBottomGaugeMenuItems[a].checked = true;
+          currentUpperRightBottomGaugeSensorNameText = sensorName[a];
+          preferences.UpperRightBottomGaugeDefaultSensorPref.value = selectedMenuItem;
+          //if windows XP then get the associated image and display it as the selection is made
+                print("selecting " + sensorName[a] + " sensor");
+                buildTopGaugeSensorLabelText(sensorName[a]);
+                //buildUpperScribeHeadNames(sensorName[a]);
+      } else {
+          UpperRightBottomGaugeMenuItems[a].checked = false;
+      }
+      // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
+      // allows up to 16 sensors
+
+      if (a ==1) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(1);}};
+      if (a ==2) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(2);}};
+      if (a ==3) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(3);}};
+      if (a ==4) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(4);}};
+      if (a ==5) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(5);}};
+      if (a ==6) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(6);}};
+      if (a ==7) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(7);}};
+      if (a ==8) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(8);}};
+      if (a ==9) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(9);}};
+      if (a ==10) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(10);}};
+      if (a ==11) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(11);}};
+      if (a ==12) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(12);}};
+      if (a ==13) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(13);}};
+      if (a ==14) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(14);}};
+      if (a ==15) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(15);}};
+      if (a ==16) {UpperRightBottomGaugeMenuItems[a].onSelect = function() {selectedUpperRightBottomGaugeSensor[a] = 1; generateUpperRightBottomGaugeSensorList(16);}};
+     }
+    UpperRightBottomGaugeMenuItems[17] = new MenuItem();
+    UpperRightBottomGaugeMenuItems[17].title = "Primary Upper Gauge Sensor List Shown above";
+    UpperRightBottomGaugeMenuItems[18] = new MenuItem();
+    UpperRightBottomGaugeMenuItems[18].title = "Select Fahrenheit for this gauge";
+    UpperRightBottomGaugeMenuItems[18].onSelect = selectFahrenheitUpperRightBottomGauge;
+    //set the context menu for the thermometer background
+    UpperRightBottomGauge.contextMenuItems = UpperRightBottomGaugeMenuItems;
+    samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
+}
+//=====================
+//End function
+//=====================
+
+//=================================================================================================
+// function to select the sensor, clear the menu and determine what to do when an item is selected.
+//=================================================================================================
+function generateUpperRightTopGaugeSensorList(selectedMenuItem) {
+    print("selecting sensor" + selectedMenuItem + " for the Upper 2 Right gauge" );
+    // clear the previous sensor, ensure none selected
+    for (var a = 1; a <= noofsensors; a++)
+    {
+         if (a != selectedMenuItem) {selectedUpperRightTopGaugeSensor[a] = 0;};
+    }
+    selectedUpperRightTopGaugeSensor[selectedMenuItem] = 1;
+    currentUpperRightTopGaugeSensor = selectedMenuItem;
+    SensorTingTimer.ticking = true; // set a ting for the sensor
+
+    //loop through the sensor names adding each into the menu array changing the menu item
+    for (var a = 1; a <= noofsensors; a++)
+    {
+      UpperRightTopGaugeMenuItems[a] = new MenuItem();
+      // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
+      // if windows XP then display the actual sensor names from the config files
+      UpperRightTopGaugeMenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
+      //enable all menu items
+      UpperRightTopGaugeMenuItems[a].enabled = true;
+      //if this is the selected sensor then change the image &c
+      if (selectedUpperRightTopGaugeSensor[a] == 1)
+      {
+          UpperRightTopGaugeMenuItems[a].checked = true;
+          currentUpperRightTopGaugeSensorNameText = sensorName[a];
+          preferences.UpperRightTopGaugeGaugeDefaultSensorPref.value = selectedMenuItem;
+          print("selecting " + sensorName[a] + " sensor");
+          buildBottomGaugeSensorLabelText(sensorName[a]);
+      } else {
+          UpperRightTopGaugeMenuItems[a].checked = false;
+      }
+      // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
+      // allows up to 16 sensors
+
+      if (a ==1) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(1);}};
+      if (a ==2) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(2);}};
+      if (a ==3) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(3);}};
+      if (a ==4) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(4);}};
+      if (a ==5) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(5);}};
+      if (a ==6) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(6);}};
+      if (a ==7) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(7);}};
+      if (a ==8) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(8);}};
+      if (a ==9) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(9);}};
+      if (a ==10) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(10);}};
+      if (a ==11) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(11);}};
+      if (a ==12) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(12);}};
+      if (a ==13) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(13);}};
+      if (a ==14) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(14);}};
+      if (a ==15) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(15);}};
+      if (a ==16) {UpperRightTopGaugeMenuItems[a].onSelect = function() {selectedUpperRightTopGaugeSensor[a] = 1; generateUpperRightTopGaugeSensorList(16);}};
+     }
+    UpperRightTopGaugeMenuItems[17] = new MenuItem();
+    UpperRightTopGaugeMenuItems[17].title = "Secondary Upper Gauge Sensor List Shown above";
+    UpperRightTopGaugeMenuItems[18] = new MenuItem();
+    UpperRightTopGaugeMenuItems[18].title = "Select Fahrenheit for this gauge";
+    UpperRightTopGaugeMenuItems[18].onSelect = selectFahrenheitUpperRightTopGauge;
+    //set the context menu for the thermometer background
+    UpperRightTopGaugeGauge.contextMenuItems = UpperRightTopGaugeMenuItems;
+    samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
+}
+//=====================
+//End function
+//=====================
+
+//=================================================================================================
+// function to select the sensor, clear the menu and determine what to do when an item is selected.
+//=================================================================================================
+function generateLowerRightGaugeSensorList(selectedMenuItem) {
+    print("selecting sensor" + selectedMenuItem + " for the lower 1 Right gauge" );
+    // clear the previous sensor, ensure none selected
+    for (var a = 1; a <= noofsensors; a++)
+    {
+         if (a != selectedMenuItem) {selectedLowerRightGaugeSensor[a] = 0;};
+    }
+    selectedLowerRightGaugeSensor[selectedMenuItem] = 1;
+    currentLowerRightGaugeSensor = selectedMenuItem;
+    SensorTingTimer.ticking = true; // set a ting for the sensor
+
+    //loop through the sensor names adding each into the menu array changing the menu item
+    for (var a = 1; a <= noofsensors; a++)
+    {
+      LowerRightMenuItems[a] = new MenuItem();
+      // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
+      // if windows XP then display the actual sensor names from the config files
+      LowerRightMenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
+      //enable all menu items
+      LowerRightMenuItems[a].enabled = true;
+      //if this is the selected sensor then change the image &c
+      if (selectedLowerRightGaugeSensor[a] == 1)
+      {
+          LowerRightMenuItems[a].checked = true;
+          currentLowerRightGaugeSensorNameText = sensorName[a];
+          preferences.LowerRightGaugeDefaultSensorPref.value = selectedMenuItem;
+          //if windows XP then get the associated image and display it as the selection is made
+                print("selecting " + sensorName[a] + " sensor");
+                buildOnScreenLowerRightGaugeSensorNames(sensorName[a]);
+                //buildLowerRightScribeHeadNames(sensorName[a]);
+      }
+      else
+      {
+          LowerRightMenuItems[a].checked = false;
+      }
+      // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
+      // allows up to 16 sensors
+
+      if (a ==1) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(1);}};
+      if (a ==2) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(2);}};
+      if (a ==3) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(3);}};
+      if (a ==4) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(4);}};
+      if (a ==5) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(5);}};
+      if (a ==6) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(6);}};
+      if (a ==7) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(7);}};
+      if (a ==8) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(8);}};
+      if (a ==9) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(9);}};
+      if (a ==10) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(10);}};
+      if (a ==11) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(11);}};
+      if (a ==12) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(12);}};
+      if (a ==13) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(13);}};
+      if (a ==14) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(14);}};
+      if (a ==15) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(15);}};
+      if (a ==16) {LowerRightMenuItems[a].onSelect = function() {selectedLowerRightGaugeSensor[a] = 1; generateLowerRightGaugeSensorList(16);}};
+     }
+     LowerRightMenuItems[17] = new MenuItem();
+    LowerRightMenuItems[17].title = "Lower Primary Gauge Sensor List Shown above";
+    LowerRightMenuItems[18] = new MenuItem();
+    LowerRightMenuItems[18].title = "Select Fahrenheit for this gauge";
+    LowerRightMenuItems[18].onSelect = selectFahrenheitLowerRight;
+     //set the context menu for the thermometer background
+     LowerRightGauge.contextMenuItems = LowerRightMenuItems;
+     samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
+}
+//=====================
+//End function
+//=====================
+
+//=================================================================================================
+// function to select the sensor, clear the menu and determine what to do when a menu item is selected.
+//=================================================================================================
+function generateLowerLeftGaugeSensorList(selectedMenuItem) {
+            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" );
+            print("selecting sensor" + selectedMenuItem + " for the LowerLeft Left gauge" );
+            
             // clear the previous sensor, ensure none selected
-            for (var a =1;a<=noofsensors;a++)
+            for (var a = 1; a<= noofsensors; a++)
             {
-                 if (a != data) {selectedRightSensor[a] = 0;};
+                if (a != selectedMenuItem) {selectedLowerLeftGaugeSensor[a] = 0;};
             }
-            selectedRightSensor[data] = 1;
-            currentRightSensor = data;
+            selectedLowerLeftGaugeSensor[selectedMenuItem] = 1;
+            currentLowerLeftThermometerSensor = selectedMenuItem;
             SensorTingTimer.ticking = true; // set a ting for the sensor
+
             //loop through the sensor names adding each into the menu array changing the menu item
-            for (var a =1;a<=noofsensors;a++)
+            for (var a = 1;  a <= noofsensors; a++)
             {
-              rightmenuitems[a] = new MenuItem();
+              LowerLeftMenuItems[a] = new MenuItem();
               // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
               // if windows XP then display the actual sensor names from the config files
-              rightmenuitems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
+              LowerLeftMenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
               //enable all menu items
-              rightmenuitems[a].enabled = true;
+              LowerLeftMenuItems[a].enabled = true;
               //if this is the selected sensor then change the image &c
-              if (selectedRightSensor[a] == 1)
+              if (selectedLowerLeftGaugeSensor[a] == 1)
               {
-                  rightmenuitems[a].checked = true;
-                  currentRightSensorNameText = sensorName[a];
-                  preferences.rightThermometerDefaultSensorPref.value = data;
-                  //if windows XP then get the associated image and display it as the selection is made
-                        //print("selecting " + sensorName[a] + " sensor");
-                        buildOnScreenRightSensorNames(sensorName[a]);
-                        buildRightScribeHeadNames(sensorName[a]);
+                LowerLeftMenuItems[a].checked = true;
+                currentLowerLeftThermometerSensorNameText = sensorName[a];
+                preferences.LowerLeftGaugeDefaultSensorPref.value = selectedMenuItem;
+                print("selecting " + sensorName[a] + " sensor");
+                buildOnScreenLowerLeftThermometerSensorNames(sensorName[a]);
               }
               else
               {
-                  rightmenuitems[a].checked = false;
+                  LowerLeftMenuItems[a].checked = false;
               }
               // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
               // allows up to 16 sensors
 
-              if (a ==1) {rightmenuitems[a].onSelect = function( nullFunction1 ) {selectedRightSensor[1] = 1;generateRightSensorList(1);}};
-              if (a ==2) {rightmenuitems[a].onSelect = function( nullFunction2 ) {selectedRightSensor[2] = 1;generateRightSensorList(2);}};
-              if (a ==3) {rightmenuitems[a].onSelect = function( nullFunction3 ) {selectedRightSensor[3] = 1;generateRightSensorList(3);}};
-              if (a ==4) {rightmenuitems[a].onSelect = function( nullFunction4 ) {selectedRightSensor[4] = 1;generateRightSensorList(4);}};
-              if (a ==5) {rightmenuitems[a].onSelect = function( nullFunction5 ) {selectedRightSensor[5] = 1;generateRightSensorList(5);}};
-              if (a ==6) {rightmenuitems[a].onSelect = function( nullFunction6 ) {selectedRightSensor[6] = 1;generateRightSensorList(6);}};
-              if (a ==7) {rightmenuitems[a].onSelect = function( nullFunction7 ) {selectedRightSensor[7] = 1;generateRightSensorList(7);}};
-              if (a ==8) {rightmenuitems[a].onSelect = function( nullFunction8 ) {selectedRightSensor[8] = 1;generateRightSensorList(8);}};
-              if (a ==9) {rightmenuitems[a].onSelect = function( nullFunction9 ) {selectedRightSensor[9] = 1;generateRightSensorList(9);}};
-              if (a ==10) {rightmenuitems[a].onSelect = function( nullFunction10 ) {selectedRightSensor[10] = 1;generateRightSensorList(10);}};
-              if (a ==11) {rightmenuitems[a].onSelect = function( nullFunction11 ) {selectedRightSensor[11] = 1;generateRightSensorList(11);}};
-              if (a ==12) {rightmenuitems[a].onSelect = function( nullFunction12 ) {selectedRightSensor[12] = 1;generateRightSensorList(12);}};
-              if (a ==13) {rightmenuitems[a].onSelect = function( nullFunction13 ) {selectedRightSensor[13] = 1;generateRightSensorList(13);}};
-              if (a ==14) {rightmenuitems[a].onSelect = function( nullFunction14 ) {selectedRightSensor[14] = 1;generateRightSensorList(14);}};
-              if (a ==15) {rightmenuitems[a].onSelect = function( nullFunction15 ) {selectedRightSensor[15] = 1;generateRightSensorList(15);}};
-              if (a ==16) {rightmenuitems[a].onSelect = function( nullFunction16 ) {selectedRightSensor[16] = 1;generateRightSensorList(16);}};
-             }
-             rightmenuitems[17] = new MenuItem();
-	     rightmenuitems[17].title = "Right Hand Sensor List Shown above";
-             //set the context menu for the thermometer background
-             thermometerRight.contextMenuItems = rightmenuitems;
-             samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
-}
-//=====================
-//End function
-//=====================
-
-//=================================================================================================
-// function to select the sensor, clear the menu and determine what to do when an item is selected.
-//=================================================================================================
-function generateLeftSensorList(data) {
-            print("selecting sensor" + data + " for the left hand thermometer" );
-            // clear the previous sensor, ensure none selected
-            for (var a =1;a<=noofsensors;a++)
-            {
-                 if (a != data) {selectedLeftSensor[a] = 0;};
+              // calls itself recursively
+              if (a ==1) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(1);}};
+              if (a ==2) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(2);}};
+              if (a ==3) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(3);}};
+              if (a ==4) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(4);}};
+              if (a ==5) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(5);}};
+              if (a ==6) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(6);}};
+              if (a ==7) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(7);}};
+              if (a ==8) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(8);}};
+              if (a ==9) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(9);}};
+              if (a ==10) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(10);}};
+              if (a ==11) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(11);}};
+              if (a ==12) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(12);}};
+              if (a ==13) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(13);}};
+              if (a ==14) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(14);}};
+              if (a ==15) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(15);}};
+              if (a ==16) {LowerLeftMenuItems[a].onSelect = function() {selectedLowerLeftGaugeSensor[a] = 1; generateLowerLeftGaugeSensorList(16);}};
+            
             }
-            selectedLeftSensor[data] = 1;
-            currentLeftSensor = data;
-            SensorTingTimer.ticking = true; // set a ting for the sensor
-
-            //loop through the sensor names adding each into the menu array changing the menu item
-            for (var a =1;a<=noofsensors;a++)
-            {
-              leftmenuitems[a] = new MenuItem();
-              // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
-              // if windows XP then display the actual sensor names from the config files
-              leftmenuitems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
-              //enable all menu items
-              leftmenuitems[a].enabled = true;
-              //if this is the selected sensor then change the image &c
-              if (selectedLeftSensor[a] == 1)
-              {
-                  leftmenuitems[a].checked = true;
-                  currentLeftSensorNameText = sensorName[a];
-                  preferences.leftThermometerDefaultSensorPref.value = data;
-                  //if windows XP then get the associated image and display it as the selection is made
-                        //print("selecting " + sensorName[a] + " sensor");
-                        buildOnScreenLeftSensorNames(sensorName[a]);
-                        buildscribeHeadNoWireTwoNames(sensorName[a]);
-              }
-              else
-              {
-                  leftmenuitems[a].checked = false;
-              }
-              // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
-              // allows up to 16 sensors
-
-              if (a ==1) {leftmenuitems[a].onSelect = function( nullFunction1 ) {selectedLeftSensor[1] = 1;generateLeftSensorList(1);}};
-              if (a ==2) {leftmenuitems[a].onSelect = function( nullFunction2 ) {selectedLeftSensor[2] = 1;generateLeftSensorList(2);}};
-              if (a ==3) {leftmenuitems[a].onSelect = function( nullFunction3 ) {selectedLeftSensor[3] = 1;generateLeftSensorList(3);}};
-              if (a ==4) {leftmenuitems[a].onSelect = function( nullFunction4 ) {selectedLeftSensor[4] = 1;generateLeftSensorList(4);}};
-              if (a ==5) {leftmenuitems[a].onSelect = function( nullFunction5 ) {selectedLeftSensor[5] = 1;generateLeftSensorList(5);}};
-              if (a ==6) {leftmenuitems[a].onSelect = function( nullFunction6 ) {selectedLeftSensor[6] = 1;generateLeftSensorList(6);}};
-              if (a ==7) {leftmenuitems[a].onSelect = function( nullFunction7 ) {selectedLeftSensor[7] = 1;generateLeftSensorList(7);}};
-              if (a ==8) {leftmenuitems[a].onSelect = function( nullFunction8 ) {selectedLeftSensor[8] = 1;generateLeftSensorList(8);}};
-              if (a ==9) {leftmenuitems[a].onSelect = function( nullFunction9 ) {selectedLeftSensor[9] = 1;generateLeftSensorList(9);}};
-              if (a ==10) {leftmenuitems[a].onSelect = function( nullFunction10 ) {selectedLeftSensor[10] = 1;generateLeftSensorList(10);}};
-              if (a ==11) {leftmenuitems[a].onSelect = function( nullFunction11 ) {selectedLeftSensor[11] = 1;generateLeftSensorList(11);}};
-              if (a ==12) {leftmenuitems[a].onSelect = function( nullFunction12 ) {selectedLeftSensor[12] = 1;generateLeftSensorList(12);}};
-              if (a ==13) {leftmenuitems[a].onSelect = function( nullFunction13 ) {selectedLeftSensor[13] = 1;generateLeftSensorList(13);}};
-              if (a ==14) {leftmenuitems[a].onSelect = function( nullFunction14 ) {selectedLeftSensor[14] = 1;generateLeftSensorList(14);}};
-              if (a ==15) {leftmenuitems[a].onSelect = function( nullFunction15 ) {selectedLeftSensor[15] = 1;generateLeftSensorList(15);}};
-              if (a ==16) {leftmenuitems[a].onSelect = function( nullFunction16 ) {selectedLeftSensor[16] = 1;generateLeftSensorList(16);}};
-             }
-             leftmenuitems[17] = new MenuItem();
-	     leftmenuitems[17].title = "Left Hand Sensor List Shown Above";
+            LowerLeftMenuItems[17] = new MenuItem();
+            LowerLeftMenuItems[17].title = "Lower Secondary Gauge Sensor List Shown above";
+            LowerLeftMenuItems[18] = new MenuItem();
+            LowerLeftMenuItems[18].title = "Select Fahrenheit for this gauge";
+            LowerLeftMenuItems[18].onSelect = selectFahrenheitLowerLeft;
              //set the context menu for the thermometer background
-             thermometerLeft.contextMenuItems = leftmenuitems;
-             samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
-}
-//=====================
-//End function
-//=====================
-//=================================================================================================
-// function to select the sensor, clear the menu and determine what to do when an item is selected.
-//=================================================================================================
-function generateUpper1SensorList(data) {
-            print("selecting sensor" + data + " for the Upper 1 Right gauge" );
-            // clear the previous sensor, ensure none selected
-            for (var a =1;a<=noofsensors;a++)
-            {
-                 if (a != data) {selectedUpper1Sensor[a] = 0;};
-            }
-            selectedUpper1Sensor[data] = 1;
-            currentUpper1Sensor = data;
-            SensorTingTimer.ticking = true; // set a ting for the sensor
-
-            //loop through the sensor names adding each into the menu array changing the menu item
-            for (var a =1;a<=noofsensors;a++)
-            {
-              upper1MenuItems[a] = new MenuItem();
-              // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
-              // if windows XP then display the actual sensor names from the config files
-              upper1MenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
-              //enable all menu items
-              upper1MenuItems[a].enabled = true;
-              //if this is the selected sensor then change the image &c
-              if (selectedUpper1Sensor[a] == 1)
-              {
-                  upper1MenuItems[a].checked = true;
-                  currentUpper1SensorNameText = sensorName[a];
-                  preferences.upper1GaugeDefaultSensorPref.value = data;
-                  //if windows XP then get the associated image and display it as the selection is made
-                        print("selecting " + sensorName[a] + " sensor");
-                        buildOnScreenUpper1SensorNames(sensorName[a]);
-                        //buildUpperScribeHeadNames(sensorName[a]);
-              } else {
-                  upper1MenuItems[a].checked = false;
-              }
-              // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
-              // allows up to 16 sensors
-
-              if (a ==1) {upper1MenuItems[a].onSelect = function( nullFunction1 ) {selectedUpper1Sensor[1] = 1;generateUpper1SensorList(1);}};
-              if (a ==2) {upper1MenuItems[a].onSelect = function( nullFunction2 ) {selectedUpper1Sensor[2] = 1;generateUpper1SensorList(2);}};
-              if (a ==3) {upper1MenuItems[a].onSelect = function( nullFunction3 ) {selectedUpper1Sensor[3] = 1;generateUpper1SensorList(3);}};
-              if (a ==4) {upper1MenuItems[a].onSelect = function( nullFunction4 ) {selectedUpper1Sensor[4] = 1;generateUpper1SensorList(4);}};
-              if (a ==5) {upper1MenuItems[a].onSelect = function( nullFunction5 ) {selectedUpper1Sensor[5] = 1;generateUpper1SensorList(5);}};
-              if (a ==6) {upper1MenuItems[a].onSelect = function( nullFunction6 ) {selectedUpper1Sensor[6] = 1;generateUpper1SensorList(6);}};
-              if (a ==7) {upper1MenuItems[a].onSelect = function( nullFunction7 ) {selectedUpper1Sensor[7] = 1;generateUpper1SensorList(7);}};
-              if (a ==8) {upper1MenuItems[a].onSelect = function( nullFunction8 ) {selectedUpper1Sensor[8] = 1;generateUpper1SensorList(8);}};
-              if (a ==9) {upper1MenuItems[a].onSelect = function( nullFunction9 ) {selectedUpper1Sensor[9] = 1;generateUpper1SensorList(9);}};
-              if (a ==10) {upper1MenuItems[a].onSelect = function( nullFunction10 ) {selectedUpper1Sensor[10] = 1;generateUpper1SensorList(10);}};
-              if (a ==11) {upper1MenuItems[a].onSelect = function( nullFunction11 ) {selectedUpper1Sensor[11] = 1;generateUpper1SensorList(11);}};
-              if (a ==12) {upper1MenuItems[a].onSelect = function( nullFunction12 ) {selectedUpper1Sensor[12] = 1;generateUpper1SensorList(12);}};
-              if (a ==13) {upper1MenuItems[a].onSelect = function( nullFunction13 ) {selectedUpper1Sensor[13] = 1;generateUpper1SensorList(13);}};
-              if (a ==14) {upper1MenuItems[a].onSelect = function( nullFunction14 ) {selectedUpper1Sensor[14] = 1;generateUpper1SensorList(14);}};
-              if (a ==15) {upper1MenuItems[a].onSelect = function( nullFunction15 ) {selectedUpper1Sensor[15] = 1;generateUpper1SensorList(15);}};
-              if (a ==16) {upper1MenuItems[a].onSelect = function( nullFunction16 ) {selectedUpper1Sensor[16] = 1;generateUpper1SensorList(16);}};
-             }
-             upper1MenuItems[17] = new MenuItem();
-	     upper1MenuItems[17].title = "Primary Upper Gauge Sensor List Shown above";
-             upper1MenuItems[18] = new MenuItem();
-	     upper1MenuItems[18].title = "Select Fahrenheit for this gauge";
-	     upper1MenuItems[18].onSelect = selectFahrenheitUpper1;
-             //set the context menu for the thermometer background
-             upper1Gauge.contextMenuItems = upper1MenuItems;
-             samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
-}
-//=====================
-//End function
-//=====================
-//=================================================================================================
-// function to select the sensor, clear the menu and determine what to do when an item is selected.
-//=================================================================================================
-function generateUpper2SensorList(data) {
-            print("selecting sensor" + data + " for the Upper 2 Right gauge" );
-            // clear the previous sensor, ensure none selected
-            for (var a =1;a<=noofsensors;a++)
-            {
-                 if (a != data) {selectedUpper2Sensor[a] = 0;};
-            }
-            selectedUpper2Sensor[data] = 1;
-            currentUpper2Sensor = data;
-            SensorTingTimer.ticking = true; // set a ting for the sensor
-
-            //loop through the sensor names adding each into the menu array changing the menu item
-            for (var a =1;a<=noofsensors;a++)
-            {
-              upper2MenuItems[a] = new MenuItem();
-              // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
-              // if windows XP then display the actual sensor names from the config files
-              upper2MenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
-              //enable all menu items
-              upper2MenuItems[a].enabled = true;
-              //if this is the selected sensor then change the image &c
-              if (selectedUpper2Sensor[a] == 1)
-              {
-                  upper2MenuItems[a].checked = true;
-                  currentUpper2SensorNameText = sensorName[a];
-                  preferences.upper2GaugeDefaultSensorPref.value = data;
-                  //if windows XP then get the associated image and display it as the selection is made
-                        print("selecting " + sensorName[a] + " sensor");
-                        buildOnScreenUpper2SensorNames(sensorName[a]);
-                        //buildUpperScribeHeadNames(sensorName[a]);
-              } else {
-                  upper2MenuItems[a].checked = false;
-              }
-              // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
-              // allows up to 16 sensors
-
-              if (a ==1) {upper2MenuItems[a].onSelect = function( nullFunction1 ) {selectedUpper2Sensor[1] = 1;generateUpper2SensorList(1);}};
-              if (a ==2) {upper2MenuItems[a].onSelect = function( nullFunction2 ) {selectedUpper2Sensor[2] = 1;generateUpper2SensorList(2);}};
-              if (a ==3) {upper2MenuItems[a].onSelect = function( nullFunction3 ) {selectedUpper2Sensor[3] = 1;generateUpper2SensorList(3);}};
-              if (a ==4) {upper2MenuItems[a].onSelect = function( nullFunction4 ) {selectedUpper2Sensor[4] = 1;generateUpper2SensorList(4);}};
-              if (a ==5) {upper2MenuItems[a].onSelect = function( nullFunction5 ) {selectedUpper2Sensor[5] = 1;generateUpper2SensorList(5);}};
-              if (a ==6) {upper2MenuItems[a].onSelect = function( nullFunction6 ) {selectedUpper2Sensor[6] = 1;generateUpper2SensorList(6);}};
-              if (a ==7) {upper2MenuItems[a].onSelect = function( nullFunction7 ) {selectedUpper2Sensor[7] = 1;generateUpper2SensorList(7);}};
-              if (a ==8) {upper2MenuItems[a].onSelect = function( nullFunction8 ) {selectedUpper2Sensor[8] = 1;generateUpper2SensorList(8);}};
-              if (a ==9) {upper2MenuItems[a].onSelect = function( nullFunction9 ) {selectedUpper2Sensor[9] = 1;generateUpper2SensorList(9);}};
-              if (a ==10) {upper2MenuItems[a].onSelect = function( nullFunction10 ) {selectedUpper2Sensor[10] = 1;generateUpper2SensorList(10);}};
-              if (a ==11) {upper2MenuItems[a].onSelect = function( nullFunction11 ) {selectedUpper2Sensor[11] = 1;generateUpper2SensorList(11);}};
-              if (a ==12) {upper2MenuItems[a].onSelect = function( nullFunction12 ) {selectedUpper2Sensor[12] = 1;generateUpper2SensorList(12);}};
-              if (a ==13) {upper2MenuItems[a].onSelect = function( nullFunction13 ) {selectedUpper2Sensor[13] = 1;generateUpper2SensorList(13);}};
-              if (a ==14) {upper2MenuItems[a].onSelect = function( nullFunction14 ) {selectedUpper2Sensor[14] = 1;generateUpper2SensorList(14);}};
-              if (a ==15) {upper2MenuItems[a].onSelect = function( nullFunction15 ) {selectedUpper2Sensor[15] = 1;generateUpper2SensorList(15);}};
-              if (a ==16) {upper2MenuItems[a].onSelect = function( nullFunction16 ) {selectedUpper2Sensor[16] = 1;generateUpper2SensorList(16);}};
-             }
-             upper2MenuItems[17] = new MenuItem();
-	     upper2MenuItems[17].title = "Secondary Upper Gauge Sensor List Shown above";
-             upper2MenuItems[18] = new MenuItem();
-	     upper2MenuItems[18].title = "Select Fahrenheit for this gauge";
-	     upper2MenuItems[18].onSelect = selectFahrenheitUpper2;
-             //set the context menu for the thermometer background
-             upper2Gauge.contextMenuItems = upper2MenuItems;
-             samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
-}
-//=====================
-//End function
-//=====================
-//=================================================================================================
-// function to select the sensor, clear the menu and determine what to do when an item is selected.
-//=================================================================================================
-function generateLower1SensorList(data) {
-            print("selecting sensor" + data + " for the lower 1 Right gauge" );
-            // clear the previous sensor, ensure none selected
-            for (var a =1;a<=noofsensors;a++)
-            {
-                 if (a != data) {selectedlower1Sensor[a] = 0;};
-            }
-            selectedlower1Sensor[data] = 1;
-            currentlower1Sensor = data;
-            SensorTingTimer.ticking = true; // set a ting for the sensor
-
-            //loop through the sensor names adding each into the menu array changing the menu item
-            for (var a =1;a<=noofsensors;a++)
-            {
-              lower1MenuItems[a] = new MenuItem();
-              // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
-              // if windows XP then display the actual sensor names from the config files
-              lower1MenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
-              //enable all menu items
-              lower1MenuItems[a].enabled = true;
-              //if this is the selected sensor then change the image &c
-              if (selectedlower1Sensor[a] == 1)
-              {
-                  lower1MenuItems[a].checked = true;
-                  currentlower1SensorNameText = sensorName[a];
-                  preferences.lower1GaugeDefaultSensorPref.value = data;
-                  //if windows XP then get the associated image and display it as the selection is made
-                        print("selecting " + sensorName[a] + " sensor");
-                        buildOnScreenlower1SensorNames(sensorName[a]);
-                        //buildlower1ScribeHeadNames(sensorName[a]);
-              }
-              else
-              {
-                  lower1MenuItems[a].checked = false;
-              }
-              // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
-              // allows up to 16 sensors
-
-              if (a ==1) {lower1MenuItems[a].onSelect = function( nullFunction1 ) {selectedlower1Sensor[1] = 1;generateLower1SensorList(1);}};
-              if (a ==2) {lower1MenuItems[a].onSelect = function( nullFunction2 ) {selectedlower1Sensor[2] = 1;generateLower1SensorList(2);}};
-              if (a ==3) {lower1MenuItems[a].onSelect = function( nullFunction3 ) {selectedlower1Sensor[3] = 1;generateLower1SensorList(3);}};
-              if (a ==4) {lower1MenuItems[a].onSelect = function( nullFunction4 ) {selectedlower1Sensor[4] = 1;generateLower1SensorList(4);}};
-              if (a ==5) {lower1MenuItems[a].onSelect = function( nullFunction5 ) {selectedlower1Sensor[5] = 1;generateLower1SensorList(5);}};
-              if (a ==6) {lower1MenuItems[a].onSelect = function( nullFunction6 ) {selectedlower1Sensor[6] = 1;generateLower1SensorList(6);}};
-              if (a ==7) {lower1MenuItems[a].onSelect = function( nullFunction7 ) {selectedlower1Sensor[7] = 1;generateLower1SensorList(7);}};
-              if (a ==8) {lower1MenuItems[a].onSelect = function( nullFunction8 ) {selectedlower1Sensor[8] = 1;generateLower1SensorList(8);}};
-              if (a ==9) {lower1MenuItems[a].onSelect = function( nullFunction9 ) {selectedlower1Sensor[9] = 1;generateLower1SensorList(9);}};
-              if (a ==10) {lower1MenuItems[a].onSelect = function( nullFunction10 ) {selectedlower1Sensor[10] = 1;generateLower1SensorList(10);}};
-              if (a ==11) {lower1MenuItems[a].onSelect = function( nullFunction11 ) {selectedlower1Sensor[11] = 1;generateLower1SensorList(11);}};
-              if (a ==12) {lower1MenuItems[a].onSelect = function( nullFunction12 ) {selectedlower1Sensor[12] = 1;generateLower1SensorList(12);}};
-              if (a ==13) {lower1MenuItems[a].onSelect = function( nullFunction13 ) {selectedlower1Sensor[13] = 1;generateLower1SensorList(13);}};
-              if (a ==14) {lower1MenuItems[a].onSelect = function( nullFunction14 ) {selectedlower1Sensor[14] = 1;generateLower1SensorList(14);}};
-              if (a ==15) {lower1MenuItems[a].onSelect = function( nullFunction15 ) {selectedlower1Sensor[15] = 1;generateLower1SensorList(15);}};
-              if (a ==16) {lower1MenuItems[a].onSelect = function( nullFunction16 ) {selectedlower1Sensor[16] = 1;generateLower1SensorList(16);}};
-             }
-             lower1MenuItems[17] = new MenuItem();
-	     lower1MenuItems[17].title = "Lower Primary Gauge Sensor List Shown above";
-             lower1MenuItems[18] = new MenuItem();
-	     lower1MenuItems[18].title = "Select Fahrenheit for this gauge";
-	     lower1MenuItems[18].onSelect = selectFahrenheitLower1;
-             //set the context menu for the thermometer background
-             lower1Gauge.contextMenuItems = lower1MenuItems;
-             samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
-}
-//=====================
-//End function
-//=====================
-//=================================================================================================
-// function to select the sensor, clear the menu and determine what to do when an item is selected.
-//=================================================================================================
-function generateLower2SensorList(data) {
-            print("selecting sensor" + data + " for the lower2 Right gauge" );
-            // clear the previous sensor, ensure none selected
-            for (var a =1;a<=noofsensors;a++)
-            {
-                 if (a != data) {selectedlower2Sensor[a] = 0;};
-            }
-            selectedlower2Sensor[data] = 1;
-            currentlower2Sensor = data;
-            SensorTingTimer.ticking = true; // set a ting for the sensor
-
-            //loop through the sensor names adding each into the menu array changing the menu item
-            for (var a =1;a<=noofsensors;a++)
-            {
-              lower2MenuItems[a] = new MenuItem();
-              // if windows XP then display the actual sensor names, if NT 6 systems just give an unnamed list
-              // if windows XP then display the actual sensor names from the config files
-              lower2MenuItems[a].title = " Sensor "+a+" - " +SensorTemp[a]+" celsius " + sensorName[a];
-              //enable all menu items
-              lower2MenuItems[a].enabled = true;
-              //if this is the selected sensor then change the image &c
-              if (selectedlower2Sensor[a] == 1)
-              {
-                  lower2MenuItems[a].checked = true;
-                  currentlower2SensorNameText = sensorName[a];
-                  preferences.lower2GaugeDefaultSensorPref.value = data;
-                  //if windows XP then get the associated image and display it as the selection is made
-                        print("selecting " + sensorName[a] + " sensor");
-                        buildOnScreenlower2SensorNames(sensorName[a]);
-                        //buildlower2ScribeHeadNames(sensorName[a]);
-              }
-              else
-              {
-                  lower2MenuItems[a].checked = false;
-              }
-              // in the new menu we have created set what should happen if one of the sensors is selected - then call this routine
-              // allows up to 16 sensors
-
-              if (a ==1) {lower2MenuItems[a].onSelect = function( nullFunction1 ) {selectedlower2Sensor[1] = 1;generateLower2SensorList(1);}};
-              if (a ==2) {lower2MenuItems[a].onSelect = function( nullFunction2 ) {selectedlower2Sensor[2] = 1;generateLower2SensorList(2);}};
-              if (a ==3) {lower2MenuItems[a].onSelect = function( nullFunction3 ) {selectedlower2Sensor[3] = 1;generateLower2SensorList(3);}};
-              if (a ==4) {lower2MenuItems[a].onSelect = function( nullFunction4 ) {selectedlower2Sensor[4] = 1;generateLower2SensorList(4);}};
-              if (a ==5) {lower2MenuItems[a].onSelect = function( nullFunction5 ) {selectedlower2Sensor[5] = 1;generateLower2SensorList(5);}};
-              if (a ==6) {lower2MenuItems[a].onSelect = function( nullFunction6 ) {selectedlower2Sensor[6] = 1;generateLower2SensorList(6);}};
-              if (a ==7) {lower2MenuItems[a].onSelect = function( nullFunction7 ) {selectedlower2Sensor[7] = 1;generateLower2SensorList(7);}};
-              if (a ==8) {lower2MenuItems[a].onSelect = function( nullFunction8 ) {selectedlower2Sensor[8] = 1;generateLower2SensorList(8);}};
-              if (a ==9) {lower2MenuItems[a].onSelect = function( nullFunction9 ) {selectedlower2Sensor[9] = 1;generateLower2SensorList(9);}};
-              if (a ==10) {lower2MenuItems[a].onSelect = function( nullFunction10 ) {selectedlower2Sensor[10] = 1;generateLower2SensorList(10);}};
-              if (a ==11) {lower2MenuItems[a].onSelect = function( nullFunction11 ) {selectedlower2Sensor[11] = 1;generateLower2SensorList(11);}};
-              if (a ==12) {lower2MenuItems[a].onSelect = function( nullFunction12 ) {selectedlower2Sensor[12] = 1;generateLower2SensorList(12);}};
-              if (a ==13) {lower2MenuItems[a].onSelect = function( nullFunction13 ) {selectedlower2Sensor[13] = 1;generateLower2SensorList(13);}};
-              if (a ==14) {lower2MenuItems[a].onSelect = function( nullFunction14 ) {selectedlower2Sensor[14] = 1;generateLower2SensorList(14);}};
-              if (a ==15) {lower2MenuItems[a].onSelect = function( nullFunction15 ) {selectedlower2Sensor[15] = 1;generateLower2SensorList(15);}};
-              if (a ==16) {lower2MenuItems[a].onSelect = function( nullFunction16 ) {selectedlower2Sensor[16] = 1;generateLower2SensorList(16);}};
-             }
-             lower2MenuItems[17] = new MenuItem();
-	     lower2MenuItems[17].title = "Lower Secondary Gauge Sensor List Shown above";
-             lower2MenuItems[18] = new MenuItem();
-	     lower2MenuItems[18].title = "Select Fahrenheit for this gauge";
-	     lower2MenuItems[18].onSelect = selectFahrenheitLower2;
-             //set the context menu for the thermometer background
-             lower2Gauge.contextMenuItems = lower2MenuItems;
+             LowerLeftGauge.contextMenuItems = LowerLeftMenuItems;
              samplingTimer.interval = 0.5;   //this interval change causes the scribe to reset back to normal position quickly
 }
 //=====================
@@ -4394,20 +4417,20 @@ function adjustSliderVoffset()
 //===========================================
 // function to
 //===========================================
-function buildLeftSensorNameList(data) {
+function buildLeftThermometerSensorNameList(data) {
 
             print("selecting sensor name" + data + " for the left hand display" );
-            selectedLeftSensorName[data] = 1;
-            currentLeftSensorName = data;
+            selectedLeftThermometerSensorName[data] = 1;
+            currentLeftThermometerSensorName = data;
 
-            for (var a =1;a<=13;a++)
+            for (var a = 1;a<=13; a++)
             {
-                 if (a != data) {selectedLeftSensorName[a] = 0;};
-                 addleftsensorname(a);
-                 setLeftSensorImages(a);
+                 if (a != data) {selectedLeftThermometerSensorName[a] = 0;};
+                 addLeftThermometerSensorname(a);
+                 setLeftThermometerSensorImages(a);
             }
 
-            //thermometerLeftSensorName.contextMenuItems = leftmenunameitems;
+            //thermometerLeftThermometerSensorName.contextMenuItems = leftmenunameitems;
             thermometerLeft.contextMenuItems = leftmenunameitems;
 }
 //=====================
@@ -4416,10 +4439,10 @@ function buildLeftSensorNameList(data) {
 //===========================================
 // function to redraw Gauges
 //===========================================
-function RedrawUpper1Gauge() {
-    upper1Pointer.rotation = upper1Temperature* 2.75;
-    //upper1Gauge.tooltip = "Current temperature " + upperTemperature + " celsius - Sensor name " + currentUpperSensorNameText;
-    upper1Gauge.tooltip = currentUpper1SensorNameText + " temperature "+ upper1Temperature  + " degrees celsius";
+function RedrawUpperRightBottomGauge() {
+    UpperRightBottomGaugePointer.rotation = UpperRightBottomGaugeTemperature* 2.75;
+    //UpperRightBottomGauge.tooltip = "Current temperature " + upperTemperature + " celsius - Sensor name " + currentUpperSensorNameText;
+    UpperRightBottomGauge.tooltip = currentUpperRightBottomGaugeSensorNameText + " temperature "+ UpperRightBottomGaugeTemperature  + " degrees celsius";
 }
 //=====================
 //End function
@@ -4428,9 +4451,9 @@ function RedrawUpper1Gauge() {
 //===========================================
 // function to redraw Gauges
 //===========================================
-function RedrawUpper2Gauge() {
-    upper2Pointer.rotation = upper2Temperature * 2.75;
-    upper2Gauge.tooltip = currentUpper2SensorNameText + " temperature "+ upper2Temperature  + " degrees celsius";
+function RedrawUpperRightTopGaugeGauge() {
+    UpperRightTopGaugePointer.rotation = UpperRightTopGaugeTemperature * 2.75;
+    UpperRightTopGaugeGauge.tooltip = currentUpperRightTopGaugeSensorNameText + " temperature "+ UpperRightTopGaugeTemperature  + " degrees celsius";
 }
 //=====================
 //End function
@@ -4439,10 +4462,10 @@ function RedrawUpper2Gauge() {
 //===========================================
 // function to redraw Gauges
 //===========================================
-function Redrawlower1Gauge() {
-    lower1Pointer.rotation = lower1Temperature* 2.75;
-    //lower1Gauge.tooltip = "Current temperature " + lower1Temperature + " celsius - Sensor name " + currentlower1SensorNameText;
-    lower1Gauge.tooltip = currentlower1SensorNameText + " temperature "+ lower1Temperature  + " degrees celsius";
+function RedrawLowerRightGauge() {
+    LowerRightPointer.rotation = LowerRightTemperature* 2.75;
+    //LowerRightGauge.tooltip = "Current temperature " + LowerRightTemperature + " celsius - Sensor name " + currentLowerRightGaugeSensorNameText;
+    LowerRightGauge.tooltip = currentLowerRightGaugeSensorNameText + " temperature "+ LowerRightTemperature  + " degrees celsius";
 }
 //=====================
 //End function
@@ -4451,10 +4474,10 @@ function Redrawlower1Gauge() {
 //===========================================
 // function to redraw Gauges
 //===========================================
-function Redrawlower2Gauge() {
-    lower2Pointer.rotation = lower2Temperature* 2.75;
-    //lower2Gauge.tooltip = "Current temperature " + lower2Temperature + " celsius - Sensor name " + currentlower2SensorNameText;
-    lower2Gauge.tooltip = currentlower2SensorNameText + " temperature "+ lower2Temperature  + " degrees celsius";
+function RedrawLowerLeftGauge() {
+    LowerLeftPointer.rotation = LowerLeftTemperature* 2.75;
+    //LowerLeftGauge.tooltip = "Current temperature " + LowerLeftTemperature + " celsius - Sensor name " + currentLowerLeftThermometerSensorNameText;
+    LowerLeftGauge.tooltip = currentLowerLeftThermometerSensorNameText + " temperature "+ LowerLeftTemperature  + " degrees celsius";
 }
 //=====================
 //End function
@@ -4469,13 +4492,13 @@ function puff(hoffset,voffset)
       steam.hoffset= hoffset * thermometerScale;
       steam.voffset= voffset * thermometerScale;
 
-      for (var a =50;a<=255;a++)
+      for (var a =50;a<=255; a++)
       {
               steam.opacity = a;
               sleep (1);
               a=a+2;
       }
-      for (var a =50;a<=255;a++)
+      for (var a =50;a<=255; a++)
       {
               steam.opacity = 255-a;
               sleep (1);
@@ -4494,7 +4517,7 @@ function fadeIn(param,param1)
   print("param "+ param);
   if (preferences.fadePref.value == "enabled")
   {
-      for (var a =50;a<=255;a++)
+      for (var a =50;a<=255; a++)
       {
               param.opacity = a;
               sleep (1);
@@ -4518,7 +4541,7 @@ function fadeOut(param,param1)
 {
   if (preferences.fadePref.value == "enabled")
   {
-      for (var a =50;a<=255;a++)
+      for (var a =50;a<=255; a++)
       {
               param.opacity = 255-a;
               sleep (1);
@@ -4555,26 +4578,26 @@ function newCanvas(hOffset, vOffset, width, height, zOrder) {
 //===========================================
 // function to extract each sensor character
 //===========================================
-function buildOnScreenRightSensorNames(a) {
+function buildRightThermometerSensorLabelText(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           thermometerRightSensorChar1.src = "Resources/questionmarktext.png";
-           thermometerRightSensorChar2.src =  "Resources/questionmarktext.png";
-           thermometerRightSensorChar3.src =  "Resources/questionmarktext.png";
-           thermometerRightSensorChar4.src =  "Resources/questionmarktext.png";
-           thermometerRightSensorChar5.src =  "Resources/questionmarktext.png";
+           thermometerRightThermometerSensorChar1.src = "Resources/questionmarktext.png";
+           thermometerRightThermometerSensorChar2.src =  "Resources/questionmarktext.png";
+           thermometerRightThermometerSensorChar3.src =  "Resources/questionmarktext.png";
+           thermometerRightThermometerSensorChar4.src =  "Resources/questionmarktext.png";
+           thermometerRightThermometerSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {thermometerRightSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {thermometerRightSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {thermometerRightSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {thermometerRightSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {thermometerRightSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("thermometerRightSensorChar5.src  "+thermometerRightSensorChar5.src );
+                  if (lettercnt == 1) {thermometerRightThermometerSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {thermometerRightThermometerSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {thermometerRightThermometerSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {thermometerRightThermometerSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {thermometerRightThermometerSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("thermometerRightThermometerSensorChar5.src  "+thermometerRightThermometerSensorChar5.src );
                 }
 	   }
 }
@@ -4585,26 +4608,26 @@ function buildOnScreenRightSensorNames(a) {
 //===========================================
 // function to extract each sensor character
 //===========================================
-function buildOnScreenLeftSensorNames(a) {
+function buildLeftGaugeSensorLabelText(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           thermometerLeftSensorChar1.src = "Resources/questionmarktext.png";
-           thermometerLeftSensorChar2.src =  "Resources/questionmarktext.png";
-           thermometerLeftSensorChar3.src =  "Resources/questionmarktext.png";
-           thermometerLeftSensorChar4.src =  "Resources/questionmarktext.png";
-           thermometerLeftSensorChar5.src =  "Resources/questionmarktext.png";
+           thermometerLeftThermometerSensorChar1.src = "Resources/questionmarktext.png";
+           thermometerLeftThermometerSensorChar2.src =  "Resources/questionmarktext.png";
+           thermometerLeftThermometerSensorChar3.src =  "Resources/questionmarktext.png";
+           thermometerLeftThermometerSensorChar4.src =  "Resources/questionmarktext.png";
+           thermometerLeftThermometerSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {thermometerLeftSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {thermometerLeftSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {thermometerLeftSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {thermometerLeftSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {thermometerLeftSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("thermometerLeftSensorChar5.src  "+thermometerLeftSensorChar5.src );
+                  if (lettercnt == 1) {thermometerLeftThermometerSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {thermometerLeftThermometerSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {thermometerLeftThermometerSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {thermometerLeftThermometerSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {thermometerLeftThermometerSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("thermometerLeftThermometerSensorChar5.src  "+thermometerLeftThermometerSensorChar5.src );
                 }
 	   }
 }
@@ -4614,26 +4637,26 @@ function buildOnScreenLeftSensorNames(a) {
 //===========================================
 // function to extract each sensor character
 //===========================================
-function buildOnScreenUpper1SensorNames(a) {
+function buildTopGaugeSensorLabelText(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           upper1GaugeSensorChar1.src = "Resources/questionmarktext.png";
-           upper1GaugeSensorChar2.src =  "Resources/questionmarktext.png";
-           upper1GaugeSensorChar3.src =  "Resources/questionmarktext.png";
-           upper1GaugeSensorChar4.src =  "Resources/questionmarktext.png";
-           upper1GaugeSensorChar5.src =  "Resources/questionmarktext.png";
+           UpperRightBottomGaugeSensorChar1.src = "Resources/questionmarktext.png";
+           UpperRightBottomGaugeSensorChar2.src =  "Resources/questionmarktext.png";
+           UpperRightBottomGaugeSensorChar3.src =  "Resources/questionmarktext.png";
+           UpperRightBottomGaugeSensorChar4.src =  "Resources/questionmarktext.png";
+           UpperRightBottomGaugeSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {upper1GaugeSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {upper1GaugeSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {upper1GaugeSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {upper1GaugeSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {upper1GaugeSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("upper1GaugeSensorChar5.src  "+upper1GaugeSensorChar5.src );
+                  if (lettercnt == 1) {UpperRightBottomGaugeSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {UpperRightBottomGaugeSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {UpperRightBottomGaugeSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {UpperRightBottomGaugeSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {UpperRightBottomGaugeSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("UpperRightBottomGaugeSensorChar5.src  "+UpperRightBottomGaugeSensorChar5.src );
                 }
 	   }
 }
@@ -4643,28 +4666,28 @@ function buildOnScreenUpper1SensorNames(a) {
 //===========================================
 // function to extract each sensor character
 //===========================================
-function buildOnScreenUpper2SensorNames(a) {
-	   var cc = "";
-	   var lettercnt = 0;
-           upper2GaugeSensorChar1.src = "Resources/questionmarktext.png";
-           upper2GaugeSensorChar2.src =  "Resources/questionmarktext.png";
-           upper2GaugeSensorChar3.src =  "Resources/questionmarktext.png";
-           upper2GaugeSensorChar4.src =  "Resources/questionmarktext.png";
-           upper2GaugeSensorChar5.src =  "Resources/questionmarktext.png";
-           for (var loopcount=0; loopcount < 8; loopcount ++)
-	   {
-                //if (lettercnt <= 5 ) {return};
-                cc = a.substring(loopcount -1,loopcount);
-                if (lettercnt <= 5 && cc != "" && cc != " ") {
-                  lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {upper2GaugeSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {upper2GaugeSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {upper2GaugeSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {upper2GaugeSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {upper2GaugeSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("upper2GaugeSensorChar5.src  "+upper1GaugeSensorChar5.src );
-                }
-	   }
+function buildBottomGaugeSensorLabelText(a) {
+   var cc = "";
+   var lettercnt = 0;
+    UpperRightTopGaugeGaugeSensorChar1.src = "Resources/questionmarktext.png";
+    UpperRightTopGaugeGaugeSensorChar2.src =  "Resources/questionmarktext.png";
+    UpperRightTopGaugeGaugeSensorChar3.src =  "Resources/questionmarktext.png";
+    UpperRightTopGaugeGaugeSensorChar4.src =  "Resources/questionmarktext.png";
+    UpperRightTopGaugeGaugeSensorChar5.src =  "Resources/questionmarktext.png";
+    for (var loopcount=0; loopcount < 8; loopcount ++)
+   {
+        //if (lettercnt <= 5 ) {return};
+        cc = a.substring(loopcount -1,loopcount);
+        if (lettercnt <= 5 && cc != "" && cc != " ") {
+          lettercnt = lettercnt +  1;
+          if (lettercnt == 1) {UpperRightTopGaugeGaugeSensorChar1.src = "Resources/"+cc+".png"; }
+          if (lettercnt == 2) {UpperRightTopGaugeGaugeSensorChar2.src = "Resources/"+cc+".png"; }
+          if (lettercnt == 3) {UpperRightTopGaugeGaugeSensorChar3.src = "Resources/"+cc+".png"; }
+          if (lettercnt == 4) {UpperRightTopGaugeGaugeSensorChar4.src = "Resources/"+cc+".png"; }
+          if (lettercnt == 5) {UpperRightTopGaugeGaugeSensorChar5.src = "Resources/"+cc+".png"; }
+          //print  ("UpperRightTopGaugeGaugeSensorChar5.src  "+UpperRightBottomGaugeSensorChar5.src );
+        }
+   }
 }
 //=====================
 //End function
@@ -4672,26 +4695,26 @@ function buildOnScreenUpper2SensorNames(a) {
 //===========================================
 // function to extract each sensor character
 //===========================================
-function buildOnScreenlower1SensorNames(a) {
+function buildOnScreenLowerRightGaugeSensorNames(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           lower1GaugeSensorChar1.src = "Resources/questionmarktext.png";
-           lower1GaugeSensorChar2.src =  "Resources/questionmarktext.png";
-           lower1GaugeSensorChar3.src =  "Resources/questionmarktext.png";
-           lower1GaugeSensorChar4.src =  "Resources/questionmarktext.png";
-           lower1GaugeSensorChar5.src =  "Resources/questionmarktext.png";
+           LowerRightGaugeSensorChar1.src = "Resources/questionmarktext.png";
+           LowerRightGaugeSensorChar2.src =  "Resources/questionmarktext.png";
+           LowerRightGaugeSensorChar3.src =  "Resources/questionmarktext.png";
+           LowerRightGaugeSensorChar4.src =  "Resources/questionmarktext.png";
+           LowerRightGaugeSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {lower1GaugeSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {lower1GaugeSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {lower1GaugeSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {lower1GaugeSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {lower1GaugeSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("lower1GaugeSensorChar5.src  "+lower1GaugeSensorChar5.src );
+                  if (lettercnt == 1) {LowerRightGaugeSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {LowerRightGaugeSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {LowerRightGaugeSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {LowerRightGaugeSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {LowerRightGaugeSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("LowerRightGaugeSensorChar5.src  "+LowerRightGaugeSensorChar5.src );
                 }
 	   }
 }
@@ -4702,26 +4725,26 @@ function buildOnScreenlower1SensorNames(a) {
 //===========================================
 // function to extract each sensor character
 //===========================================
-function buildOnScreenlower2SensorNames(a) {
+function buildOnScreenLowerLeftThermometerSensorNames(a) {
 	   var cc = "";
 	   var lettercnt = 0;
-           lower2GaugeSensorChar1.src = "Resources/questionmarktext.png";
-           lower2GaugeSensorChar2.src =  "Resources/questionmarktext.png";
-           lower2GaugeSensorChar3.src =  "Resources/questionmarktext.png";
-           lower2GaugeSensorChar4.src =  "Resources/questionmarktext.png";
-           lower2GaugeSensorChar5.src =  "Resources/questionmarktext.png";
+           LowerLeftGaugeSensorChar1.src = "Resources/questionmarktext.png";
+           LowerLeftGaugeSensorChar2.src =  "Resources/questionmarktext.png";
+           LowerLeftGaugeSensorChar3.src =  "Resources/questionmarktext.png";
+           LowerLeftGaugeSensorChar4.src =  "Resources/questionmarktext.png";
+           LowerLeftGaugeSensorChar5.src =  "Resources/questionmarktext.png";
            for (var loopcount=0; loopcount < 8; loopcount ++)
 	   {
                 //if (lettercnt <= 5 ) {return};
                 cc = a.substring(loopcount -1,loopcount);
                 if (lettercnt <= 5 && cc != "" && cc != " ") {
                   lettercnt = lettercnt +  1;
-                  if (lettercnt == 1) {lower2GaugeSensorChar1.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 2) {lower2GaugeSensorChar2.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 3) {lower2GaugeSensorChar3.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 4) {lower2GaugeSensorChar4.src = "Resources/"+cc+".png"; }
-                  if (lettercnt == 5) {lower2GaugeSensorChar5.src = "Resources/"+cc+".png"; }
-                  //print  ("lower2GaugeSensorChar5.src  "+lower2GaugeSensorChar5.src );
+                  if (lettercnt == 1) {LowerLeftGaugeSensorChar1.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 2) {LowerLeftGaugeSensorChar2.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 3) {LowerLeftGaugeSensorChar3.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 4) {LowerLeftGaugeSensorChar4.src = "Resources/"+cc+".png"; }
+                  if (lettercnt == 5) {LowerLeftGaugeSensorChar5.src = "Resources/"+cc+".png"; }
+                  //print  ("LowerLeftGaugeSensorChar5.src  "+LowerLeftGaugeSensorChar5.src );
                 }
 	   }
 }
@@ -4858,28 +4881,28 @@ function wobblepointer1() {
 //======================================================================================
 // Function to determine upper gauge 2 visibility  - the lower gauge next to the tap
 //======================================================================================
-function setUpper2GaugeVisibility() {
-     if (preferences.upper2GaugeShownPref.value == "enabled" && noofsensors >= 4 )
+function setUpperRightTopGaugeGaugeVisibility() {
+     if (preferences.UpperRightTopGaugeGaugeShownPref.value == "enabled" && noofsensors >= 4 )
      {
-        upper2GaugeLabel.visible = true;
-        upper2Gauge.visible = true;
-        upper2Pointer.visible = true;
-        upper2GaugeSensorChar1.visible = true;
-        upper2GaugeSensorChar2.visible = true;
-        upper2GaugeSensorChar3.visible = true;
-        upper2GaugeSensorChar4.visible = true;
-        upper2GaugeSensorChar5.visible = true;
+        UpperRightTopGaugeGaugeLabel.visible = true;
+        UpperRightTopGaugeGauge.visible = true;
+        UpperRightTopGaugePointer.visible = true;
+        UpperRightTopGaugeGaugeSensorChar1.visible = true;
+        UpperRightTopGaugeGaugeSensorChar2.visible = true;
+        UpperRightTopGaugeGaugeSensorChar3.visible = true;
+        UpperRightTopGaugeGaugeSensorChar4.visible = true;
+        UpperRightTopGaugeGaugeSensorChar5.visible = true;
      }
      else
      {
-        upper2GaugeLabel.visible = false;
-        upper2Gauge.visible = false;
-        upper2Pointer.visible = false;
-        upper2GaugeSensorChar1.visible = false;
-        upper2GaugeSensorChar2.visible = false;
-        upper2GaugeSensorChar3.visible = false;
-        upper2GaugeSensorChar4.visible = false;
-        upper2GaugeSensorChar5.visible = false;
+        UpperRightTopGaugeGaugeLabel.visible = false;
+        UpperRightTopGaugeGauge.visible = false;
+        UpperRightTopGaugePointer.visible = false;
+        UpperRightTopGaugeGaugeSensorChar1.visible = false;
+        UpperRightTopGaugeGaugeSensorChar2.visible = false;
+        UpperRightTopGaugeGaugeSensorChar3.visible = false;
+        UpperRightTopGaugeGaugeSensorChar4.visible = false;
+        UpperRightTopGaugeGaugeSensorChar5.visible = false;
      }
 }
 //=====================
@@ -4889,26 +4912,26 @@ function setUpper2GaugeVisibility() {
 //======================================================================================
 // Function to determine lower gauge visibility, the one bottom left
 //======================================================================================
-function setLower1GaugeVisibility() {
+function setLowerRightGaugeVisibility() {
      if (noofsensors >= 5)
      {
-        lower1Gauge.visible = true;
-        lower1Pointer.visible = true;
-        lower1GaugeSensorChar1.visible = true;
-        lower1GaugeSensorChar2.visible = true;
-        lower1GaugeSensorChar3.visible = true;
-        lower1GaugeSensorChar4.visible = true;
-        lower1GaugeSensorChar5.visible = true;
+        LowerRightGauge.visible = true;
+        LowerRightPointer.visible = true;
+        LowerRightGaugeSensorChar1.visible = true;
+        LowerRightGaugeSensorChar2.visible = true;
+        LowerRightGaugeSensorChar3.visible = true;
+        LowerRightGaugeSensorChar4.visible = true;
+        LowerRightGaugeSensorChar5.visible = true;
      }
      else
      {
-        lower1Gauge.visible = false;
-        lower1Pointer.visible = false;
-        lower1GaugeSensorChar1.visible = false;
-        lower1GaugeSensorChar2.visible = false;
-        lower1GaugeSensorChar3.visible = false;
-        lower1GaugeSensorChar4.visible = false;
-        lower1GaugeSensorChar5.visible = false;
+        LowerRightGauge.visible = false;
+        LowerRightPointer.visible = false;
+        LowerRightGaugeSensorChar1.visible = false;
+        LowerRightGaugeSensorChar2.visible = false;
+        LowerRightGaugeSensorChar3.visible = false;
+        LowerRightGaugeSensorChar4.visible = false;
+        LowerRightGaugeSensorChar5.visible = false;
      }
 }
 //=====================
@@ -4919,26 +4942,26 @@ function setLower1GaugeVisibility() {
 //======================================================================================
 // Function to determine lower gauge visibility, the one bottom extreme left
 //======================================================================================
-function setLower2GaugeVisibility() {
-     if (preferences.lower2GaugeShownPref.value == "enabled" && noofsensors >= 6)
+function setLowerLeftGaugeVisibility() {
+     if (preferences.LowerLeftGaugeShownPref.value == "enabled" && noofsensors >= 6)
      {
-        lower2Gauge.visible = true;
-        lower2Pointer.visible = true;
-        lower2GaugeSensorChar1.visible = true;
-        lower2GaugeSensorChar2.visible = true;
-        lower2GaugeSensorChar3.visible = true;
-        lower2GaugeSensorChar4.visible = true;
-        lower2GaugeSensorChar5.visible = true;
+        LowerLeftGauge.visible = true;
+        LowerLeftPointer.visible = true;
+        LowerLeftGaugeSensorChar1.visible = true;
+        LowerLeftGaugeSensorChar2.visible = true;
+        LowerLeftGaugeSensorChar3.visible = true;
+        LowerLeftGaugeSensorChar4.visible = true;
+        LowerLeftGaugeSensorChar5.visible = true;
      }
      else
      {
-        lower2Gauge.visible = false;
-        lower2Pointer.visible = false;
-        lower2GaugeSensorChar1.visible = false;
-        lower2GaugeSensorChar2.visible = false;
-        lower2GaugeSensorChar3.visible = false;
-        lower2GaugeSensorChar4.visible = false;
-        lower2GaugeSensorChar5.visible = false;
+        LowerLeftGauge.visible = false;
+        LowerLeftPointer.visible = false;
+        LowerLeftGaugeSensorChar1.visible = false;
+        LowerLeftGaugeSensorChar2.visible = false;
+        LowerLeftGaugeSensorChar3.visible = false;
+        LowerLeftGaugeSensorChar4.visible = false;
+        LowerLeftGaugeSensorChar5.visible = false;
      }
 }
 //=====================
@@ -5123,16 +5146,16 @@ function hsb2rgb(hsb) {
 //======================================================================================
 // Function to select a fahrenheit gauge
 //======================================================================================
-function selectFahrenheitUpper1() {
+function selectFahrenheitUpperRightBottomGauge() {
    print ("HELP!");
-   if ( upper1Gauge.src == "Resources/gauge-fahrenheit.png" ) {
-     upper1Gauge.src = "Resources/gauge-celsius.png";
+   if ( UpperRightBottomGauge.src == "Resources/gauge-fahrenheit.png" ) {
+     UpperRightBottomGauge.src = "Resources/gauge-celsius.png";
      preferences.upperGauge1ScalePref = "Celsius";
-     upper1MenuItems[18].title = "Select Fahrenheit for this gauge";
+     UpperRightBottomGaugeMenuItems[18].title = "Select Fahrenheit for this gauge";
    } else {
-     upper1Gauge.src = "Resources/gauge-fahrenheit.png";
+     UpperRightBottomGauge.src = "Resources/gauge-fahrenheit.png";
      preferences.upperGauge1ScalePref = "Fahrenheit";
-     upper1MenuItems[18].title = "Select Celsius for this gauge";
+     UpperRightBottomGaugeMenuItems[18].title = "Select Celsius for this gauge";
    }
   }
 //=====================
@@ -5142,16 +5165,16 @@ function selectFahrenheitUpper1() {
 //======================================================================================
 // Function to select a fahrenheit gauge
 //======================================================================================
-function selectFahrenheitUpper2() {
+function selectFahrenheitUpperRightTopGauge() {
    print ("HELP!");
-   if ( upper2Gauge.src == "Resources/gauge-fahrenheit.png" ) {
-     upper2Gauge.src = "Resources/gauge-celsius.png";
+   if ( UpperRightTopGaugeGauge.src == "Resources/gauge-fahrenheit.png" ) {
+     UpperRightTopGaugeGauge.src = "Resources/gauge-celsius.png";
      preferences.upperGauge2ScalePref = "Celsius";
-     upper2MenuItems[18].title = "Select Fahrenheit for this gauge";
+     UpperRightTopGaugeMenuItems[18].title = "Select Fahrenheit for this gauge";
    } else {
-     upper2Gauge.src = "Resources/gauge-fahrenheit.png";
+     UpperRightTopGaugeGauge.src = "Resources/gauge-fahrenheit.png";
      preferences.upperGauge2ScalePref = "Fahrenheit";
-     upper2MenuItems[18].title = "Select Celsius for this gauge";
+     UpperRightTopGaugeMenuItems[18].title = "Select Celsius for this gauge";
    }
   }
 //=====================
@@ -5162,15 +5185,15 @@ function selectFahrenheitUpper2() {
 //======================================================================================
 // Function to select a fahrenheit gauge
 //======================================================================================
-function selectFahrenheitLower1() {
-   if ( lower1Gauge.src == "Resources/cpu-gauge-fahrenheit.png" ) {
-     lower1Gauge.src = "Resources/cpu-gauge-celsius.png";
+function selectFahrenheitLowerRight() {
+   if ( LowerRightGauge.src == "Resources/cpu-gauge-fahrenheit.png" ) {
+     LowerRightGauge.src = "Resources/cpu-gauge-celsius.png";
      preferences.lowerGauge1ScalePref = "Celsius";
-     lower1MenuItems[18].title = "Select Fahrenheit for this gauge";
+     LowerRightMenuItems[18].title = "Select Fahrenheit for this gauge";
    } else {
-     lower1Gauge.src = "Resources/cpu-gauge-fahrenheit.png";
+     LowerRightGauge.src = "Resources/cpu-gauge-fahrenheit.png";
      preferences.lowerGauge1ScalePref = "Fahrenheit";
-     lower1MenuItems[18].title = "Select Celsius for this gauge";
+     LowerRightMenuItems[18].title = "Select Celsius for this gauge";
    }
   }
 //=====================
@@ -5181,15 +5204,15 @@ function selectFahrenheitLower1() {
 //======================================================================================
 // Function to select a fahrenheit gauge
 //======================================================================================
-function selectFahrenheitLower2() {
-   if ( lower2Gauge.src == "Resources/cpu-gauge2-fahrenheit.png" ) {
-     lower2Gauge.src = "Resources/cpu-gauge2-celsius.png";
+function selectFahrenheitLowerLeft() {
+   if ( LowerLeftGauge.src == "Resources/cpu-gauge2-fahrenheit.png" ) {
+     LowerLeftGauge.src = "Resources/cpu-gauge2-celsius.png";
      preferences.lowerGauge2ScalePref = "Celsius";
-     lower2MenuItems[18].title = "Select Fahrenheit for this gauge";
+     LowerLeftMenuItems[18].title = "Select Fahrenheit for this gauge";
    } else {
-     lower2Gauge.src = "Resources/cpu-gauge2-fahrenheit.png";
+     LowerLeftGauge.src = "Resources/cpu-gauge2-fahrenheit.png";
      preferences.lowerGauge2ScalePref = "Fahrenheit";
-     lower2MenuItems[18].title = "Select Celsius for this gauge";
+     LowerLeftMenuItems[18].title = "Select Celsius for this gauge";
    }
   }
 //=====================
@@ -5603,67 +5626,165 @@ rightTemperatureMaxIndex.onMouseUp = function () {
 leftTemperatureMaxIndex.onMouseDown = function () {
     leftTemperatureMaxIndexdown();
 }
-                       
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                        
 leftTemperatureMaxIndex.onMouseDrag = function () {
     leftTemperatureMaxIndexdrag();
 }
-                       
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 leftTemperatureMaxIndex.onMouseUp = function () {
     leftTemperatureMaxIndexup();
 }
-                                               
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 bellSet.onMouseDown = function () {
     bellding();
 }
-       
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 hToggle.onMouseDown = function () {
     helpdropdownmove();
 }
-                       
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                        
 screw1.onMouseDown = function () {
     lockWidget();
 }     
-                
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                 
 screw2 .onMouseDown = function () {
     lockWidget();
 }          
-                                
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 clapper.onMouseDown = function () {
     togglechimes();
 }    
-                        
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 ClapperRotated.onMouseDown = function () {
     togglechimes();
 }                                                            
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 ovalSlider.onMouseDown = function () {
     ovalSliderdown();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 ovalSlider.onMouseDrag = function () {
     ovalSliderdrag();
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 ovalSlider.onMouseUp = function () {
     ovalSliderup();
 }
-                        
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                         
 leftScribeHead.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
     wobblepointer1();
 }
                                                              
-                                                             
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                                                              
 rightScribeHead.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
     wobblepointer2();
 }
-               
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                                                                             
 scaleswitchright.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
@@ -5679,7 +5800,14 @@ scaleswitchright.onMouseDown = function () {
          rightscale.width = 18;
     }
 }
-                                     
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 scaleswitchleft.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(newclunk,false);};
     if(scaleswitchleft.src == "Resources/scaleswitch.png"){
@@ -5694,62 +5822,146 @@ scaleswitchleft.onMouseDown = function () {
          leftscale.width = 18;
     }
 }
-                                       
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 popupplaque.onMouseDown = function () {
     popupplaque.visible = false;
     if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
 }
-                
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 waitmessage.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 speedfanNotFound.onMouseDown = function () {
     speedfanNotFound.visible = false;
     if (preferences.soundsPref.value != "mute" ) {play(newclunk, false);};
     openURL("http://www.almico.com/sfdownload.php");
 }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                                                                    
-                                                                   
-lower1Gauge.onMouseDown = function () {
+LowerRightGauge.onMouseDown = function () {
     if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-    popupMenu(lower1Gauge.contextMenuItems, (115 * thermometerScale), (228 * thermometerScale));
+    popupMenu(LowerRightGauge.contextMenuItems, (115 * thermometerScale), (228 * thermometerScale));
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 
 righthottext.onMouseDown = function () {
     hotSliderRightdown();
  }
-            
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 righthottext.onMouseDrag = function () {
     hotSliderRightdrag();
 }
-            
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 righthottext.onMouseUp = function () {
     hotSliderRightup();
 }
-                                    
-upper1Gauge.onMouseDown = function () {
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+UpperRightBottomGauge.onMouseDown = function () {
 if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-    popupMenu(upper1Gauge.contextMenuItems, (375 * thermometerScale), 0);
+    popupMenu(UpperRightBottomGauge.contextMenuItems, (375 * thermometerScale), 0);
 }
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
                                                                                                                                                                        
-                                                                                                                                                                       
-upper2GaugeLabel.onMouseDown = function () {
+UpperRightTopGaugeGaugeLabel.onMouseDown = function () {
 if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-    popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
+    popupMenu(UpperRightTopGaugeGauge.contextMenuItems, (375 * thermometerScale), 50);
 }
-
-upper2Gauge.onMouseDown = function () {
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+UpperRightTopGaugeGauge.onMouseDown = function () {
 if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-    popupMenu(upper2Gauge.contextMenuItems, (375 * thermometerScale), 50);
+    popupMenu(UpperRightTopGaugeGauge.contextMenuItems, (375 * thermometerScale), 50);
 }
-
-lower2Gauge.onMouseDown = function () {
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+LowerLeftGauge.onMouseDown = function () {
 if (preferences.soundsPref.value != "mute" ) {play(ting, false);};
-    popupMenu(lower2Gauge.contextMenuItems, (5 * thermometerScale), (228 * thermometerScale));
+    popupMenu(LowerLeftGauge.contextMenuItems, (5 * thermometerScale), (228 * thermometerScale));
 }
-           
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 stretcher.onMouseDown = function () 
 {
     if (preferences.resizingValvePref.value == "disabled")
@@ -5759,7 +5971,14 @@ stretcher.onMouseDown = function ()
     
     }
 }
-         
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 function revealDevelopmentOptions () {
     debugFlg = preferences.debugflgPref.value;
     if (debugFlg === "1") {
@@ -5771,7 +5990,14 @@ function revealDevelopmentOptions () {
     }		
 }                                                                                                                                                                                                               
 
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
      // rotate the busy sand timer      
 function rotateBusyTimer () {     
     busy.hoffset = (225 * thermometerScale)
@@ -5780,7 +6006,14 @@ function rotateBusyTimer () {
     busyBlur.voffset = (190 * thermometerScale)
     busyTimer.ticking = true;
 }
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 //sound the bell alarm here
 function soundBellAlarm () {  
     if (preferences.chimesPref.value == "chime" )
@@ -5794,7 +6027,14 @@ function soundBellAlarm () {
           ClapperRotated.visible = true;
     }
 }   
-
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
 // speedfan not found, blink the red lamps
 function blinkRedIndicatorLamps() {
     if (speedfanflag !== "installed") {   
@@ -5807,9 +6047,10 @@ function blinkRedIndicatorLamps() {
         print ("setting tooltips");
     }     
 }
-
-
-
+ //=====================
+ //End function
+ //=====================
+ 
 //=================================
 // up
 //=================================
