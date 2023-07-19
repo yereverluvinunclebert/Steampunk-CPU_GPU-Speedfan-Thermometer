@@ -137,6 +137,12 @@ Added animation of the printer at startup - done
 all the code stripped from the .KON and recreated in the .js
 all the timers stripped from the .KON and recreated in the .js
 moved the startup code into functions
+new about image
+added isApplicationRunning
+obtain more sensor data
+changed lots of variables to suit function
+
+
 
 
 Thermometer MkII - TBD List
@@ -1211,7 +1217,7 @@ function leftTemperatureMaxIndexdrag()
     //print("slider set offset "+leftTemperatureMaxIndex.voffset);
     //print("system event offset "+system.event.voffset);
           if(leftTemperatureMaxIndexclicked === true) {
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             ////if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
 
              //print("clicked = true in leftTemperatureMaxIndexdrag ");
              leftTemperatureMaxIndex.voffset = system.event.voffset;
@@ -1278,7 +1284,7 @@ function rightTemperatureMaxIndexdrag()
     //print("slider set offset "+rightTemperatureMaxIndex.voffset);
     //print("system event offset "+system.event.voffset);
           if(rightTemperatureMaxIndexclicked === true) {
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             ////if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
              //print("clicked = true in rightTemperatureMaxIndexdrag ");
              rightTemperatureMaxIndex.voffset = system.event.voffset;
              if (rightTemperatureMaxIndex.voffset >= 220* thermometerScale)
@@ -1361,7 +1367,7 @@ function hotSliderRightdrag()
     //print("system event offset "+system.event.voffset);
           if(hotSliderRightclicked === true) {
 
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
 
              //print("clicked = true in hotSliderRightdrag ");
              hotSliderRight.voffset = system.event.voffset;
@@ -1437,7 +1443,7 @@ function hotSliderLeftdrag()
     //print("system event offset "+system.event.voffset);
           if(hotSliderLeftclicked === true) {
 
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
 
              //print("clicked = true in hotSliderLeftdrag ");
              hotSliderLeft.voffset = system.event.voffset;
@@ -1510,7 +1516,7 @@ function warmSliderLeftdrag()
     //print("system event offset "+system.event.voffset);
           if(warmSliderLeftclicked === true) {
 
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
 
              //print("clicked = true in warmSliderLeftdrag ");
              warmSliderLeft.voffset = system.event.voffset;
@@ -1585,7 +1591,7 @@ function warmSliderRightdrag()
     //print("system event offset "+system.event.voffset);
           if(warmSliderRightclicked === true) {
 
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
 
              //print("clicked = true in warmSliderRightdrag ");
              warmSliderRight.voffset = system.event.voffset;
@@ -1661,7 +1667,7 @@ function ovalSliderdrag()
           if(ovalSliderclicked === true) {
 
              //play(zzzz, false);
-             if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
              //print("clicked = true in ovalSliderdrag ");
              ovalSlider.hoffset = system.event.hoffset-(2* thermometerScale);
              if (ovalSlider.hoffset >= 366* thermometerScale)

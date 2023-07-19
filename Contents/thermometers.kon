@@ -384,14 +384,12 @@
 	</image>
 
 		<image>
- 		       <name>rightTemperatureMaxIndex</name>
-                       <src>Resources/rightTemperatureMax.png</src>
-                       <hOffset>345</hOffset>
-                       <vOffset>166</vOffset>
-                       <visible>false</visible>
-                       <tooltip>indicates max GPU temperature</tooltip>
-
-
+			<name>rightTemperatureMaxIndex</name>
+			<src>Resources/rightTemperatureMax.png</src>
+			<hOffset>345</hOffset>
+			<vOffset>166</vOffset>
+			<visible>false</visible>
+			<tooltip>indicates max GPU temperature</tooltip>
 		</image>
 
 
