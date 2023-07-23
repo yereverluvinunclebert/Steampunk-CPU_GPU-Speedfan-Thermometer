@@ -23,6 +23,8 @@ you can move anywhere around the desktop as you require.
 The widget can be resized - Hover the cursor over the widget. Press the CTRL key 
 and use your mousewheel up or down. The widget will resize dynamically.
 
+![cpuPlaquecopy](https://github.com/yereverluvinunclebert/Steampunk-CPU_GPU-Speedfan-Thermometer/assets/2788342/78d2b7d2-4cdd-4aa3-8210-87eba7128423)
+
 All javascript widgets need an engine to function, in this case the widget uses 
 the Yahoo Widget Konfabulator engine. The engine interprets the javascript and 
 creates the widget according to the XML description and using the images you 
