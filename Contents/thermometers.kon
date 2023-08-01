@@ -3,7 +3,6 @@
 
  	<settings>                            
 		<setting name="allowCustomObjectAttributes" value="true"/>
-		<setting name="debug" value="on"/>
 	</settings>
 
 <!--
