@@ -278,7 +278,7 @@ clear the selected sensor preferences before bundling
     var PreviousredMercuryRightvoffset= 250;
     var hotSliderLeftclicked = "false";
     var hotSliderRightclicked = "false";
-    var warmSliderLeftclicked = "false";
+	var warmSliderLeftclicked = "false";
     var warmSliderRightclicked = "false";
 
     var leftTemperatureMax = 0;
@@ -1233,9 +1233,9 @@ function leftTemperatureMaxIndexdrag()
                  leftTemperatureMaxIndex.voffset = 127* thermometerScale;
              }
 
-             if (leftTemperatureMaxIndex.voffset >= redMercuryLeft.voffset -(19 * thermometerScale))
+             if (leftTemperatureMaxIndex.voffset >= redMercuryLeft.voffset -(20 * thermometerScale))
              {
-                  leftTemperatureMaxIndex.voffset = redMercuryLeft.voffset -(19 * thermometerScale);
+                  leftTemperatureMaxIndex.voffset = redMercuryLeft.voffset -(20 * thermometerScale);
              }
              //acceleration = timeaccelerationfactor * (leftTemperatureMaxIndex.hoffset - (396* thermometerScale));
              //print("timeaccelerationfactor",timeaccelerationfactor);
@@ -1257,7 +1257,8 @@ function leftTemperatureMaxIndexup()
    {
       leftTemperatureMaxIndexclicked = false;
       leftTemperatureMaxIndex.onMouseMove= null;
-
+	  
+	  leftTemperatureMax = leftTemperature;
       SetCurrentTemperatureTooltips();
    }
       //print("Running function leftTemperatureMaxIndexup clicked is now "+ clicked);
@@ -1297,16 +1298,16 @@ function rightTemperatureMaxIndexdrag()
              {
                  rightTemperatureMaxIndex.voffset = 127* thermometerScale;
              }
-             if (rightTemperatureMaxIndex.voffset >= redMercuryRight.voffset -(19 * thermometerScale))
+             if (rightTemperatureMaxIndex.voffset >= redMercuryRight.voffset -(20 * thermometerScale))
              {
-                  rightTemperatureMaxIndex.voffset = redMercuryRight.voffset -(19 * thermometerScale);
+                  rightTemperatureMaxIndex.voffset = redMercuryRight.voffset -(20 * thermometerScale);
              }
              //acceleration = timeaccelerationfactor * (rightTemperatureMaxIndex.hoffset - (396* thermometerScale));
              //print("timeaccelerationfactor",timeaccelerationfactor);
              //print("acceleration",acceleration);
              //print("sliderSet.hoffset",sliderSet.hoffset-396);
           }
-//   print("leaving function rightTemperatureMaxIndexdrag ");
+	//print("leaving function rightTemperatureMaxIndexdrag ");
 }
 //=====================
 //End function
@@ -1320,9 +1321,11 @@ function rightTemperatureMaxIndexup()
    {
       rightTemperatureMaxIndexclicked = false;
       rightTemperatureMaxIndex.onMouseMove= null;
-
+	  
+	  rightTemperatureMax = rightTemperature;
       SetCurrentTemperatureTooltips();
    }
+   
       //print("Running function rightTemperatureMaxIndexup clicked is now "+ clicked);
 }
 //=====================
