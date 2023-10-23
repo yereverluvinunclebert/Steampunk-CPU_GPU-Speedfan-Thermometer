@@ -1204,7 +1204,8 @@ if (preferences.soundsPref.value === "enabled") {
 function leftTemperatureMaxIndexdown()
 {
 //      print("Running function leftTemperatureMaxIndexdown");
-      leftTemperatureMaxIndexclicked = true;
+		if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+		leftTemperatureMaxIndexclicked = true;
 //      print("Leaving function leftTemperatureMaxIndexdown " +clicked);
 }
 //=====================
@@ -1272,7 +1273,8 @@ function leftTemperatureMaxIndexup()
 function rightTemperatureMaxIndexdown()
 {
 //      print("Running function rightTemperatureMaxIndexdown");
-      rightTemperatureMaxIndexclicked = true;
+		if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+		rightTemperatureMaxIndexclicked = true;
 //      print("Leaving function rightTemperatureMaxIndexdown " +clicked);
 }
 //=====================
