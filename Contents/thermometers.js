@@ -250,12 +250,12 @@ clear the selected sensor preferences before bundling
     var selectedLowerLeftGaugeSensor = new Array();
     var noofsensors = 8;
     var getSensorList = 0;
-    var  currentLeftThermometerSensor = 1;
-    var  currentRightThermometerSensor = 5;
-    var  currentUpperRightBottomGaugeSensor = 2;
-    var  currentUpperRightTopGaugeSensor = 2;
-    var  currentLowerRightGaugeSensor = 2;
-    var  currentLowerLeftThermometerSensor = 2;
+    var currentLeftThermometerSensor = 1;
+    var currentRightThermometerSensor = 5;
+    var currentUpperRightBottomGaugeSensor = 2;
+    var currentUpperRightTopGaugeSensor = 2;
+    var currentLowerRightGaugeSensor = 2;
+    var currentLowerLeftThermometerSensor = 2;
 
     var leftmenunameitems = new Array();
     var rightmenunameitems = new Array();
@@ -277,7 +277,9 @@ clear the selected sensor preferences before bundling
     var PreviousredMercuryLeftvoffset= 250;
     var PreviousredMercuryRightvoffset= 250;
     var hotSliderLeftclicked = "false";
-    var hotSliderRighttclicked = "false";
+    var hotSliderRightclicked = "false";
+	var warmSliderLeftclicked = "false";
+    var warmSliderRightclicked = "false";
 
     var leftTemperatureMax = 0;
     var rightTemperatureMax = 0;
@@ -1001,7 +1003,7 @@ function startup() {
 //===============================================================
 // function to find speedfan after the busy icon has been clicked
 //===============================================================
-busy.onmousedown = function () {
+busy.onMouseDown = function () {
     busyTimer.ticking = false; 
     busy.visible = false;
     busyBlur.visible = false;
@@ -1018,7 +1020,7 @@ busy.onmousedown = function () {
 //===============================================================
 // function to find speedfan after the busy icon has been clicked
 //===============================================================
-speedfanindicatorred.onmousedown = function () {
+speedfanindicatorred.onMouseDown = function () {
     busyTimer.ticking = false; 
     busy.visible = false;
     busyBlur.visible = false;
@@ -1036,7 +1038,7 @@ speedfanindicatorred.onmousedown = function () {
 //===============================================================
 // function to find speedfan after the busy icon has been clicked
 //===============================================================
-speedfanindicatorredglowing.onmousedown = function () {
+speedfanindicatorredglowing.onMouseDown = function () {
     busyTimer.ticking = false; 
     busy.visible = false;
     busyBlur.visible = false;
@@ -1202,7 +1204,8 @@ if (preferences.soundsPref.value === "enabled") {
 function leftTemperatureMaxIndexdown()
 {
 //      print("Running function leftTemperatureMaxIndexdown");
-      leftTemperatureMaxIndexclicked = true;
+		if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+		leftTemperatureMaxIndexclicked = true;
 //      print("Leaving function leftTemperatureMaxIndexdown " +clicked);
 }
 //=====================
@@ -1221,19 +1224,19 @@ function leftTemperatureMaxIndexdrag()
 
              //print("clicked = true in leftTemperatureMaxIndexdrag ");
              leftTemperatureMaxIndex.voffset = system.event.voffset;
-             if (leftTemperatureMaxIndex.voffset >= 220* thermometerScale)
+             if (leftTemperatureMaxIndex.voffset >= 270* thermometerScale)
              {
-                 leftTemperatureMaxIndex.voffset = 220* thermometerScale;
+                 leftTemperatureMaxIndex.voffset = 270* thermometerScale;
              }
 
-             if (leftTemperatureMaxIndex.voffset <= 77* thermometerScale)
+             if (leftTemperatureMaxIndex.voffset <= 127* thermometerScale)
              {
-                 leftTemperatureMaxIndex.voffset = 77* thermometerScale;
+                 leftTemperatureMaxIndex.voffset = 127* thermometerScale;
              }
 
-             if (leftTemperatureMaxIndex.voffset >= redMercuryLeft.voffset -(19 * thermometerScale))
+             if (leftTemperatureMaxIndex.voffset >= redMercuryLeft.voffset -(20 * thermometerScale))
              {
-                  leftTemperatureMaxIndex.voffset = redMercuryLeft.voffset -(19 * thermometerScale);
+                  leftTemperatureMaxIndex.voffset = redMercuryLeft.voffset -(20 * thermometerScale);
              }
              //acceleration = timeaccelerationfactor * (leftTemperatureMaxIndex.hoffset - (396* thermometerScale));
              //print("timeaccelerationfactor",timeaccelerationfactor);
@@ -1255,7 +1258,8 @@ function leftTemperatureMaxIndexup()
    {
       leftTemperatureMaxIndexclicked = false;
       leftTemperatureMaxIndex.onMouseMove= null;
-
+	  
+	  leftTemperatureMax = leftTemperature;
       SetCurrentTemperatureTooltips();
    }
       //print("Running function leftTemperatureMaxIndexup clicked is now "+ clicked);
@@ -1269,7 +1273,8 @@ function leftTemperatureMaxIndexup()
 function rightTemperatureMaxIndexdown()
 {
 //      print("Running function rightTemperatureMaxIndexdown");
-      rightTemperatureMaxIndexclicked = true;
+		if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+		rightTemperatureMaxIndexclicked = true;
 //      print("Leaving function rightTemperatureMaxIndexdown " +clicked);
 }
 //=====================
@@ -1287,24 +1292,24 @@ function rightTemperatureMaxIndexdrag()
              ////if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
              //print("clicked = true in rightTemperatureMaxIndexdrag ");
              rightTemperatureMaxIndex.voffset = system.event.voffset;
-             if (rightTemperatureMaxIndex.voffset >= 220* thermometerScale)
+             if (rightTemperatureMaxIndex.voffset >= 270* thermometerScale)
              {
-                 rightTemperatureMaxIndex.voffset = 220* thermometerScale;
+                 rightTemperatureMaxIndex.voffset = 270* thermometerScale;
              }
-             if (rightTemperatureMaxIndex.voffset <= 77* thermometerScale)
+             if (rightTemperatureMaxIndex.voffset <= 127* thermometerScale)
              {
-                 rightTemperatureMaxIndex.voffset = 77* thermometerScale;
+                 rightTemperatureMaxIndex.voffset = 127* thermometerScale;
              }
-             if (rightTemperatureMaxIndex.voffset >= redMercuryRight.voffset -(19 * thermometerScale))
+             if (rightTemperatureMaxIndex.voffset >= redMercuryRight.voffset -(20 * thermometerScale))
              {
-                  rightTemperatureMaxIndex.voffset = redMercuryRight.voffset -(19 * thermometerScale);
+                  rightTemperatureMaxIndex.voffset = redMercuryRight.voffset -(20 * thermometerScale);
              }
              //acceleration = timeaccelerationfactor * (rightTemperatureMaxIndex.hoffset - (396* thermometerScale));
              //print("timeaccelerationfactor",timeaccelerationfactor);
              //print("acceleration",acceleration);
              //print("sliderSet.hoffset",sliderSet.hoffset-396);
           }
-//   print("leaving function rightTemperatureMaxIndexdrag ");
+	//print("leaving function rightTemperatureMaxIndexdrag ");
 }
 //=====================
 //End function
@@ -1318,10 +1323,142 @@ function rightTemperatureMaxIndexup()
    {
       rightTemperatureMaxIndexclicked = false;
       rightTemperatureMaxIndex.onMouseMove= null;
-
+	  
+	  rightTemperatureMax = rightTemperature;
       SetCurrentTemperatureTooltips();
    }
+   
       //print("Running function rightTemperatureMaxIndexup clicked is now "+ clicked);
+}
+//=====================
+//End function
+//=====================
+//===========================================
+// Function to click on the right hand hot slider
+//===========================================
+function hotSliderRightdown()
+{
+      //print("Running function hotSliderRightdown");
+      hotSliderRightclicked = true;
+      //print("Leaving function hotSliderRightdown " );
+}
+//=====================
+//End function
+//=====================
+//===========================================
+// Function to slide the right hand hot slider
+//===========================================
+function hotSliderRightdrag()
+{
+    //print("Running function hotSliderRightdrag ");
+    //print("slider set offset "+hotSliderRight.voffset);
+    //print("system event offset "+system.event.voffset);
+          if(hotSliderRightclicked === true) {
+
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+
+             //print("clicked = true in hotSliderRightdrag ");
+             hotSliderRight.voffset = system.event.voffset;
+             //righthottext.voffset = system.event.voffset;
+             //righthottext.voffset = ((system.event.voffset-10)* thermometerScale);
+             if (hotSliderRight.voffset >= (warmSliderRight.voffset-10)* thermometerScale)
+             {
+                 hotSliderRight.voffset = (warmSliderRight.voffset-10)* thermometerScale;
+             }
+
+             if (hotSliderRight.voffset >= 270* thermometerScale)
+             {
+                 hotSliderRight.voffset = 270* thermometerScale;
+             }
+
+             if (hotSliderRight.voffset <= 127* thermometerScale)
+             {
+                 hotSliderRight.voffset = 127* thermometerScale;
+             }
+
+             righthottext.voffset = (hotSliderRight.voffset-4)* thermometerScale;
+
+             //acceleration = timeaccelerationfactor * (hotSliderRight.hoffset - (396* thermometerScale));
+             //print("timeaccelerationfactor",timeaccelerationfactor);
+             //print("acceleration",acceleration);
+             //print("sliderSet.hoffset",sliderSet.hoffset-396);
+          }
+
+   //print("leaving function hotSliderRightdrag ");
+}
+//=====================
+//End function
+//=====================
+//===========================================
+// Function to unclick the right hand hot slider
+//===========================================
+function hotSliderRightup()
+{
+  if(hotSliderRightclicked === true)
+   {
+      hotSliderRightclicked = false;
+      hotSliderRight.onMouseMove= null;
+
+      SetCurrentTemperatureTooltips();
+
+      preferences.hotSliderRightValuePref.value = hotSliderRight.voffset;
+   }
+
+      //print("Running function hotSliderRightup clicked is now " + clicked);
+}
+//=====================
+//End function
+//=====================
+//===========================================
+// Function to
+//===========================================
+function hotSliderLeftdown()
+{
+      //print("Running function hotSliderLeftdown");
+      hotSliderLeftclicked = true;
+      //print("Leaving function hotSliderLeftdown " );
+}
+//=====================
+//End function
+//=====================
+//===========================================
+// Function to
+//===========================================
+function hotSliderLeftdrag()
+{
+    //print("Running function hotSliderLeftdrag ");
+    //print("slider set offset "+hotSliderLeft.voffset);
+    //print("system event offset "+system.event.voffset);
+          if(hotSliderLeftclicked === true) {
+
+             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
+
+             //print("clicked = true in hotSliderLeftdrag ");
+             hotSliderLeft.voffset = system.event.voffset;
+             //lefthottext.voffset = system.event.voffset;
+             if (hotSliderLeft.voffset >= (warmSliderLeft.voffset-10)* thermometerScale)
+             {
+                 hotSliderLeft.voffset = (warmSliderLeft.voffset-10)* thermometerScale;
+             }
+
+             if (hotSliderLeft.voffset >= 270* thermometerScale)
+             {
+                 hotSliderLeft.voffset = 270* thermometerScale;
+             }
+
+             if (hotSliderLeft.voffset <= 127* thermometerScale)
+             {
+                 hotSliderLeft.voffset = 127* thermometerScale;
+             }
+             lefthottext.voffset = (hotSliderLeft.voffset-5)* thermometerScale;
+
+             //acceleration = timeaccelerationfactor * (hotSliderLeft.hoffset - (396* thermometerScale));
+             //print("timeaccelerationfactor",timeaccelerationfactor);
+             //print("acceleration",acceleration);
+             //print("sliderSet.hoffset",sliderSet.hoffset-396);
+          }
+
+   //print("leaving function hotSliderLeftdrag ");
 }
 //=====================
 //End function
@@ -1346,150 +1483,75 @@ function hotSliderLeftup()
 //End function
 //=====================
 //===========================================
-// Function to click on the right hand hot slider
+// Function to
 //===========================================
-function hotSliderRightdown()
+function warmSliderRightdown()
 {
-//      print("Running function hotSliderRightdown");
-      hotSliderRightclicked = true;
-//      print("Leaving function hotSliderRightdown " +clicked);
+      //print("Running function warmSliderRightdown");
+      warmSliderRightclicked = true;
+      //print("Leaving function warmSliderRightdown " );
 }
 //=====================
 //End function
 //=====================
 //===========================================
-// Function to slide the right hand hot slider
+// Function to
 //===========================================
-function hotSliderRightdrag()
+function warmSliderRightdrag()
 {
-    //print("Running function hotSliderRightdrag "+clicked);
-    //print("slider set offset "+hotSliderRight.voffset);
+    //print("Running function warmSliderRightdrag ");
+    //print("slider set offset "+warmSliderRight.voffset);
     //print("system event offset "+system.event.voffset);
-          if(hotSliderRightclicked === true) {
+          if(warmSliderRightclicked === true) {
 
              //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
 
-             //print("clicked = true in hotSliderRightdrag ");
-             hotSliderRight.voffset = system.event.voffset;
-             //righthottext.voffset = system.event.voffset;
-             //righthottext.voffset = ((system.event.voffset-10)* thermometerScale);
-             if (hotSliderRight.voffset >= (warmSliderRight.voffset-10)* thermometerScale)
+             //print("clicked = true in warmSliderRightdrag ");
+             warmSliderRight.voffset = system.event.voffset;
+             //rightwarmtext.voffset = system.event.voffset;
+
+             if (warmSliderRight.voffset <= (hotSliderRight.voffset+10)* thermometerScale)
              {
-                 hotSliderRight.voffset = (warmSliderRight.voffset-10)* thermometerScale;
+                 warmSliderRight.voffset = (hotSliderRight.voffset +10)* thermometerScale;
              }
 
-             if (hotSliderRight.voffset >= 220* thermometerScale)
+             if (warmSliderRight.voffset >= 270* thermometerScale)
              {
-                 hotSliderRight.voffset = 220* thermometerScale;
+                 warmSliderRight.voffset = 270* thermometerScale;
              }
 
-             if (hotSliderRight.voffset <= 77* thermometerScale)
+             if (warmSliderRight.voffset <= 127* thermometerScale)
              {
-                 hotSliderRight.voffset = 77* thermometerScale;
+                 warmSliderRight.voffset = 127* thermometerScale;
              }
+             rightwarmtext.voffset = (warmSliderRight.voffset-5)* thermometerScale;
 
-             righthottext.voffset = (hotSliderRight.voffset-4)* thermometerScale;
-
-             //acceleration = timeaccelerationfactor * (hotSliderRight.hoffset - (396* thermometerScale));
+             //acceleration = timeaccelerationfactor * (warmSliderRight.hoffset - (396* thermometerScale));
              //print("timeaccelerationfactor",timeaccelerationfactor);
              //print("acceleration",acceleration);
              //print("sliderSet.hoffset",sliderSet.hoffset-396);
           }
 
-//   print("leaving function hotSliderRightdrag ");
+  //print("leaving function warmSliderRightdrag ");
 }
 //=====================
 //End function
 //=====================
 //===========================================
-// Function to unclick the right hand hot slider
+// Function to
 //===========================================
-function hotSliderRightup()
+function warmSliderRightup()
 {
-  if(hotSliderRightclicked === true)
+  if(warmSliderRightclicked === true)
    {
-      hotSliderRightclicked = false;
-      hotSliderRight.onMouseMove= null;
+      warmSliderRightclicked = false;
+      warmSliderRight.onMouseMove = null;
 
       SetCurrentTemperatureTooltips();
+      preferences.warmSliderRightValuePref.value = warmSliderRight.voffset;
 
-      preferences.hotSliderRightValuePref.value = hotSliderRight.voffset;
    }
-
-      //print("Running function hotSliderRightup clicked is now "+ clicked);
-}
-//=====================
-//End function
-//=====================
-//===========================================
-// Function to
-//===========================================
-function hotSliderLeftdown()
-{
-//      print("Running function hotSliderLeftdown");
-      hotSliderLeftclicked = true;
-//      print("Leaving function hotSliderLeftdown " +clicked);
-}
-//=====================
-//End function
-//=====================
-//===========================================
-// Function to
-//===========================================
-function hotSliderLeftdrag()
-{
-    //print("Running function hotSliderLeftdrag "+clicked);
-    //print("slider set offset "+hotSliderLeft.voffset);
-    //print("system event offset "+system.event.voffset);
-          if(hotSliderLeftclicked === true) {
-
-             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
-
-             //print("clicked = true in hotSliderLeftdrag ");
-             hotSliderLeft.voffset = system.event.voffset;
-             //lefthottext.voffset = system.event.voffset;
-             if (hotSliderLeft.voffset >= (warmSliderLeft.voffset-10)* thermometerScale)
-             {
-                 hotSliderLeft.voffset = (warmSliderLeft.voffset-10)* thermometerScale;
-             }
-
-             if (hotSliderLeft.voffset >= 220* thermometerScale)
-             {
-                 hotSliderLeft.voffset = 220* thermometerScale;
-             }
-
-             if (hotSliderLeft.voffset <= 77* thermometerScale)
-             {
-                 hotSliderLeft.voffset = 77* thermometerScale;
-             }
-             lefthottext.voffset = (hotSliderLeft.voffset-5)* thermometerScale;
-
-             //acceleration = timeaccelerationfactor * (hotSliderLeft.hoffset - (396* thermometerScale));
-             //print("timeaccelerationfactor",timeaccelerationfactor);
-             //print("acceleration",acceleration);
-             //print("sliderSet.hoffset",sliderSet.hoffset-396);
-          }
-
-//   print("leaving function hotSliderLeftdrag ");
-}
-//=====================
-//End function
-//=====================
-//===========================================
-// Function to
-//===========================================
-function hotSliderLeftup()
-{
-  if(hotSliderLeftclicked === true)
-   {
-      hotSliderLeftclicked = false;
-      hotSliderLeft.onMouseMove= null;
-
-      SetCurrentTemperatureTooltips();
-
-      preferences.hotSliderLeftValuePref.value = hotSliderLeft.voffset;
-   }
-      //print("Running function hotSliderLeftup clicked is now "+ clicked);
+      //print("Running function warmSliderRightup clicked is now " + clicked);
 }
 //=====================
 //End function
@@ -1499,9 +1561,9 @@ function hotSliderLeftup()
 //===========================================
 function warmSliderLeftdown()
 {
-//      print("Running function warmSliderLeftdown");
+      //print("Running function warmSliderLeftdown");
       warmSliderLeftclicked = true;
-//      print("Leaving function warmSliderLeftdown " +clicked);
+      //print("Leaving function warmSliderLeftdown " );
 }
 //=====================
 //End function
@@ -1511,7 +1573,7 @@ function warmSliderLeftdown()
 //===========================================
 function warmSliderLeftdrag()
 {
-    //print("Running function warmSliderLeftdrag "+clicked);
+    //print("Running function warmSliderLeftdrag ");
     //print("slider set offset "+warmSliderLeft.voffset);
     //print("system event offset "+system.event.voffset);
           if(warmSliderLeftclicked === true) {
@@ -1533,9 +1595,9 @@ function warmSliderLeftdrag()
                  warmSliderLeft.voffset = 270* thermometerScale;
              }
 
-             if (warmSliderLeft.voffset <= 77* thermometerScale)
+             if (warmSliderLeft.voffset <= 127* thermometerScale)
              {
-                 warmSliderLeft.voffset = 77* thermometerScale;
+                 warmSliderLeft.voffset = 127* thermometerScale;
              }
              leftwarmtext.voffset = (warmSliderLeft.voffset-5)* thermometerScale;
 
@@ -1545,7 +1607,7 @@ function warmSliderLeftdrag()
              //print("sliderSet.hoffset",sliderSet.hoffset-396);
           }
 
-//   print("leaving function warmSliderLeftdrag ");
+   //print("leaving function warmSliderLeftdrag ");
 }
 //=====================
 //End function
@@ -1564,81 +1626,7 @@ function warmSliderLeftup()
       preferences.warmSliderLeftValuePref.value = warmSliderLeft.voffset;
 
    }
-      //print("Running function warmSliderLeftup clicked is now "+ clicked);
-}
-//=====================
-//End function
-//=====================
-//===========================================
-// Function to
-//===========================================
-function warmSliderRightdown()
-{
-//      print("Running function warmSliderRightdown");
-      warmSliderRightclicked = true;
-//      print("Leaving function warmSliderRightdown " +clicked);
-}
-//=====================
-//End function
-//=====================
-//===========================================
-// Function to
-//===========================================
-function warmSliderRightdrag()
-{
-    //print("Running function warmSliderRightdrag "+clicked);
-    //print("slider set offset "+warmSliderRight.voffset);
-    //print("system event offset "+system.event.voffset);
-          if(warmSliderRightclicked === true) {
-
-             //if (preferences.soundsPref.value != "mute" ) {play(sparks, false);};
-
-             //print("clicked = true in warmSliderRightdrag ");
-             warmSliderRight.voffset = system.event.voffset;
-             //rightwarmtext.voffset = system.event.voffset;
-
-             if (warmSliderRight.voffset <= (hotSliderRight.voffset+10)* thermometerScale)
-             {
-                 warmSliderRight.voffset = (hotSliderRight.voffset +10)* thermometerScale;
-             }
-
-             if (warmSliderRight.voffset >= 220* thermometerScale)
-             {
-                 warmSliderRight.voffset = 220* thermometerScale;
-             }
-
-             if (warmSliderRight.voffset <= 77* thermometerScale)
-             {
-                 warmSliderRight.voffset = 77* thermometerScale;
-             }
-             rightwarmtext.voffset = (warmSliderRight.voffset-5)* thermometerScale;
-
-             //acceleration = timeaccelerationfactor * (warmSliderRight.hoffset - (396* thermometerScale));
-             //print("timeaccelerationfactor",timeaccelerationfactor);
-             //print("acceleration",acceleration);
-             //print("sliderSet.hoffset",sliderSet.hoffset-396);
-          }
-
-//   print("leaving function warmSliderRightdrag ");
-}
-//=====================
-//End function
-//=====================
-//===========================================
-// Function to
-//===========================================
-function warmSliderRightup()
-{
-  if(warmSliderRightclicked === true)
-   {
-      warmSliderRightclicked = false;
-      warmSliderRight.onMouseMove = null;
-
-      SetCurrentTemperatureTooltips();
-      preferences.warmSliderRightValuePref.value = warmSliderRight.voffset;
-
-   }
-      //print("Running function warmSliderRightup clicked is now "+ clicked);
+     //print("Running function warmSliderLeftup clicked is now ");
 }
 //=====================
 //End function
@@ -2594,8 +2582,7 @@ function sampleTemperaturesOnce()
 {
       ReadTemperatures();
       storeTemperatures();
-      drawTemperatures();
-      SetMercuryLevels();
+	  SetMercuryLevels();
       RedrawUpperRightBottomGauge();  //standard upper gauge
       if (preferences.UpperRightTopGaugeGaugeShownPref.value != "disabled") {RedrawUpperRightTopGaugeGauge();};   //extra upper gauge
       RedrawLowerRightGauge();  //standard lower gauge
@@ -2604,7 +2591,8 @@ function sampleTemperaturesOnce()
       MoveScribes();
       if (printer == "showing")
       {
-           moveLines();
+		drawTemperatures();
+        moveLines();
       }
       CheckTemperaturesAgainstAlarms();
       preferences.resizingValvePref.value = "disabled"
@@ -2613,9 +2601,6 @@ function sampleTemperaturesOnce()
       setUpperRightTopGaugeGaugeVisibility();  //determine secondary upper gauge visibility
       setLowerRightGaugeVisibility();  //determine primary lower gauge visibility
       setLowerLeftGaugeVisibility();  //determine secondary lower gauge visibility
-   
-
-
 }
 //=====================
 //End function
@@ -2942,19 +2927,19 @@ function SetCurrentTemperatureTooltips()
     thermometerRight.tooltip =  currentRightThermometerSensorNameText + " temperature "+ rightTemperature + " degrees celsius";
     rightTemperatureMaxIndex.tooltip =  currentRightThermometerSensorNameText + " Max. temperature reached " + rightTemperatureMax + " degrees celsius";
 
-    var rightSliderHotAlarmTemperature =  (220-(hotSliderRight.voffset));
+    var rightSliderHotAlarmTemperature =  (270-(hotSliderRight.voffset));
     hotSliderRight.tooltip = currentRightThermometerSensorNameText + " temperature HOT alarm currently set to " + (rightSliderHotAlarmTemperature) +" Celsius";
     righthottext.tooltip = currentRightThermometerSensorNameText + " temperature HOT alarm currently set to " + (rightSliderHotAlarmTemperature) +" Celsius";
 
-    var rightSliderWarmAlarmTemperature =  (220-(warmSliderRight.voffset));
+    var rightSliderWarmAlarmTemperature =  (270-(warmSliderRight.voffset));
     warmSliderRight.tooltip = currentRightThermometerSensorNameText + " temperature WARM alarm currently set to " + (rightSliderWarmAlarmTemperature) +" Celsius";
     rightwarmtext.tooltip = currentRightThermometerSensorNameText + " temperature WARM alarm currently set to " + (rightSliderWarmAlarmTemperature) +" Celsius";
 
-    var leftSliderHotAlarmTemperature =  (220-(hotSliderLeft.voffset));
+    var leftSliderHotAlarmTemperature =  (270-(hotSliderLeft.voffset));
     hotSliderLeft.tooltip = currentLeftThermometerSensorNameText + " temperature HOT alarm currently set to " + (leftSliderHotAlarmTemperature) +" Celsius";
     lefthottext.tooltip = currentLeftThermometerSensorNameText + " temperature HOT alarm currently set to " + (leftSliderHotAlarmTemperature) +" Celsius";
 
-    var leftSliderWarmAlarmTemperature =  (220-(warmSliderLeft.voffset));
+    var leftSliderWarmAlarmTemperature =  (270-(warmSliderLeft.voffset));
     warmSliderLeft.tooltip = currentLeftThermometerSensorNameText + " temperature WARM alarm currently set to " + (leftSliderWarmAlarmTemperature) +" Celsius";
     leftwarmtext.tooltip = currentLeftThermometerSensorNameText + " temperature WARM alarm currently set to " + (leftSliderWarmAlarmTemperature) +" Celsius";
 }
@@ -3093,7 +3078,7 @@ function checkSpeedfanBinaryExists()
         print("getWindowsVersion() " + getWindowsVersion());
         if (getWindowsVersion() <= "5.7" && getWindowsVersion() >= "5.0")
         {
-            if (filesystem.itemExists(preferences.SpeedfanLocation.value + "SpeedFan.exe"))
+            if (filesystem.itemExists(preferences.SpeedfanLocation.value + "speedfan.exe"))
             {
                     //value is present check it is valid
                     print("1 Speedfan found in preferences");
@@ -3106,12 +3091,12 @@ function checkSpeedfanBinaryExists()
 
         if (getWindowsVersion() > "5.7")       // NT6
         {
-            if (filesystem.itemExists(preferences.SpeedfanLocation.value + "SpeedFan.exe"))
+            if (filesystem.itemExists(preferences.SpeedfanLocation.value+ "speedfan.exe"))
             {
                     //value is present check it is valid
                     var prefVal = preferences.SpeedfanLocation.value;
                     var ss = prefVal.indexOf("Program Files");
-                    if (ss != 0) {
+                    if (ss != -1) {
                       var answer = alert("On Vista, Win7, 8 and 10 the Program Files folder is inaccessible. The widget needs to get/set configuration information from that folder. Speedfan.exe MUST be installed in another location in order to function. The recommended location is: C:\Programs - Remove the old version completely and then re-install it there instead.");
                     } else {
                       //speedfan is NOT in the Program Files folder - good.
@@ -3158,8 +3143,8 @@ function checkSpeedfanBinaryExists()
                             return;
                     }
                 } else {
-                       if (filesystem.itemExists(preferences.SpeedfanLocation.value+ "/speedfan.exe")) {
-                            print("Speedfan folder found (!) here: ",preferences.SpeedfanLocation.value+ "/speedfan.exe");
+                       if (filesystem.itemExists(preferences.SpeedfanLocation.value+ "speedfan.exe")) {
+                            print("Speedfan folder found (!) here: ",preferences.SpeedfanLocation.value+ "speedfan.exe");
                             speedfanindicatorred.visible = false;
                             speedfanindicator.visible = true;
                             speedfanflag = "installed";
@@ -3503,10 +3488,10 @@ function crankhandle()
                  if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
                  if (preferences.soundsPref.value != "mute" ) {play(clunk, false);};
                  leftScribeHead.visible = true;
-		 leftScribeHeadShadow.visible = true;
+				 leftScribeHeadShadow.visible = true;
                  leftScribeText.visible = true;
                  leftScribeTextShadow = true;
-		 shortWire.visible = true;
+				 shortWire.visible = true;
                  scribeHeadNoWireTwo.visible = false;
 
                  sleep(500);
@@ -5263,7 +5248,7 @@ function selectFahrenheitLowerLeft() {
 //======================================================================================
 // Function 
 //======================================================================================
-hotSliderRight.onmousedown = function () {
+ hotSliderRight.onMouseDown = function () {
     hotSliderRightdown();
 }
 //=====================
@@ -5274,7 +5259,7 @@ hotSliderRight.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- hotSliderRight.onmousedown = function () {
+ hotSliderRight.onMouseDown = function () {
     hotSliderRightdrag();
  }
  //=====================
@@ -5285,7 +5270,7 @@ hotSliderRight.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- hotSliderRight.onmousedown = function () {
+ hotSliderRight.onMouseDown = function () {
     hotSliderRightup();
  }
  //=====================
@@ -5297,7 +5282,7 @@ hotSliderRight.onmousedown = function () {
 //======================================================================================
 // Function 
 //======================================================================================
-hotSliderLeft.onmousedown = function () {
+ hotSliderLeft.onMouseDown = function () {
     hotSliderLeftdown();
 }
 //=====================
@@ -5308,7 +5293,7 @@ hotSliderLeft.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- hotSliderLeft.onmousedown = function () {
+ hotSliderLeft.onMouseDown = function () {
     hotSliderLeftdrag();
  }
  //=====================
@@ -5319,7 +5304,7 @@ hotSliderLeft.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- hotSliderLeft.onmousedown = function () {
+ hotSliderLeft.onMouseDown = function () {
     hotSliderLeftup();
  }
  //=====================
@@ -5336,7 +5321,7 @@ hotSliderLeft.onmousedown = function () {
 //======================================================================================
 // Function 
 //======================================================================================
-warmSliderRight.onmousedown = function () {
+ warmSliderRight.onMouseDown = function () {
     warmSliderRightdown();
 }
 //=====================
@@ -5347,7 +5332,7 @@ warmSliderRight.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- warmSliderRight.onmousedown = function () {
+ warmSliderRight.onMouseDown = function () {
     warmSliderRightdrag();
  }
  //=====================
@@ -5358,7 +5343,7 @@ warmSliderRight.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- warmSliderRight.onmousedown = function () {
+ warmSliderRight.onMouseDown = function () {
     warmSliderRightup();
  }
  //=====================
@@ -5371,7 +5356,7 @@ warmSliderRight.onmousedown = function () {
 //======================================================================================
 // Function 
 //======================================================================================
-warmSliderLeft.onmousedown = function () {
+ warmSliderLeft.onMouseDown = function () {
     warmSliderLeftdown();
 }
 //=====================
@@ -5382,7 +5367,7 @@ warmSliderLeft.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- warmSliderLeft.onmousedown = function () {
+ warmSliderLeft.onMouseDown = function () {
     warmSliderLeftdrag();
  }
  //=====================
@@ -5393,7 +5378,7 @@ warmSliderLeft.onmousedown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
- warmSliderLeft.onmousedown = function () {
+ warmSliderLeft.onMouseDown = function () {
     warmSliderLeftup();
  }
  //=====================
@@ -5487,7 +5472,7 @@ rToggle.onMouseDown = function () {
     {
      // kill speedfan, kill it first, we don't want two processes running...
 
-        //KillSpeedfanProcess();
+        KillSpeedfanProcess();
 
         // if windows XP or earlier then set speedfan to minimise
         // later versions of Windows will not allow access to the program files folders
@@ -5504,7 +5489,7 @@ rToggle.onMouseDown = function () {
 
         // restart speedfan after change to minimise it on startup
 
-        //StartSpeedfanProcess();
+        StartSpeedfanProcess();
      }
 
     rToggle.hoffset=378;
@@ -5591,6 +5576,38 @@ leftwarmtext.onMouseUp = function () {
  //End function
  //=====================
  
+ //======================================================================================
+ // Function 
+ //======================================================================================
+righthottext.onMouseDown = function () {
+    hotSliderRightdown();
+}
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+righthottext.onMouseDrag = function () {
+    hotSliderRightdrag();
+}
+ //=====================
+ //End function
+ //=====================
+ 
+ 
+ //======================================================================================
+ // Function 
+ //======================================================================================
+righthottext.onMouseUp = function () {
+    hotSliderRightup();
+}
+ //=====================
+ //End function
+ //=====================
+ 
  
  //======================================================================================
  // Function 
@@ -5606,7 +5623,7 @@ rightwarmtext.onMouseDown = function () {
  //======================================================================================
  // Function 
  //======================================================================================
-lefthottext.onMouseDrag = function () {
+rightwarmtext.onMouseDrag = function () {
     warmSliderRightdrag();
 }
  //=====================
@@ -5617,12 +5634,13 @@ lefthottext.onMouseDrag = function () {
  //======================================================================================
  // Function 
  //======================================================================================
-lefthottext.onMouseUp = function () {
+rightwarmtext.onMouseUp = function () {
     warmSliderRightup();
 }
  //=====================
  //End function
  //=====================
+
  
  
  //======================================================================================

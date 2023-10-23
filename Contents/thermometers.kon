@@ -190,7 +190,7 @@
 			<vOffset>310</vOffset>
 			<opacity>255</opacity>
 			<visible>true</visible>
-			<tooltip>click me to </tooltip>
+			<tooltip>click me to restart SpeedFan</tooltip>
                 </image>
 
 
@@ -363,24 +363,21 @@
                        <tooltip>CPU hot alarm</tooltip>
                        <visible>true</visible>
 		</image>
-
                 <image>
-
  		       <name>leftwarmtext</name>
                        <src>Resources/leftwarmtext.png</src>
                        <hOffset>278</hOffset>
                        <tooltip>CPU warm alarm</tooltip>
                        <visible>true</visible>
-
 		</image>
 
-  <image>
-		<name>rightwarmtext</name>
-		<src>Resources/rightwarmtext.png</src>
-		<hOffset>354</hOffset>
-		<tooltip>GPU warm alarm</tooltip>
-		<visible>true</visible>
-	</image>
+		<image>
+			<name>rightwarmtext</name>
+						<src>Resources/rightwarmtext.png</src>
+						<hOffset>354</hOffset>
+						<tooltip>GPU warm alarm</tooltip>
+						<visible>true</visible>
+		</image>
 
 		<image>
 			<name>rightTemperatureMaxIndex</name>
@@ -399,9 +396,6 @@
                        <vOffset>143</vOffset>
                        <tooltip>indicates max CPU temperature</tooltip>
                        <visible>false</visible>
-
-
-
 		</image>
 
 
